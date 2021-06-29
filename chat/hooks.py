@@ -6,7 +6,7 @@ app_publisher = "codescientist703"
 app_description = "Chat application for frappe"
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
-app_email = "pukimonlegend@gmail.com"
+app_email = "nihalmittal47@gmail.com"
 app_license = "MIT"
 
 # Includes in <head>
@@ -14,7 +14,7 @@ app_license = "MIT"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/chat/css/chat.css"
-# app_include_js = "/assets/chat/js/chat.js"
+app_include_js = "/assets/chat/js/chat.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/chat/css/chat.css"
@@ -181,4 +181,3 @@ app_license = "MIT"
 # auth_hooks = [
 # 	"chat.auth.validate"
 # ]
-
