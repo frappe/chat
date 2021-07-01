@@ -7,3 +7,4 @@ chat/docs/current
 chat/www/test.html
 chat/www/test.js
 __pycache__
+dist

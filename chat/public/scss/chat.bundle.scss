@@ -1,0 +1,29 @@
+@import 'frappe/public/css/font-awesome.min.css';
+
+.chat-app {
+	position: fixed;
+	bottom: 24px;
+	right: 20px;
+}
+.chat-bubble {
+	cursor: pointer;
+	background: var(--primary-color);
+	color: var(--white);
+	border-radius: 100px;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		box-shadow: var(--shadow-lg);
+	}
+}
+.chat-bubble-closed {
+	width: 60px;
+	height: 60px;
+	position: relative;
+	text-align: center;
+	.cross-icon {
+		width: 100%;
+	}
+}
