@@ -9,8 +9,8 @@ export default class ChatBubble {
 		let title = 'Chat with us';
 		let inner_html = `
 			<i class="fa fa-comment 
-			pl-2 fa-lg fa-flip-horizontal" 
-			aria-hidden="true">
+				pl-2 fa-lg fa-flip-horizontal"
+			>
 			</i>
 			<div>Chat With Us</div>
 		`;
@@ -18,9 +18,7 @@ export default class ChatBubble {
 			classes = 'chat-bubble chat-bubble-closed';
 			title = 'Close Chat';
 			inner_html = `
-				<i class="fa fa-times fa-2x cross-icon" 
-					aria-hidden="true">
-				</i>
+				<i class="fa fa-times fa-2x cross-icon"></i>
 			`;
 		}
 		$(this.chat_bubble)
