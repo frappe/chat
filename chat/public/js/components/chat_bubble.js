@@ -3,7 +3,7 @@ export default class ChatBubble {
 		this.parent = parent;
 		this.setup();
 	}
-	setup = () => {
+	setup() {
 		this.chat_bubble_open_html = `
 			<div class='chat-bubble p-3'
 				data-toggle="tooltip"
@@ -28,18 +28,18 @@ export default class ChatBubble {
 		`;
 		this.render();
 		this.setup_events();
-	};
-	render = () => {
+	}
+	render() {
 		if (this.parent.is_open === true) {
 			this.parent.app_element.html(this.chat_bubble_open_html);
 		} else {
 			this.parent.app_element.html(this.chat_bubble_closed_html);
 		}
-	};
-	setup_events = () => {
+	}
+	setup_events() {
 		$('.chat-bubble').click(() => {
 			this.parent.is_open = !this.parent.is_open;
 			this.setup();
 		});
-	};
+	}
 }
