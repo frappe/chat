@@ -1,4 +1,4 @@
-import ChatBubble from './components/chat_bubble';
+import { ChatBubble } from './components';
 frappe.provide('frappe.Chat2');
 
 frappe.Chat = class {
