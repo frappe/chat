@@ -1,5 +1,5 @@
 import { ChatBubble, ChatList } from './components';
-frappe.provide('frappe.Chat2');
+frappe.provide('frappe.Chat');
 
 frappe.Chat = class {
 	constructor() {
