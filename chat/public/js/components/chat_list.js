@@ -4,7 +4,7 @@ export default class ChatBubble {
 		this.setup();
 	}
 	setup() {
-		this.chat_list = document.createElement('div');
+		this.$chat_list = $(document.createElement('div'));
 		const classes = 'chat-list p-4';
 		const chat_list_header_html = `
 			<div class="chat-list-header">
@@ -25,10 +25,10 @@ export default class ChatBubble {
 			</div>
 		`;
 		const inner_html = chat_list_header_html + chat_list_search_html;
-		$(this.chat_list).addClass(classes).html(inner_html);
+		this.$chat_list.addClass(classes).html(inner_html);
 		this.render();
 	}
 	render() {
-		this.parent.app_element.prepend(this.chat_list);
+		this.parent.$app_element.prepend(this.$chat_list);
 	}
 }

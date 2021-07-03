@@ -4,7 +4,7 @@ export default class ChatBubble {
 		this.setup();
 	}
 	setup() {
-		this.chat_bubble = document.createElement('div');
+		this.$chat_bubble = $(document.createElement('div'));
 		let classes = 'chat-bubble p-3';
 		let title = 'Chat with us';
 		let inner_html = `
@@ -21,7 +21,7 @@ export default class ChatBubble {
 				<i class="fa fa-times fa-2x cross-icon"></i>
 			`;
 		}
-		$(this.chat_bubble)
+		this.$chat_bubble
 			.addClass(classes)
 			.attr({
 				'data-toggle': 'tooltip',
@@ -33,12 +33,12 @@ export default class ChatBubble {
 		this.setup_events();
 	}
 	render() {
-		this.parent.app_element.append(this.chat_bubble);
+		this.parent.$app_element.append(this.$chat_bubble);
 	}
 	setup_events() {
 		$('.chat-bubble').click(() => {
 			this.parent.is_open = !this.parent.is_open;
-			this.chat_bubble.remove();
+			this.$chat_bubble.remove();
 			this.setup();
 		});
 	}
