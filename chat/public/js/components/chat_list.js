@@ -1,3 +1,5 @@
+import ChatMessage from './chat_message';
+
 export default class ChatBubble {
 	constructor(parent) {
 		this.parent = parent;
@@ -25,10 +27,17 @@ export default class ChatBubble {
 			</div>
 		`;
 		const inner_html = chat_list_header_html + chat_list_search_html;
+		this.$chat_message_container = $(document.createElement('div'));
+		this.$chat_message_container.addClass('chat-message-container');
+		for (let i = 0; i < 3; i++) {
+			new ChatMessage(this);
+		}
 		this.$chat_list.addClass(classes).html(inner_html);
+		this.$chat_list.append(this.$chat_message_container);
+
 		this.render();
 	}
 	render() {
-		this.parent.$app_element.prepend(this.$chat_list);
+		this.parent.$chat_container.html(this.$chat_list);
 	}
 }
