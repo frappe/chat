@@ -1,7 +1,11 @@
-## Frappe Chat
+# Frappe Chat
 
 Chat application for frappe
 
-#### License
+## Status
+
+Ongoing
+
+## License
 
 MIT
