@@ -26,6 +26,7 @@
 	display: flex;
 	align-items: center;
 	width: initial;
+	margin-top: 1rem;
 
 	&:hover {
 		box-shadow: var(--shadow-lg);
@@ -53,8 +54,12 @@
 }
 
 .chat-message-container {
+	height: 470px;
+	overflow-y: scroll;
+
 	.chat-message {
 		display: flex;
+
 		font-size: var(--font-size-sm);
 		cursor: pointer;
 		padding: 10px;
@@ -67,6 +72,27 @@
 			color: var(--gray-600);
 		}
 	}
+}
+
+::-webkit-scrollbar {
+	width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: var(--white);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: var(--gray-400);
+	border-radius: 10px;
+	max-height: 30px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: var(--gray-500);
 }
 
 @media (max-width: 576px) {

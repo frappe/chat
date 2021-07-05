@@ -29,7 +29,7 @@ export default class ChatBubble {
 		const inner_html = chat_list_header_html + chat_list_search_html;
 		this.$chat_message_container = $(document.createElement('div'));
 		this.$chat_message_container.addClass('chat-message-container');
-		for (let i = 0; i < 3; i++) {
+		for (let i = 0; i < 20; i++) {
 			new ChatMessage(this);
 		}
 		this.$chat_list.addClass(classes).html(inner_html);
