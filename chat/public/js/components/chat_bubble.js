@@ -14,7 +14,7 @@ export default class ChatBubble {
 			</i>
 			<div>Chat With Us</div>
 		`;
-		if (this.parent.is_open === false) {
+		if (this.parent.is_open === true) {
 			classes = 'chat-bubble chat-bubble-closed';
 			title = 'Close Chat';
 			inner_html = `
@@ -38,6 +38,11 @@ export default class ChatBubble {
 	setup_events() {
 		$('.chat-bubble').click(() => {
 			this.parent.is_open = !this.parent.is_open;
+			if (this.parent.is_open === false) {
+				this.parent.hide_chat_widget();
+			} else {
+				this.parent.show_chat_widget();
+			}
 			this.$chat_bubble.remove();
 			this.setup();
 		});
