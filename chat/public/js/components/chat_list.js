@@ -7,7 +7,7 @@ export default class ChatBubble {
 	}
 	setup() {
 		this.$chat_list = $(document.createElement('div'));
-		const classes = 'chat-list p-4';
+		const classes = 'chat-list';
 		const chat_list_header_html = `
 			<div class="chat-list-header">
 				<h3>Chats</h3>

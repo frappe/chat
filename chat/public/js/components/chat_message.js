@@ -1,3 +1,5 @@
+import ChatSpace from './chat_space';
+
 export default class ChatMessage {
 	constructor(parent) {
 		this.parent = parent;
@@ -33,6 +35,15 @@ export default class ChatMessage {
 		}
 		inner_html += avatar_html + info_html + date_html;
 		this.$chat_message.html(inner_html);
+		this.render();
+		this.setup_events();
+	}
+	render() {
 		this.parent.$chat_message_container.append(this.$chat_message);
+	}
+	setup_events() {
+		this.$chat_message.on('click', () => {
+			new ChatSpace(this);
+		});
 	}
 }
