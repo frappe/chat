@@ -9,7 +9,7 @@ export default class ChatMessage {
 		this.$chat_message = $(document.createElement('div'));
 		this.$chat_message.addClass('chat-message');
 
-		const avatar_html = frappe.avatar(null, 'avatar-medium', 'Speedwagon');
+		this.avatar_html = frappe.avatar(null, 'avatar-medium', 'Speedwagon');
 		this.is_latest = Math.random() < 0.5;
 
 		const is_latest_html = `
@@ -33,7 +33,7 @@ export default class ChatMessage {
 		if (this.is_latest) {
 			inner_html += is_latest_html;
 		}
-		inner_html += avatar_html + info_html + date_html;
+		inner_html += this.avatar_html + info_html + date_html;
 		this.$chat_message.html(inner_html);
 		this.render();
 		this.setup_events();

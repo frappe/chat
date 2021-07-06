@@ -1,6 +1,6 @@
 import ChatMessage from './chat_message';
 
-export default class ChatBubble {
+export default class ChatList {
 	constructor(parent) {
 		this.parent = parent;
 		this.setup();
