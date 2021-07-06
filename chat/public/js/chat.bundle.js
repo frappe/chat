@@ -10,7 +10,7 @@ frappe.Chat = class {
 		this.$app_element.addClass('chat-app');
 		this.$chat_container = $(document.createElement('div'));
 		this.$chat_container.addClass('chat-container d-none');
-		$('body').append(this.$app_element);
+		$('script').before(this.$app_element);
 		this.is_open = false;
 		this.chat_bubble = new ChatBubble(this);
 		this.$chat_container.appendTo(this.$app_element);
