@@ -9,7 +9,7 @@ frappe.Chat = class {
 		this.$app_element = $(document.createElement('div'));
 		this.$app_element.addClass('chat-app');
 		this.$chat_container = $(document.createElement('div'));
-		this.$chat_container.addClass('chat-container d-none');
+		this.$chat_container.addClass('chat-container').hide();
 		$('body').append(this.$app_element);
 		this.is_open = false;
 		this.chat_bubble = new ChatBubble(this);
@@ -18,11 +18,11 @@ frappe.Chat = class {
 	}
 	show_chat_widget() {
 		this.is_open = true;
-		this.$chat_container.toggleClass('d-none');
+		this.$chat_container.fadeIn(250);
 	}
 	hide_chat_widget() {
 		this.is_open = false;
-		this.$chat_container.toggleClass('d-none');
+		this.$chat_container.fadeOut(300);
 	}
 	setup_events() {}
 };
