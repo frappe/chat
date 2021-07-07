@@ -13,7 +13,7 @@ export default class ChatList {
 				<h3>Chats</h3>
 				<div class="chat-list-actions">
 					<i class="fa fa-pencil-square-o fa-lg mr-2 text-primary"></i>
-					<i class="fa fa-expand fa-lg"></i>
+					<i class="fa fa-expand fa-lg chat-expand-button"></i>
 				</div>
 			</div>
 		`;
@@ -29,8 +29,9 @@ export default class ChatList {
 		const inner_html = chat_list_header_html + chat_list_search_html;
 		this.$chat_message_container = $(document.createElement('div'));
 		this.$chat_message_container.addClass('chat-message-container');
+		this.chat_messages = [];
 		for (let i = 0; i < 20; i++) {
-			new ChatMessage(this);
+			this.chat_messages.push(new ChatMessage(this));
 		}
 		this.$chat_list.addClass(classes).html(inner_html);
 		this.$chat_list.append(this.$chat_message_container);
@@ -38,6 +39,9 @@ export default class ChatList {
 		this.render();
 	}
 	render() {
+		this.chat_messages.forEach((element) => {
+			element.render();
+		});
 		this.parent.$chat_container.html(this.$chat_list);
 	}
 }

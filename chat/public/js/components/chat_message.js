@@ -35,11 +35,10 @@ export default class ChatMessage {
 		}
 		inner_html += this.avatar_html + info_html + date_html;
 		this.$chat_message.html(inner_html);
-		this.render();
-		this.setup_events();
 	}
 	render() {
 		this.parent.$chat_message_container.append(this.$chat_message);
+		this.setup_events();
 	}
 	setup_events() {
 		this.$chat_message.on('click', () => {
