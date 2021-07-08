@@ -76,10 +76,7 @@ export default class ChatSpace {
 			me.parent.parent.render();
 		});
 		$('.message-send-button').on('click', function () {
-			me.$chat_space_container.append(
-				me.make_sender_message('this maakes no seense?', '12:01 pm')
-			);
-			me.scroll_to_bottom();
+			me.send_message();
 		});
 	}
 	make_sender_message(message, time) {
@@ -107,6 +104,17 @@ export default class ChatSpace {
 			},
 			500
 		);
+	}
+	send_message() {
+		const message = $('.type-message').val();
+		if (message.length === 0) {
+			return;
+		}
+		this.$chat_space_container.append(
+			this.make_sender_message(message, '12:01 pm')
+		);
+		$('.type-message').val('');
+		this.scroll_to_bottom();
 	}
 	render() {
 		this.parent.parent.parent.$chat_container.html(this.$chat_space);
