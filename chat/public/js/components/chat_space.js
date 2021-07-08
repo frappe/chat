@@ -75,6 +75,12 @@ export default class ChatSpace {
 		$('.chat-back-button').on('click', function () {
 			me.parent.parent.render();
 		});
+		$('.message-send-button').on('click', function () {
+			me.$chat_space_container.append(
+				me.make_sender_message('this maakes no seense?', '12:01 pm')
+			);
+			me.scroll_to_bottom();
+		});
 	}
 	make_sender_message(message, time) {
 		const sender_message_html = `
@@ -94,8 +100,17 @@ export default class ChatSpace {
 		`;
 		return recipient_message_html;
 	}
+	scroll_to_bottom() {
+		this.$chat_space_container.animate(
+			{
+				scrollTop: this.$chat_space_container[0].scrollHeight,
+			},
+			500
+		);
+	}
 	render() {
 		this.parent.parent.parent.$chat_container.html(this.$chat_space);
 		this.setup_events();
+		this.scroll_to_bottom();
 	}
 }
