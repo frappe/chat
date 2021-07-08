@@ -2,15 +2,15 @@ export default class ChatSpace {
 	constructor(parent) {
 		this.parent = parent;
 		this.setup();
+	}
+	setup() {
+		this.$chat_space = $(document.createElement('div'));
+		this.$chat_space.addClass('chat-space');
 		this.setup_header();
 		this.setup_messages();
 		this.setup_actions();
 		this.render();
 		this.setup_events();
-	}
-	setup() {
-		this.$chat_space = $(document.createElement('div'));
-		this.$chat_space.addClass('chat-space');
 	}
 	setup_header() {
 		const header_html = `
