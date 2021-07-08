@@ -16,6 +16,18 @@ frappe.Chat = class {
 		this.$chat_container.appendTo(this.$app_element);
 		this.chat_list = new ChatList(this);
 		this.chat_list.render();
+		await this.setup_dependencies();
+	}
+	async setup_dependencies() {
+		await frappe.require(
+			[
+				'assets/frappe/js/lib/socket.io.min.js',
+				'assets/frappe/js/frappe/socketio_client.js',
+			],
+			() => {
+				frappe.socketio.init(9000);
+			}
+		);
 	}
 	show_chat_widget() {
 		this.is_open = true;
