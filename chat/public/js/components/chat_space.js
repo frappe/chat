@@ -32,14 +32,11 @@ export default class ChatSpace {
 		this.$chat_space_container.addClass('chat-space-container');
 
 		let message_html = `
-			<div class="sender-message">
-				<div class="message-bubble">Hi, Steve ?</div>
-				<div class="message-time">12:58 pm</div>
-			</div>
-			<div class="recipient-message">
-				<div class="message-bubble">Hey, so I’m having a party at my place next weekend. Do you want to come?</div>
-				<div class="message-time">1:58 pm</div>
-			</div>
+			${this.make_sender_message('Hi john titor ?', '12:01 pm')}
+			${this.make_recipient_message(
+				'Hey, so I’m having a party at my place next weekend. Do you want to come?',
+				'1:58 pm'
+			)}
 		`;
 
 		const date_line_html = `
@@ -78,6 +75,24 @@ export default class ChatSpace {
 		$('.chat-back-button').on('click', function () {
 			me.parent.parent.render();
 		});
+	}
+	make_sender_message(message, time) {
+		const sender_message_html = `
+		<div class="sender-message">
+			<div class="message-bubble">${message}</div>
+			<div class="message-time">${time}</div>
+		</div>
+		`;
+		return sender_message_html;
+	}
+	make_recipient_message(message, time) {
+		const recipient_message_html = `
+		<div class="recipient-message">
+			<div class="message-bubble">${message}</div>
+			<div class="message-time">${time}</div>
+		</div>
+		`;
+		return recipient_message_html;
 	}
 	render() {
 		this.parent.parent.parent.$chat_container.html(this.$chat_space);
