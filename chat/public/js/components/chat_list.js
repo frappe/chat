@@ -11,7 +11,6 @@ export default class ChatList {
 		this.setup_header();
 		this.setup_search();
 		this.setup_message();
-		this.render();
 	}
 	setup_header() {
 		const chat_list_header_html = `

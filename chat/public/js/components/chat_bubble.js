@@ -30,10 +30,10 @@ export default class ChatBubble {
 			.html(inner_html);
 
 		this.render();
-		this.setup_events();
 	}
 	render() {
 		this.parent.$app_element.append(this.$chat_bubble);
+		this.setup_events();
 	}
 	setup_events() {
 		$('.chat-bubble').click(() => {

@@ -15,6 +15,7 @@ frappe.Chat = class {
 		this.chat_bubble = new ChatBubble(this);
 		this.$chat_container.appendTo(this.$app_element);
 		this.chat_list = new ChatList(this);
+		this.chat_list.render();
 	}
 	show_chat_widget() {
 		this.is_open = true;

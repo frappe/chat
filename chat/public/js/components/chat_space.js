@@ -10,7 +10,6 @@ export default class ChatSpace {
 		this.setup_messages();
 		this.setup_actions();
 		this.render();
-		this.setup_events();
 	}
 	setup_header() {
 		const header_html = `
@@ -82,5 +81,6 @@ export default class ChatSpace {
 	}
 	render() {
 		this.parent.parent.parent.$chat_container.html(this.$chat_space);
+		this.setup_events();
 	}
 }
