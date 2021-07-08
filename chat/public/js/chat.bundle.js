@@ -16,7 +16,7 @@ frappe.Chat = class {
 		this.$chat_container.appendTo(this.$app_element);
 		this.chat_list = new ChatList(this);
 		this.chat_list.render();
-		await this.setup_dependencies();
+		this.setup_dependencies();
 	}
 	async setup_dependencies() {
 		await frappe.require(
