@@ -1,3 +1,5 @@
+import { get_current_time } from './chat_utils';
+
 export default class ChatSpace {
 	constructor(parent) {
 		this.parent = parent;
@@ -111,11 +113,16 @@ export default class ChatSpace {
 			return;
 		}
 		this.$chat_space_container.append(
-			this.make_sender_message(message, '12:01 pm')
+			this.make_recipient_message(message, get_current_time())
 		);
 		$('.type-message').val('');
 		this.scroll_to_bottom();
 	}
+	receive_message(message, time) {
+		this.$chat_space_container.append(this.make_sender_message(message, time));
+		this.scroll_to_bottom();
+	}
+
 	render() {
 		this.parent.parent.parent.$chat_container.html(this.$chat_space);
 		this.setup_events();
