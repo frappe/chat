@@ -12,7 +12,7 @@ function scroll_to_bottom($element) {
 		{
 			scrollTop: $element[0].scrollHeight,
 		},
-		500
+		300
 	);
 }
 
