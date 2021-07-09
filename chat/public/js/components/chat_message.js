@@ -45,7 +45,7 @@ export default class ChatMessage {
 
 	setup_events() {
 		this.$chat_message.on('click', () => {
-			if (this.chat_space) {
+			if (typeof this.chat_space !== 'undefined') {
 				this.chat_space.render();
 			} else {
 				this.chat_space = new ChatSpace(this);
