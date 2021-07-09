@@ -1,10 +1,16 @@
+// frappe.Chat
+// Author - Nihal Mittal <nihal@erpnext.com>
+
 import { ChatBubble, ChatList } from './components';
 frappe.provide('frappe.Chat');
 
+/** Spawns a chat widget on any web page */
 frappe.Chat = class {
 	constructor() {
 		this.setup();
 	}
+
+	/** Set up all the required methods for chat widget */
 	setup() {
 		this.$app_element = $(document.createElement('div'));
 		this.$app_element.addClass('chat-app');
@@ -29,10 +35,14 @@ frappe.Chat = class {
 			}
 		);
 	}
+
+	/** Shows the chat widget */
 	show_chat_widget() {
 		this.is_open = true;
 		this.$chat_container.fadeIn(250);
 	}
+
+	/** Hides the chat widget */
 	hide_chat_widget() {
 		this.is_open = false;
 		this.$chat_container.fadeOut(300);
