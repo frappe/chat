@@ -1,4 +1,4 @@
-import { get_current_time } from './chat_utils';
+import { get_current_time, scroll_to_bottom } from './chat_utils';
 
 export default class ChatSpace {
 	constructor(parent) {
@@ -99,14 +99,6 @@ export default class ChatSpace {
 		`;
 		return recipient_message_html;
 	}
-	scroll_to_bottom() {
-		this.$chat_space_container.animate(
-			{
-				scrollTop: this.$chat_space_container[0].scrollHeight,
-			},
-			500
-		);
-	}
 	send_message() {
 		const message = $('.type-message').val();
 		if (message.length === 0) {
@@ -116,16 +108,15 @@ export default class ChatSpace {
 			this.make_recipient_message(message, get_current_time())
 		);
 		$('.type-message').val('');
-		this.scroll_to_bottom();
+		scroll_to_bottom(this.$chat_space_container);
 	}
 	receive_message(message, time) {
 		this.$chat_space_container.append(this.make_sender_message(message, time));
-		this.scroll_to_bottom();
+		scroll_to_bottom(this.$chat_space_container);
 	}
-
 	render() {
 		this.parent.parent.parent.$chat_container.html(this.$chat_space);
 		this.setup_events();
-		this.scroll_to_bottom();
+		scroll_to_bottom(this.$chat_space_container);
 	}
 }
