@@ -1,8 +1,9 @@
 import { get_current_time, scroll_to_bottom } from './chat_utils';
 
 export default class ChatSpace {
-	constructor(parent) {
+	constructor(parent, profile) {
 		this.parent = parent;
+		this.profile = profile;
 		this.setup();
 	}
 
@@ -23,7 +24,7 @@ export default class ChatSpace {
 				</div>
 				${this.parent.avatar_html}
 				<div class="chat-profile-info">
-					<div class="chat-profile-name">Nihal Mittal</div>
+					<div class="chat-profile-name">${this.profile.name}</div>
 					<div class="chat-profile-time">14 mins ago</div>
 				</div>
 				<i class="fa fa-expand fa-lg chat-expand-button"></i>

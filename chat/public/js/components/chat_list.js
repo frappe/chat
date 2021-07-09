@@ -11,6 +11,18 @@ export default class ChatList {
 		this.$chat_list.addClass('chat-list');
 		this.setup_header();
 		this.setup_search();
+		this.profiles = [
+			{ name: 'Whitebeard' },
+			{ name: 'Blackbeard' },
+			{ name: 'Shanks' },
+			{ name: 'Mihawk' },
+			{ name: 'Oden' },
+			{ name: 'Zura' },
+			{ name: 'Kagura' },
+			{ name: 'Ginsan' },
+			{ name: 'Megane' },
+			{ name: 'Brook' },
+		];
 		this.setup_message();
 	}
 
@@ -34,7 +46,7 @@ export default class ChatList {
 				<input class="form-control py-1 chat-search-box" 
 				type="search" 
 				placeholder="Search or Create a new conversation"
-				id="chat-searh-bix">	
+				>	
 			</div>
 		`;
 		this.$chat_list.append(chat_list_search_html);
@@ -44,16 +56,25 @@ export default class ChatList {
 		this.$chat_message_container = $(document.createElement('div'));
 		this.$chat_message_container.addClass('chat-message-container');
 		this.chat_messages = [];
-		for (let i = 0; i < 20; i++) {
-			this.chat_messages.push(new ChatMessage(this));
-		}
+		this.profiles.forEach((element) => {
+			this.chat_messages.push(new ChatMessage(this, element));
+		});
 		this.$chat_list.append(this.$chat_message_container);
 	}
 
+	setup_events() {
+		const me = this;
+		$('.chat-search-box').on('input', function (e) {
+			// Todo
+		});
+	}
+
 	render() {
+		this.$chat_message_container.empty();
 		this.chat_messages.forEach((element) => {
 			element.render();
 		});
 		this.parent.$chat_container.html(this.$chat_list);
+		this.setup_events();
 	}
 }

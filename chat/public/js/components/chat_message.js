@@ -1,8 +1,9 @@
 import ChatSpace from './chat_space';
 
 export default class ChatMessage {
-	constructor(parent) {
+	constructor(parent, element) {
 		this.parent = parent;
+		this.profile = element;
 		this.setup();
 	}
 
@@ -10,7 +11,7 @@ export default class ChatMessage {
 		this.$chat_message = $(document.createElement('div'));
 		this.$chat_message.addClass('chat-message');
 
-		this.avatar_html = frappe.avatar(null, 'avatar-medium', 'Speedwagon');
+		this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
 		this.is_latest = Math.random() < 0.5;
 
 		const is_latest_html = `
@@ -19,10 +20,10 @@ export default class ChatMessage {
 
 		const info_html = `
 			<div class="mr-auto chat-profile-info pl-3">
-				<div class="font-weight-bold">Nihal Mittal</div>
+				<div class="font-weight-bold">${this.profile.name}</div>
 				<div style="color: ${
 					this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'
-				}">Hey, Jotaro?</div>
+				}">Hello, whats up?</div>
 			</div>
 		`;
 		const date_html = `
@@ -48,7 +49,7 @@ export default class ChatMessage {
 			if (typeof this.chat_space !== 'undefined') {
 				this.chat_space.render();
 			} else {
-				this.chat_space = new ChatSpace(this);
+				this.chat_space = new ChatSpace(this, this.profile);
 			}
 		});
 	}
