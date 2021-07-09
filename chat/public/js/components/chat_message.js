@@ -5,6 +5,7 @@ export default class ChatMessage {
 		this.parent = parent;
 		this.setup();
 	}
+
 	setup() {
 		this.$chat_message = $(document.createElement('div'));
 		this.$chat_message.addClass('chat-message');
@@ -36,10 +37,12 @@ export default class ChatMessage {
 		inner_html += this.avatar_html + info_html + date_html;
 		this.$chat_message.html(inner_html);
 	}
+
 	render() {
 		this.parent.$chat_message_container.append(this.$chat_message);
 		this.setup_events();
 	}
+
 	setup_events() {
 		this.$chat_message.on('click', () => {
 			new ChatSpace(this);

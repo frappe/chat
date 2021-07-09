@@ -5,6 +5,7 @@ export default class ChatSpace {
 		this.parent = parent;
 		this.setup();
 	}
+
 	setup() {
 		this.$chat_space = $(document.createElement('div'));
 		this.$chat_space.addClass('chat-space');
@@ -13,6 +14,7 @@ export default class ChatSpace {
 		this.setup_actions();
 		this.render();
 	}
+
 	setup_header() {
 		const header_html = `
 			<div class="chat-space-header">
@@ -29,6 +31,7 @@ export default class ChatSpace {
 		`;
 		this.$chat_space.append(header_html);
 	}
+
 	setup_messages() {
 		this.$chat_space_container = $(document.createElement('div'));
 		this.$chat_space_container.addClass('chat-space-container');
@@ -51,6 +54,7 @@ export default class ChatSpace {
 		this.$chat_space_container.html(message_html);
 		this.$chat_space.append(this.$chat_space_container);
 	}
+
 	setup_actions() {
 		this.$chat_actions = $(document.createElement('div'));
 		this.$chat_actions.addClass('chat-space-actions');
@@ -72,6 +76,7 @@ export default class ChatSpace {
 		this.$chat_actions.html(chat_actions_html);
 		this.$chat_space.append(this.$chat_actions);
 	}
+
 	setup_events() {
 		const me = this;
 		$('.chat-back-button').on('click', function () {
@@ -81,6 +86,7 @@ export default class ChatSpace {
 			me.send_message();
 		});
 	}
+
 	make_sender_message(message, time) {
 		const sender_message_html = `
 		<div class="sender-message">
@@ -90,6 +96,7 @@ export default class ChatSpace {
 		`;
 		return sender_message_html;
 	}
+
 	make_recipient_message(message, time) {
 		const recipient_message_html = `
 		<div class="recipient-message">
@@ -99,6 +106,7 @@ export default class ChatSpace {
 		`;
 		return recipient_message_html;
 	}
+
 	send_message() {
 		const message = $('.type-message').val();
 		if (message.length === 0) {
@@ -110,10 +118,12 @@ export default class ChatSpace {
 		$('.type-message').val('');
 		scroll_to_bottom(this.$chat_space_container);
 	}
+
 	receive_message(message, time) {
 		this.$chat_space_container.append(this.make_sender_message(message, time));
 		scroll_to_bottom(this.$chat_space_container);
 	}
+
 	render() {
 		this.parent.parent.parent.$chat_container.html(this.$chat_space);
 		this.setup_events();

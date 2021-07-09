@@ -47,5 +47,6 @@ frappe.Chat = class {
 		this.is_open = false;
 		this.$chat_container.fadeOut(300);
 	}
+
 	setup_events() {}
 };

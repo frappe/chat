@@ -3,6 +3,7 @@ export default class ChatBubble {
 		this.parent = parent;
 		this.setup();
 	}
+
 	setup() {
 		this.$chat_bubble = $(document.createElement('div'));
 		let classes = 'chat-bubble p-3';
@@ -31,10 +32,12 @@ export default class ChatBubble {
 
 		this.render();
 	}
+
 	render() {
 		this.parent.$app_element.append(this.$chat_bubble);
 		this.setup_events();
 	}
+
 	setup_events() {
 		$('.chat-bubble').click(() => {
 			this.parent.is_open = !this.parent.is_open;

@@ -5,6 +5,7 @@ export default class ChatList {
 		this.parent = parent;
 		this.setup();
 	}
+
 	setup() {
 		this.$chat_list = $(document.createElement('div'));
 		this.$chat_list.addClass('chat-list');
@@ -12,6 +13,7 @@ export default class ChatList {
 		this.setup_search();
 		this.setup_message();
 	}
+
 	setup_header() {
 		const chat_list_header_html = `
 			<div class="chat-list-header">
@@ -24,6 +26,7 @@ export default class ChatList {
 		`;
 		this.$chat_list.append(chat_list_header_html);
 	}
+
 	setup_search() {
 		const chat_list_search_html = `
 			<div class="input-group my-2 chat-search">
@@ -36,6 +39,7 @@ export default class ChatList {
 		`;
 		this.$chat_list.append(chat_list_search_html);
 	}
+
 	setup_message() {
 		this.$chat_message_container = $(document.createElement('div'));
 		this.$chat_message_container.addClass('chat-message-container');
@@ -45,6 +49,7 @@ export default class ChatList {
 		}
 		this.$chat_list.append(this.$chat_message_container);
 	}
+
 	render() {
 		this.chat_messages.forEach((element) => {
 			element.render();
