@@ -85,6 +85,11 @@ export default class ChatSpace {
 		$('.message-send-button').on('click', function () {
 			me.send_message();
 		});
+		$('.type-message').keypress(function (e) {
+			if (e.which === 13) {
+				me.send_message();
+			}
+		});
 	}
 
 	make_sender_message(message, time) {
@@ -108,14 +113,15 @@ export default class ChatSpace {
 	}
 
 	send_message() {
-		const message = $('.type-message').val();
+		const $type_message = $('.type-message');
+		const message = $type_message.val();
 		if (message.length === 0) {
 			return;
 		}
 		this.$chat_space_container.append(
 			this.make_recipient_message(message, get_current_time())
 		);
-		$('.type-message').val('');
+		$type_message.val('');
 		scroll_to_bottom(this.$chat_space_container);
 	}
 
