@@ -50,3 +50,9 @@ frappe.Chat = class {
 
 	setup_events() {}
 };
+
+$(function () {
+	if (frappe.session.logged_in_user) {
+		const ha = new frappe.Chat();
+	}
+});

@@ -10,10 +10,19 @@ export default class ChatSpace {
 	setup() {
 		this.$chat_space = $(document.createElement('div'));
 		this.$chat_space.addClass('chat-space');
+		this.setup_config();
 		this.setup_header();
 		this.setup_messages();
 		this.setup_actions();
 		this.render();
+		this.setup_socketio();
+	}
+	setup_config() {
+		if (frappe.session.logged_in_user) {
+			this.user = 'Admin';
+		} else {
+			this.user = 'Guest';
+		}
 	}
 
 	setup_header() {
@@ -93,6 +102,16 @@ export default class ChatSpace {
 		});
 	}
 
+	setup_socketio() {
+		const me = this;
+		frappe.realtime.publish('frappe.chat.room:subscribe', 'test');
+		frappe.realtime.on('receive_message', function (res) {
+			if (res.user !== me.user) {
+				me.receive_message(res.message, '12:32 pm');
+			}
+		});
+	}
+
 	make_sender_message(message, time) {
 		const sender_message_html = `
 		<div class="sender-message">
@@ -124,6 +143,13 @@ export default class ChatSpace {
 		);
 		$type_message.val('');
 		scroll_to_bottom(this.$chat_space_container);
+		frappe.call({
+			method: 'chat.api.message.send',
+			args: {
+				message: message,
+				user: this.user,
+			},
+		});
 	}
 
 	receive_message(message, time) {
