@@ -1,8 +1,9 @@
 import { get_current_time, scroll_to_bottom } from './chat_utils';
 
 export default class ChatSpace {
-	constructor(parent, profile) {
-		this.parent = parent;
+	constructor($wrapper, chat_list, profile) {
+		this.chat_list = chat_list;
+		this.$wrapper = $wrapper;
 		this.profile = profile;
 		this.setup();
 	}
@@ -26,12 +27,13 @@ export default class ChatSpace {
 	}
 
 	setup_header() {
+		this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
 		const header_html = `
 			<div class="chat-space-header">
 				<div class="chat-back-button" data-toggle="tooltip" title="Go Back" >
 					<i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
 				</div>
-				${this.parent.avatar_html}
+				${this.avatar_html}
 				<div class="chat-profile-info">
 					<div class="chat-profile-name">${this.profile.name}</div>
 					<div class="chat-profile-time">14 mins ago</div>
@@ -90,7 +92,7 @@ export default class ChatSpace {
 	setup_events() {
 		const me = this;
 		$('.chat-back-button').on('click', function () {
-			me.parent.parent.render();
+			me.chat_list.render();
 		});
 		$('.message-send-button').on('click', function () {
 			me.send_message();
@@ -158,7 +160,7 @@ export default class ChatSpace {
 	}
 
 	render() {
-		this.parent.parent.parent.$chat_container.html(this.$chat_space);
+		this.$wrapper.html(this.$chat_space);
 		this.setup_events();
 		scroll_to_bottom(this.$chat_space_container);
 	}

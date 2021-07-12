@@ -1,8 +1,10 @@
 import ChatSpace from './chat_space';
 
 export default class ChatMessage {
-	constructor(parent, element) {
-		this.parent = parent;
+	constructor($wrapper, $chat_message_container, chat_list, element) {
+		this.$wrapper = $wrapper;
+		this.$chat_message_container = $chat_message_container;
+		this.chat_list = chat_list;
 		this.profile = element;
 		this.setup();
 	}
@@ -40,7 +42,7 @@ export default class ChatMessage {
 	}
 
 	render() {
-		this.parent.$chat_message_container.append(this.$chat_message);
+		this.$chat_message_container.append(this.$chat_message);
 		this.setup_events();
 	}
 
@@ -49,7 +51,11 @@ export default class ChatMessage {
 			if (typeof this.chat_space !== 'undefined') {
 				this.chat_space.render();
 			} else {
-				this.chat_space = new ChatSpace(this, this.profile);
+				this.chat_space = new ChatSpace(
+					this.$wrapper,
+					this.chat_list,
+					this.profile
+				);
 			}
 		});
 	}

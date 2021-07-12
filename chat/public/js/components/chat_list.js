@@ -1,8 +1,8 @@
 import ChatMessage from './chat_message';
 
 export default class ChatList {
-	constructor(parent) {
-		this.parent = parent;
+	constructor($wrapper) {
+		this.$wrapper = $wrapper;
 		this.setup();
 	}
 
@@ -57,7 +57,14 @@ export default class ChatList {
 		this.$chat_message_container.addClass('chat-message-container');
 		this.chat_messages = [];
 		this.profiles.forEach((element) => {
-			this.chat_messages.push(new ChatMessage(this, element));
+			this.chat_messages.push(
+				new ChatMessage(
+					this.$wrapper,
+					this.$chat_message_container,
+					this,
+					element
+				)
+			);
 		});
 		this.$chat_list.append(this.$chat_message_container);
 	}
@@ -74,7 +81,7 @@ export default class ChatList {
 		this.chat_messages.forEach((element) => {
 			element.render();
 		});
-		this.parent.$chat_container.html(this.$chat_list);
+		this.$wrapper.html(this.$chat_list);
 		this.setup_events();
 	}
 }

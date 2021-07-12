@@ -20,7 +20,7 @@ frappe.Chat = class {
 		this.is_open = false;
 		this.chat_bubble = new ChatBubble(this);
 		this.$chat_container.appendTo(this.$app_element);
-		this.chat_list = new ChatList(this);
+		this.chat_list = new ChatList(this.$chat_container);
 		this.chat_list.render();
 		this.setup_dependencies();
 	}
