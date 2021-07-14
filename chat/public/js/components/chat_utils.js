@@ -15,5 +15,11 @@ function scroll_to_bottom($element) {
 		300
 	);
 }
-
-export { get_current_time, scroll_to_bottom };
+async function get_rooms() {
+	const res = await frappe.call({
+		type: 'GET',
+		method: 'chat.api.room.get',
+	});
+	return await res.message;
+}
+export { get_current_time, scroll_to_bottom, get_rooms };

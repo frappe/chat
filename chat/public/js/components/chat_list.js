@@ -1,4 +1,5 @@
 import ChatMessage from './chat_message';
+import { get_rooms } from './chat_utils';
 
 export default class ChatList {
 	constructor($wrapper) {
@@ -23,6 +24,7 @@ export default class ChatList {
 			{ name: 'Megane' },
 			{ name: 'Brook' },
 		];
+		this.setup_rooms();
 		this.setup_message();
 	}
 
@@ -50,6 +52,11 @@ export default class ChatList {
 			</div>
 		`;
 		this.$chat_list.append(chat_list_search_html);
+	}
+	setup_rooms() {
+		get_rooms().then((res) => {
+			this.rooms = res;
+		});
 	}
 
 	setup_message() {
