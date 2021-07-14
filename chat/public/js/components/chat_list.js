@@ -24,8 +24,8 @@ export default class ChatList {
 			{ name: 'Megane' },
 			{ name: 'Brook' },
 		];
+		this.fetch_rooms();
 		this.setup_rooms();
-		this.setup_message();
 	}
 
 	setup_header() {
@@ -53,13 +53,13 @@ export default class ChatList {
 		`;
 		this.$chat_list.append(chat_list_search_html);
 	}
-	setup_rooms() {
+	fetch_rooms() {
 		get_rooms().then((res) => {
 			this.rooms = res;
 		});
 	}
 
-	setup_message() {
+	setup_rooms() {
 		this.$chat_message_container = $(document.createElement('div'));
 		this.$chat_message_container.addClass('chat-message-container');
 		this.chat_messages = [];
