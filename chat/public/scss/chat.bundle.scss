@@ -205,6 +205,12 @@
 		}
 		.message-send-button {
 			cursor: pointer;
+			.fa-stack {
+				font-size: var(--font-size-lg);
+				.fa-paper-plane {
+					font-size: 1rem;
+				}
+			}
 			.fa-circle {
 				color: var(--blue-500);
 			}
