@@ -9,6 +9,7 @@
 	align-items: flex-end;
 	justify-content: flex-end;
 	width: 100%;
+	max-width: 380px;
 	z-index: 100;
 	padding: 0 1rem;
 	::-webkit-scrollbar {
@@ -32,7 +33,6 @@
 .chat-container {
 	height: 582px;
 	width: 100%;
-	max-width: 380px;
 	box-shadow: 0px 2px 6px rgba(17, 43, 66, 0.08),
 		0px 1px 4px rgba(17, 43, 66, 0.1);
 	background: var(--white);
@@ -212,5 +212,11 @@
 				color: var(--white);
 			}
 		}
+	}
+}
+
+@media (max-width: 576px) {
+	.chat-app {
+		max-width: 100%;
 	}
 }
