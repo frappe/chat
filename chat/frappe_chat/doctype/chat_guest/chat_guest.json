@@ -1,45 +1,51 @@
 {
  "actions": [],
- "autoname": "format:{message} by {sender}",
- "creation": "2021-07-12 17:55:33.244985",
+ "autoname": "field:guest_name",
+ "creation": "2021-07-14 14:11:22.811197",
+ "description": "Guest users for chat rooms.",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "message",
-  "sender",
-  "room"
+  "guest_name",
+  "email",
+  "token",
+  "status"
  ],
  "fields": [
   {
-   "fieldname": "message",
-   "fieldtype": "Text",
-   "in_list_view": 1,
-   "label": "Message",
-   "reqd": 1
+   "fieldname": "guest_name",
+   "fieldtype": "Data",
+   "label": "Guest Name",
+   "unique": 1
   },
   {
-   "fieldname": "sender",
+   "fieldname": "email",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Sender",
+   "label": "Email",
    "reqd": 1
   },
   {
-   "fieldname": "room",
-   "fieldtype": "Link",
+   "fieldname": "token",
+   "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Room",
-   "options": "Chat Room",
+   "label": "Token",
    "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Online\nOffline"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-14 17:00:48.512682",
+ "modified": "2021-07-14 14:17:50.114694",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
- "name": "Chat Message",
+ "name": "Chat Guest",
  "name_case": "Title Case",
  "owner": "Administrator",
  "permissions": [
@@ -52,6 +58,7 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
    "share": 1,
    "write": 1
   }
