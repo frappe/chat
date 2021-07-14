@@ -24,8 +24,7 @@ export default class ChatList {
 			{ name: 'Megane' },
 			{ name: 'Brook' },
 		];
-		this.fetch_rooms();
-		this.setup_rooms();
+		this.fetch_and_setup_rooms();
 	}
 
 	setup_header() {
@@ -53,9 +52,12 @@ export default class ChatList {
 		`;
 		this.$chat_list.append(chat_list_search_html);
 	}
-	fetch_rooms() {
+
+	fetch_and_setup_rooms() {
 		get_rooms().then((res) => {
 			this.rooms = res;
+			this.setup_rooms();
+			this.render_messages();
 		});
 	}
 
@@ -63,13 +65,16 @@ export default class ChatList {
 		this.$chat_message_container = $(document.createElement('div'));
 		this.$chat_message_container.addClass('chat-message-container');
 		this.chat_messages = [];
-		this.profiles.forEach((element) => {
+		this.rooms.forEach((element) => {
+			const profile = {
+				name: element.guest,
+			};
 			this.chat_messages.push(
 				new ChatMessage(
 					this.$wrapper,
 					this.$chat_message_container,
 					this,
-					element
+					profile
 				)
 			);
 		});
@@ -83,11 +88,14 @@ export default class ChatList {
 		});
 	}
 
-	render() {
+	render_messages() {
 		this.$chat_message_container.empty();
 		this.chat_messages.forEach((element) => {
 			element.render();
 		});
+	}
+
+	render() {
 		this.$wrapper.html(this.$chat_list);
 		this.setup_events();
 	}

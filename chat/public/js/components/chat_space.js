@@ -92,6 +92,7 @@ export default class ChatSpace {
 	setup_events() {
 		const me = this;
 		$('.chat-back-button').on('click', function () {
+			me.chat_list.render_messages();
 			me.chat_list.render();
 		});
 		$('.message-send-button').on('click', function () {
