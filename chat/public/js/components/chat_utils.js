@@ -22,4 +22,29 @@ async function get_rooms() {
 	});
 	return await res.message;
 }
-export { get_current_time, scroll_to_bottom, get_rooms };
+async function get_messages(room) {}
+async function get_settings() {
+	const res = await frappe.call({
+		type: 'GET',
+		method: 'chat.api.config.settings',
+	});
+	return await res.message;
+}
+async function setup_dependencies(port) {
+	await frappe.require(
+		[
+			'assets/frappe/js/lib/socket.io.min.js',
+			'assets/frappe/js/frappe/socketio_client.js',
+		],
+		() => {
+			frappe.socketio.init(port);
+		}
+	);
+}
+export {
+	get_current_time,
+	scroll_to_bottom,
+	get_rooms,
+	get_settings,
+	setup_dependencies,
+};
