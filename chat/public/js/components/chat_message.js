@@ -1,11 +1,11 @@
 import ChatSpace from './chat_space';
 
 export default class ChatMessage {
-	constructor($wrapper, $chat_message_container, chat_list, element) {
-		this.$wrapper = $wrapper;
-		this.$chat_message_container = $chat_message_container;
-		this.chat_list = chat_list;
-		this.profile = element;
+	constructor(opts) {
+		this.$wrapper = opts.$wrapper;
+		this.$chat_message_container = opts.$chat_message_container;
+		this.chat_list = opts.chat_list;
+		this.profile = opts.element;
 		this.setup();
 	}
 

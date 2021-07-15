@@ -70,12 +70,12 @@ export default class ChatList {
 				name: element.guest,
 			};
 			this.chat_messages.push(
-				new ChatMessage(
-					this.$wrapper,
-					this.$chat_message_container,
-					this,
-					profile
-				)
+				new ChatMessage({
+					$wrapper: this.$wrapper,
+					$chat_message_container: this.$chat_message_container,
+					chat_list: this,
+					element: profile,
+				})
 			);
 		});
 		this.$chat_list.append(this.$chat_message_container);
