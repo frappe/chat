@@ -1,4 +1,4 @@
-import ChatMessage from './chat_message';
+import ChatRoom from './chat_room';
 import { get_rooms } from './chat_utils';
 
 export default class ChatList {
@@ -62,23 +62,23 @@ export default class ChatList {
 	}
 
 	setup_rooms() {
-		this.$chat_message_container = $(document.createElement('div'));
-		this.$chat_message_container.addClass('chat-rooms-container');
-		this.chat_messages = [];
+		this.$chat_rooms_container = $(document.createElement('div'));
+		this.$chat_rooms_container.addClass('chat-rooms-container');
+		this.chat_rooms = [];
 		this.rooms.forEach((element) => {
 			const profile = {
 				name: element.guest,
 			};
-			this.chat_messages.push(
-				new ChatMessage({
+			this.chat_rooms.push(
+				new ChatRoom({
 					$wrapper: this.$wrapper,
-					$chat_message_container: this.$chat_message_container,
+					$chat_rooms_container: this.$chat_rooms_container,
 					chat_list: this,
 					element: profile,
 				})
 			);
 		});
-		this.$chat_list.append(this.$chat_message_container);
+		this.$chat_list.append(this.$chat_rooms_container);
 	}
 
 	setup_events() {
@@ -89,8 +89,8 @@ export default class ChatList {
 	}
 
 	render_messages() {
-		this.$chat_message_container.empty();
-		this.chat_messages.forEach((element) => {
+		this.$chat_rooms_container.empty();
+		this.chat_rooms.forEach((element) => {
 			element.render();
 		});
 	}
