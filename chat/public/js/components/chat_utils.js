@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 function get_current_time() {
 	const current_time = new Date().toLocaleString('en-US', {
 		hour: 'numeric',
@@ -5,6 +7,15 @@ function get_current_time() {
 		hour12: true,
 	});
 	return current_time;
+}
+
+function get_date_from_now(dateObj) {
+	const result = moment(dateObj).calendar(null, {
+		sameDay: 'HH:MM a',
+		lastDay: 'Yesterday',
+		sameElse: 'DD/MM/YYYY',
+	});
+	return result;
 }
 
 function scroll_to_bottom($element) {
@@ -20,6 +31,7 @@ async function get_rooms() {
 		type: 'GET',
 		method: 'chat.api.room.get',
 	});
+	console.log(res.message);
 	return await res.message;
 }
 async function get_messages(room) {}
@@ -30,14 +42,14 @@ async function get_settings() {
 	});
 	return await res.message;
 }
-async function setup_dependencies(port) {
+async function setup_dependencies(socketio_port) {
 	await frappe.require(
 		[
 			'assets/frappe/js/lib/socket.io.min.js',
 			'assets/frappe/js/frappe/socketio_client.js',
 		],
 		() => {
-			frappe.socketio.init(port);
+			frappe.socketio.init(socketio_port);
 		}
 	);
 }
@@ -47,4 +59,5 @@ export {
 	get_rooms,
 	get_settings,
 	setup_dependencies,
+	get_date_from_now,
 };
