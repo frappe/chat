@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "field:guest_name",
+ "autoname": "field:email",
  "creation": "2021-07-14 14:11:22.811197",
  "description": "Guest users for chat rooms.",
  "doctype": "DocType",
@@ -17,6 +17,7 @@
    "fieldname": "guest_name",
    "fieldtype": "Data",
    "label": "Guest Name",
+   "reqd": 1,
    "unique": 1
   },
   {
@@ -24,7 +25,9 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Email",
-   "reqd": 1
+   "options": "Email",
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "token",
@@ -42,7 +45,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-14 14:17:50.114694",
+ "modified": "2021-07-15 13:20:00.760949",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Guest",

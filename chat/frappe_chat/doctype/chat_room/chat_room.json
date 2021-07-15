@@ -6,23 +6,14 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "room_name",
   "guest",
   "last_message"
  ],
  "fields": [
   {
-   "fieldname": "room_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Name",
-   "reqd": 1
-  },
-  {
    "fieldname": "last_message",
-   "fieldtype": "Link",
-   "label": "Last Message",
-   "options": "Chat Message"
+   "fieldtype": "Data",
+   "label": "Last Message"
   },
   {
    "fieldname": "guest",
@@ -35,7 +26,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-14 17:51:33.763875",
+ "modified": "2021-07-15 15:52:51.641089",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Room",
@@ -75,7 +66,6 @@
    "share": 1
   }
  ],
- "search_fields": "room_name",
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1
