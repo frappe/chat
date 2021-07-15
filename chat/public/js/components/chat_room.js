@@ -1,4 +1,5 @@
 import ChatSpace from './chat_space';
+import { get_date_from_now } from './chat_utils';
 
 export default class ChatRoom {
 	constructor(opts) {
@@ -23,14 +24,14 @@ export default class ChatRoom {
 		const info_html = `
 			<div class="mr-auto chat-profile-info pl-3">
 				<div class="font-weight-bold">${this.profile.name}</div>
-				<div style="color: ${
-					this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'
-				}">Hello, whats up?</div>
+				<div style="color: ${this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'}">${
+			this.profile.last_message
+		}</div>
 			</div>
 		`;
 		const date_html = `
 			<div class="chat-date">
-				Yesterday
+				${get_date_from_now(this.profile.last_date)}
 			</div>
 		`;
 		let inner_html = '';
