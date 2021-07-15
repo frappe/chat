@@ -1,10 +1,10 @@
 import { get_current_time, scroll_to_bottom } from './chat_utils';
 
 export default class ChatSpace {
-	constructor($wrapper, chat_list, profile) {
-		this.chat_list = chat_list;
-		this.$wrapper = $wrapper;
-		this.profile = profile;
+	constructor(opts) {
+		this.chat_list = opts.chat_list;
+		this.$wrapper = opts.$wrapper;
+		this.profile = opts.profile;
 		this.setup();
 	}
 

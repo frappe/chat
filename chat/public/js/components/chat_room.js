@@ -51,11 +51,11 @@ export default class ChatRoom {
 			if (typeof this.chat_space !== 'undefined') {
 				this.chat_space.render();
 			} else {
-				this.chat_space = new ChatSpace(
-					this.$wrapper,
-					this.chat_list,
-					this.profile
-				);
+				this.chat_space = new ChatSpace({
+					$wrapper: this.$wrapper,
+					chat_list: this.chat_list,
+					profile: this.profile,
+				});
 			}
 		});
 	}
