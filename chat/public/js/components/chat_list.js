@@ -2,8 +2,9 @@ import ChatRoom from './chat_room';
 import { get_rooms } from './chat_utils';
 
 export default class ChatList {
-	constructor($wrapper) {
-		this.$wrapper = $wrapper;
+	constructor(opts) {
+		this.$wrapper = opts.$wrapper;
+		this.user = opts.user;
 		this.setup();
 	}
 
@@ -67,7 +68,10 @@ export default class ChatList {
 		this.chat_rooms = [];
 		this.rooms.forEach((element) => {
 			const profile = {
-				name: element.guest,
+				name: element.guest_name,
+				user: this.user,
+				last_message: element.last_message,
+				last_date: element.modified,
 			};
 			this.chat_rooms.push(
 				new ChatRoom({
