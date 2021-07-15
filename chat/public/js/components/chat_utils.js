@@ -34,7 +34,15 @@ async function get_rooms() {
 	console.log(res.message);
 	return await res.message;
 }
-async function get_messages(room) {}
+async function get_messages(room) {
+	const res = await frappe.call({
+		method: 'chat.api.message.get_all',
+		args: {
+			room: 'CR00001',
+		},
+	});
+	return await res.message;
+}
 async function get_settings() {
 	const res = await frappe.call({
 		type: 'GET',
@@ -57,6 +65,7 @@ export {
 	get_current_time,
 	scroll_to_bottom,
 	get_rooms,
+	get_messages,
 	get_settings,
 	setup_dependencies,
 	get_date_from_now,
