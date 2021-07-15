@@ -78,11 +78,11 @@
 	font-size: var(--font-size-sm);
 }
 
-.chat-message-container {
+.chat-rooms-container {
 	height: 480px;
 	overflow-y: scroll;
 
-	.chat-message {
+	.chat-room {
 		display: flex;
 		font-size: var(--font-size-sm);
 		cursor: pointer;

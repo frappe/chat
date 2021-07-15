@@ -11,7 +11,7 @@ export default class ChatMessage {
 
 	setup() {
 		this.$chat_message = $(document.createElement('div'));
-		this.$chat_message.addClass('chat-message');
+		this.$chat_message.addClass('chat-room');
 
 		this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
 		this.is_latest = Math.random() < 0.5;

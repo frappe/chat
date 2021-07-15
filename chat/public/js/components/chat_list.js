@@ -63,7 +63,7 @@ export default class ChatList {
 
 	setup_rooms() {
 		this.$chat_message_container = $(document.createElement('div'));
-		this.$chat_message_container.addClass('chat-message-container');
+		this.$chat_message_container.addClass('chat-rooms-container');
 		this.chat_messages = [];
 		this.rooms.forEach((element) => {
 			const profile = {
