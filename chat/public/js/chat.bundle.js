@@ -2,6 +2,7 @@
 // Author - Nihal Mittal <nihal@erpnext.com>
 
 import { ChatBubble, ChatList } from './components';
+import { get_settings, setup_dependencies } from './components';
 frappe.provide('frappe.Chat');
 
 /** Spawns a chat widget on any web page */
@@ -20,20 +21,15 @@ frappe.Chat = class {
 		this.is_open = false;
 		this.chat_bubble = new ChatBubble(this);
 		this.$chat_container.appendTo(this.$app_element);
-		this.chat_list = new ChatList(this.$chat_container);
-		this.chat_list.render();
-		this.setup_dependencies();
-	}
-	async setup_dependencies() {
-		await frappe.require(
-			[
-				'assets/frappe/js/lib/socket.io.min.js',
-				'assets/frappe/js/frappe/socketio_client.js',
-			],
-			() => {
-				frappe.socketio.init(9000);
-			}
-		);
+		get_settings().then((res) => {
+			setup_dependencies(res.socketio_port);
+			this.user = res.user;
+			this.chat_list = new ChatList({
+				$wrapper: this.$chat_container,
+				user: this.user,
+			});
+			this.chat_list.render();
+		});
 	}
 
 	/** Shows the chat widget */
