@@ -11,8 +11,8 @@ function get_current_time() {
 
 function get_date_from_now(dateObj) {
 	const result = moment(dateObj).calendar(null, {
-		sameDay: 'HH:MM a',
-		lastDay: 'Yesterday',
+		sameDay: 'HH:MM A',
+		lastDay: '[Yesterday]',
 		sameElse: 'DD/MM/YYYY',
 	});
 	return result;
@@ -31,7 +31,6 @@ async function get_rooms() {
 		type: 'GET',
 		method: 'chat.api.room.get',
 	});
-	console.log(res.message);
 	return await res.message;
 }
 async function get_messages(room) {
