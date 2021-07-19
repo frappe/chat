@@ -21,7 +21,7 @@ function get_date_from_now(dateObj, type) {
 	});
 	return result;
 }
-function check_date_change(dateObj, prevObj) {
+function is_date_change(dateObj, prevObj) {
 	const curDate = moment(dateObj).format('DD/MM/YYYY');
 	const prevDate = moment(prevObj).format('DD/MM/YYYY');
 	return curDate !== prevDate;
@@ -77,5 +77,5 @@ export {
 	get_settings,
 	setup_dependencies,
 	get_date_from_now,
-	check_date_change,
+	is_date_change,
 };
