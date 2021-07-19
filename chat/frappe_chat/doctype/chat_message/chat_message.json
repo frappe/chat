@@ -1,13 +1,12 @@
 {
  "actions": [],
- "autoname": "format:{message} by {sender}",
+ "autoname": "format:{message} by {sender} {######}",
  "creation": "2021-07-12 17:55:33.244985",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "message",
-  "document_type",
   "sender",
   "room"
  ],
@@ -21,10 +20,9 @@
   },
   {
    "fieldname": "sender",
-   "fieldtype": "Dynamic Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Sender",
-   "options": "document_type",
    "reqd": 1
   },
   {
@@ -34,18 +32,11 @@
    "label": "Room",
    "options": "Chat Room",
    "reqd": 1
-  },
-  {
-   "fieldname": "document_type",
-   "fieldtype": "Link",
-   "label": "Document Type",
-   "options": "DocType",
-   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-15 15:55:59.520268",
+ "modified": "2021-07-19 18:10:35.608030",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Message",
@@ -61,6 +52,17 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
    "share": 1,
    "write": 1
   }
