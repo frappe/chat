@@ -3,7 +3,7 @@ import {
 	scroll_to_bottom,
 	get_messages,
 	get_date_from_now,
-	check_date_change,
+	is_date_change,
 } from './chat_utils';
 
 export default class ChatSpace {
@@ -17,17 +17,9 @@ export default class ChatSpace {
 	setup() {
 		this.$chat_space = $(document.createElement('div'));
 		this.$chat_space.addClass('chat-space');
-		this.setup_config();
 		this.setup_header();
 		this.fetch_and_setup_messages();
 		this.setup_socketio();
-	}
-	setup_config() {
-		if (frappe.session.logged_in_user) {
-			this.user = 'Admin';
-		} else {
-			this.user = 'Guest';
-		}
 	}
 
 	setup_header() {
@@ -76,25 +68,35 @@ export default class ChatSpace {
 		this.prevMessage = {};
 		this.message_html = ``;
 		messages_list.forEach((element) => {
-			const date_line_html = `
-				<div class="date-line"><span>${get_date_from_now(
-					element.creation,
-					'space'
-				)}</span></div>
-			`;
-			if ($.isEmptyObject(this.prevMessage)) {
-				this.message_html += date_line_html;
-			} else if (
-				check_date_change(element.creation, this.prevMessage.creation)
-			) {
-				this.message_html += date_line_html;
+			const date_line_html = this.make_date_line_html(element.creation);
+			this.message_html += date_line_html;
+
+			if (element.sender === this.profile.user) {
+				this.message_html += this.make_recipient_message(
+					element.message,
+					get_time(element.creation)
+				);
+			} else {
+				this.message_html += this.make_sender_message(
+					element.message,
+					get_time(element.creation)
+				);
 			}
-			this.message_html += this.make_sender_message(
-				element.message,
-				get_time(element.creation)
-			);
 			this.prevMessage = element;
 		});
+	}
+
+	make_date_line_html(dateObj) {
+		let result = `
+			<div class="date-line"><span>${get_date_from_now(dateObj, 'space')}</span></div>
+		`;
+		if ($.isEmptyObject(this.prevMessage)) {
+			return result;
+		} else if (is_date_change(dateObj, this.prevMessage.creation)) {
+			return result;
+		} else {
+			return '';
+		}
 	}
 
 	setup_actions() {
@@ -139,8 +141,8 @@ export default class ChatSpace {
 		const me = this;
 		frappe.realtime.publish('frappe.chat.room:subscribe', this.profile.room);
 		frappe.realtime.on('receive_message', function (res) {
-			if (res.user !== me.user) {
-				me.receive_message(res.message, '12:32 pm');
+			if (res.user !== me.profile.user) {
+				me.receive_message(res.message, get_time(res.creation));
 			}
 		});
 	}
@@ -180,7 +182,7 @@ export default class ChatSpace {
 			method: 'chat.api.message.send',
 			args: {
 				message: message,
-				user: this.user,
+				user: this.profile.user,
 				room: this.profile.room,
 			},
 		});
