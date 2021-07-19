@@ -1,21 +1,30 @@
 import moment from 'moment';
 
-function get_current_time() {
-	const current_time = new Date().toLocaleString('en-US', {
-		hour: 'numeric',
-		minute: 'numeric',
-		hour12: true,
-	});
-	return current_time;
+function get_time(time) {
+	let current_time;
+	if (time) {
+		current_time = moment(time);
+	} else {
+		current_time = moment();
+	}
+	return current_time.format('h:mm A');
 }
 
-function get_date_from_now(dateObj) {
+function get_date_from_now(dateObj, type) {
+	const sameDay = type === 'space' ? '[Today]' : 'HH:MM A';
+	const elseDay = type === 'space' ? 'MMM D, YYYY' : 'DD/MM/YYYY';
 	const result = moment(dateObj).calendar(null, {
-		sameDay: 'HH:MM A',
+		sameDay: sameDay,
 		lastDay: '[Yesterday]',
-		sameElse: 'DD/MM/YYYY',
+		lastWeek: elseDay,
+		sameElse: elseDay,
 	});
 	return result;
+}
+function check_date_change(dateObj, prevObj) {
+	const curDate = moment(dateObj).format('DD/MM/YYYY');
+	const prevDate = moment(prevObj).format('DD/MM/YYYY');
+	return curDate !== prevDate;
 }
 
 function scroll_to_bottom($element) {
@@ -61,11 +70,12 @@ async function setup_dependencies(socketio_port) {
 	);
 }
 export {
-	get_current_time,
+	get_time,
 	scroll_to_bottom,
 	get_rooms,
 	get_messages,
 	get_settings,
 	setup_dependencies,
 	get_date_from_now,
+	check_date_change,
 };
