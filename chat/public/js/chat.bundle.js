@@ -1,8 +1,13 @@
 // frappe.Chat
 // Author - Nihal Mittal <nihal@erpnext.com>
 
-import { ChatBubble, ChatList } from './components';
-import { get_settings, setup_dependencies } from './components';
+import {
+	ChatBubble,
+	ChatList,
+	ChatSpace,
+	get_settings,
+	setup_dependencies,
+} from './components';
 frappe.provide('frappe.Chat');
 
 /** Spawns a chat widget on any web page */
@@ -24,12 +29,24 @@ frappe.Chat = class {
 		get_settings()
 			.then((res) => {
 				setup_dependencies(res.socketio_port);
-				this.user = res.user;
-				this.chat_list = new ChatList({
-					$wrapper: this.$chat_container,
-					user: this.user,
-				});
-				this.chat_list.render();
+
+				if (res.is_admin) {
+					this.chat_list = new ChatList({
+						$wrapper: this.$chat_container,
+						user: res.user,
+						is_admin: res.is_admin,
+					});
+					this.chat_list.render();
+				} else {
+					this.chat_space = new ChatSpace({
+						$wrapper: this.$chat_container,
+						profile: {
+							name: 'Frappe',
+							is_admin: res.is_admin,
+							room: 'CR00001',
+						},
+					});
+				}
 			})
 			.catch((err) => {
 				console.error(err);
