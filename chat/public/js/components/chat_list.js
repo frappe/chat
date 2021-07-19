@@ -5,6 +5,7 @@ export default class ChatList {
 	constructor(opts) {
 		this.$wrapper = opts.$wrapper;
 		this.user = opts.user;
+		this.is_admin = opts.is_admin;
 		this.setup();
 	}
 
@@ -13,18 +14,6 @@ export default class ChatList {
 		this.$chat_list.addClass('chat-list');
 		this.setup_header();
 		this.setup_search();
-		this.profiles = [
-			{ name: 'Whitebeard' },
-			{ name: 'Blackbeard' },
-			{ name: 'Shanks' },
-			{ name: 'Mihawk' },
-			{ name: 'Oden' },
-			{ name: 'Zura' },
-			{ name: 'Kagura' },
-			{ name: 'Ginsan' },
-			{ name: 'Megane' },
-			{ name: 'Brook' },
-		];
 		this.fetch_and_setup_rooms();
 	}
 
@@ -72,6 +61,8 @@ export default class ChatList {
 				user: this.user,
 				last_message: element.last_message,
 				last_date: element.modified,
+				is_admin: this.is_admin,
+				room: element.name,
 			};
 			this.chat_rooms.push(
 				new ChatRoom({
