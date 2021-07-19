@@ -4,12 +4,19 @@ from frappe import _
 
 @frappe.whitelist(allow_guest=True)
 def send(message, user, room):
+    new_message = frappe.get_doc({
+        'doctype': 'Chat Message',
+        'message': message,
+        'sender': user,
+        'room': room,
+    }).insert()
     result = {
         'message': message,
-        'user': user
+        'user': user,
+        'creation': new_message.creation,
     }
     frappe.publish_realtime(event='receive_message',
-                            message=result, room=room)
+                            message=result, room=room, user='Guest')
 
 
 @frappe.whitelist(allow_guest=True)
