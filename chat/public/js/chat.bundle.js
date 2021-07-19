@@ -26,33 +26,35 @@ frappe.Chat = class {
 		this.is_open = false;
 		this.chat_bubble = new ChatBubble(this);
 		this.$chat_container.appendTo(this.$app_element);
-		get_settings()
-			.then((res) => {
-				setup_dependencies(res.socketio_port);
-
-				if (res.is_admin) {
-					this.chat_list = new ChatList({
-						$wrapper: this.$chat_container,
-						user: res.user,
-						is_admin: res.is_admin,
-					});
-					this.chat_list.render();
-				} else {
-					this.chat_space = new ChatSpace({
-						$wrapper: this.$chat_container,
-						profile: {
-							name: 'Frappe',
-							is_admin: res.is_admin,
-							room: 'CR00001',
-						},
-					});
-				}
-			})
-			.catch((err) => {
-				console.error(err);
-			});
+		this.setup_app();
 	}
 
+	async setup_app() {
+		try {
+			const res = await get_settings();
+			await setup_dependencies(res.socketio_port);
+			if (res.is_admin) {
+				this.chat_list = new ChatList({
+					$wrapper: this.$chat_container,
+					user: res.user,
+					is_admin: res.is_admin,
+				});
+				this.chat_list.render();
+			} else {
+				this.chat_space = new ChatSpace({
+					$wrapper: this.$chat_container,
+					profile: {
+						name: 'Frappe',
+						is_admin: res.is_admin,
+						room: 'CR00001',
+						user: res.user,
+					},
+				});
+			}
+		} catch (error) {
+			console.table(error);
+		}
+	}
 	/** Shows the chat widget */
 	show_chat_widget() {
 		this.is_open = true;
