@@ -1,4 +1,10 @@
-import { get_current_time, scroll_to_bottom } from './chat_utils';
+import {
+	get_time,
+	scroll_to_bottom,
+	get_messages,
+	get_date_from_now,
+	check_date_change,
+} from './chat_utils';
 
 export default class ChatSpace {
 	constructor(opts) {
@@ -13,9 +19,7 @@ export default class ChatSpace {
 		this.$chat_space.addClass('chat-space');
 		this.setup_config();
 		this.setup_header();
-		this.setup_messages();
-		this.setup_actions();
-		this.render();
+		this.fetch_and_setup_messages();
 		this.setup_socketio();
 	}
 	setup_config() {
@@ -30,9 +34,13 @@ export default class ChatSpace {
 		this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
 		const header_html = `
 			<div class="chat-space-header">
-				<div class="chat-back-button" data-toggle="tooltip" title="Go Back" >
-					<i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
-				</div>
+				${
+					this.profile.is_admin === true
+						? `<div class="chat-back-button" data-toggle="tooltip" title="Go Back" >
+								<i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
+							</div>`
+						: ``
+				}
 				${this.avatar_html}
 				<div class="chat-profile-info">
 					<div class="chat-profile-name">${this.profile.name}</div>
@@ -43,28 +51,50 @@ export default class ChatSpace {
 		`;
 		this.$chat_space.append(header_html);
 	}
+	fetch_and_setup_messages() {
+		get_messages(this.profile.room)
+			.then((res) => {
+				this.setup_messages(res);
+				this.setup_actions();
+				this.render();
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}
 
-	setup_messages() {
+	setup_messages(messages_list) {
 		this.$chat_space_container = $(document.createElement('div'));
 		this.$chat_space_container.addClass('chat-space-container');
 
-		let message_html = `
-			${this.make_sender_message('Hi john titor ?', '12:01 pm')}
-			${this.make_recipient_message(
-				'Hey, so I’m having a party at my place next weekend. Do you want to come?',
-				'1:58 pm'
-			)}
-		`;
+		this.make_messages_html(messages_list);
 
-		const date_line_html = `
-			<div class="date-line"><span>Today</span></div>
-		`;
-
-		for (let i = 0; i < 3; i++) {
-			message_html += date_line_html + message_html;
-		}
-		this.$chat_space_container.html(message_html);
+		this.$chat_space_container.html(this.message_html);
 		this.$chat_space.append(this.$chat_space_container);
+	}
+	make_messages_html(messages_list) {
+		this.prevMessage = {};
+		this.message_html = ``;
+		messages_list.forEach((element) => {
+			const date_line_html = `
+				<div class="date-line"><span>${get_date_from_now(
+					element.creation,
+					'space'
+				)}</span></div>
+			`;
+			if ($.isEmptyObject(this.prevMessage)) {
+				this.message_html += date_line_html;
+			} else if (
+				check_date_change(element.creation, this.prevMessage.creation)
+			) {
+				this.message_html += date_line_html;
+			}
+			this.message_html += this.make_sender_message(
+				element.message,
+				get_time(element.creation)
+			);
+			this.prevMessage = element;
+		});
 	}
 
 	setup_actions() {
@@ -107,7 +137,7 @@ export default class ChatSpace {
 
 	setup_socketio() {
 		const me = this;
-		frappe.realtime.publish('frappe.chat.room:subscribe', 'test');
+		frappe.realtime.publish('frappe.chat.room:subscribe', this.profile.room);
 		frappe.realtime.on('receive_message', function (res) {
 			if (res.user !== me.user) {
 				me.receive_message(res.message, '12:32 pm');
@@ -142,7 +172,7 @@ export default class ChatSpace {
 			return;
 		}
 		this.$chat_space_container.append(
-			this.make_recipient_message(message, get_current_time())
+			this.make_recipient_message(message, get_time())
 		);
 		$type_message.val('');
 		scroll_to_bottom(this.$chat_space_container);
@@ -151,6 +181,7 @@ export default class ChatSpace {
 			args: {
 				message: message,
 				user: this.user,
+				room: this.profile.room,
 			},
 		});
 	}
