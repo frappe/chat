@@ -46,7 +46,7 @@ async function get_messages(room) {
 	const res = await frappe.call({
 		method: 'chat.api.message.get_all',
 		args: {
-			room: 'CR00001',
+			room: room,
 		},
 	});
 	return await res.message;
