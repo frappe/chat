@@ -31,7 +31,7 @@ export default class ChatRoom {
 		`;
 		const date_html = `
 			<div class="chat-date">
-				${get_date_from_now(this.profile.last_date)}
+				${get_date_from_now(this.profile.last_date, 'room')}
 			</div>
 		`;
 		let inner_html = '';
