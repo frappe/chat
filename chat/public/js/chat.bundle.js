@@ -21,15 +21,19 @@ frappe.Chat = class {
 		this.is_open = false;
 		this.chat_bubble = new ChatBubble(this);
 		this.$chat_container.appendTo(this.$app_element);
-		get_settings().then((res) => {
-			setup_dependencies(res.socketio_port);
-			this.user = res.user;
-			this.chat_list = new ChatList({
-				$wrapper: this.$chat_container,
-				user: this.user,
+		get_settings()
+			.then((res) => {
+				setup_dependencies(res.socketio_port);
+				this.user = res.user;
+				this.chat_list = new ChatList({
+					$wrapper: this.$chat_container,
+					user: this.user,
+				});
+				this.chat_list.render();
+			})
+			.catch((err) => {
+				console.error(err);
 			});
-			this.chat_list.render();
-		});
 	}
 
 	/** Shows the chat widget */
