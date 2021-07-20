@@ -1,5 +1,16 @@
 @import 'frappe/public/css/font-awesome.min.css';
 
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+$font-size-5xl: 3rem;
+$font-size-6xl: 4rem;
+
 .chat-app {
 	position: fixed;
 	bottom: 24px;
@@ -75,7 +86,7 @@
 .chat-search {
 	border-radius: 6px;
 	background: var(--gray-100);
-	font-size: var(--font-size-sm);
+	font-size: $font-size-sm;
 }
 
 .chat-rooms-container {
@@ -84,7 +95,7 @@
 
 	.chat-room {
 		display: flex;
-		font-size: var(--font-size-sm);
+		font-size: $font-size-sm;
 		cursor: pointer;
 		position: relative;
 		padding: 10px;
@@ -92,6 +103,9 @@
 		color: var(--gray-900);
 		&:hover {
 			background: var(--gray-100);
+		}
+		.chat-profile-info {
+			margin-left: var(--margin-md);
 		}
 		.chat-date {
 			color: var(--gray-600);
@@ -126,15 +140,15 @@
 			cursor: pointer;
 		}
 		.chat-profile-info {
-			margin-left: 10px;
-			font-size: var(--font-size-sm);
+			margin-left: var(--margin-md);
+			font-size: $font-size-sm;
 			margin-right: auto;
 			.chat-profile-name {
 				color: var(--gray-900);
 				font-weight: 600;
 			}
 			.chat-profile-time {
-				font-size: var(--font-size-xs);
+				font-size: $font-size-xs;
 				color: var(--gray-600);
 			}
 		}
@@ -153,7 +167,7 @@
 				background: var(--primary-color);
 				color: var(--white);
 				padding: 8px;
-				font-size: var(--font-size-sm);
+				font-size: $font-size-sm;
 				border-radius: 13px 13px 13px 0px;
 				margin-right: 70px;
 			}
@@ -167,13 +181,13 @@
 				background: var(--gray-200);
 				color: var(--gray-900);
 				padding: 8px;
-				font-size: var(--font-size-sm);
+				font-size: $font-size-sm;
 				border-radius: 13px 13px 0px 13px;
 				margin-left: 70px;
 			}
 		}
 		.message-time {
-			font-size: var(--font-size-xs);
+			font-size: $font-size-xs;
 			color: var(--gray-500);
 		}
 		.date-line {
@@ -185,7 +199,7 @@
 			span {
 				background: var(--white);
 				padding: 0 8px;
-				font-size: var(--font-size-sm);
+				font-size: $font-size-sm;
 			}
 		}
 	}
@@ -201,12 +215,12 @@
 		.type-message {
 			margin: 0 10px;
 			border-radius: 100px;
-			font-size: var(--font-size-sm);
+			font-size: $font-size-sm;
 		}
 		.message-send-button {
 			cursor: pointer;
 			.fa-stack {
-				font-size: var(--font-size-lg);
+				font-size: $font-size-lg;
 				.fa-paper-plane {
 					font-size: 1rem;
 				}
