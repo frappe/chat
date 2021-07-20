@@ -44,7 +44,7 @@ frappe.Chat = class {
 				this.chat_space = new ChatSpace({
 					$wrapper: this.$chat_container,
 					profile: {
-						name: 'Frappe',
+						name: res.guest_title,
 						is_admin: res.is_admin,
 						room: 'CR00001',
 						user: res.user,
