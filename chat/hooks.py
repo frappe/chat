@@ -8,7 +8,7 @@ app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "nihalmittal47@gmail.com"
 app_license = "MIT"
-
+guest_title = app_title
 # Includes in <head>
 # ------------------
 
