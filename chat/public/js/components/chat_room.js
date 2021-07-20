@@ -22,7 +22,7 @@ export default class ChatRoom {
 		`;
 
 		const info_html = `
-			<div class="mr-auto chat-profile-info pl-3">
+			<div class="mr-auto chat-profile-info">
 				<div class="font-weight-bold">${this.profile.name}</div>
 				<div style="color: ${this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'}">${
 			this.profile.last_message

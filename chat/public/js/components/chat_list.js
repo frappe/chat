@@ -76,10 +76,21 @@ export default class ChatList {
 		this.$chat_list.append(this.$chat_rooms_container);
 	}
 
+	fitler_rooms(query) {
+		for (let room of this.chat_rooms) {
+			const txt = room.profile.name.toLowerCase();
+			if (txt.includes(query)) {
+				room.$chat_room.show();
+			} else {
+				room.$chat_room.hide();
+			}
+		}
+	}
+
 	setup_events() {
 		const me = this;
 		$('.chat-search-box').on('input', function (e) {
-			// Todo
+			me.fitler_rooms($(this).val().toLowerCase());
 		});
 	}
 
