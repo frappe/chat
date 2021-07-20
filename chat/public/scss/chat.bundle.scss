@@ -87,6 +87,11 @@ $font-size-6xl: 4rem;
 	border-radius: 6px;
 	background: var(--gray-100);
 	font-size: $font-size-sm;
+	.chat-search-box {
+		&:focus {
+			box-shadow: none;
+		}
+	}
 }
 
 .chat-rooms-container {
