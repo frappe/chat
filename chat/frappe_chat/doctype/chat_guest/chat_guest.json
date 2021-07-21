@@ -7,19 +7,12 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "guest_name",
   "email",
+  "guest_name",
   "token",
   "status"
  ],
  "fields": [
-  {
-   "fieldname": "guest_name",
-   "fieldtype": "Data",
-   "label": "Guest Name",
-   "reqd": 1,
-   "unique": 1
-  },
   {
    "fieldname": "email",
    "fieldtype": "Data",
@@ -41,11 +34,17 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Online\nOffline"
+  },
+  {
+   "fieldname": "guest_name",
+   "fieldtype": "Data",
+   "label": "Guest Name",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-15 13:20:00.760949",
+ "modified": "2021-07-21 17:21:37.633805",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Guest",
@@ -64,6 +63,16 @@
    "select": 1,
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
+   "share": 1
   }
  ],
  "sort_field": "modified",
