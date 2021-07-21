@@ -21,6 +21,7 @@ function get_date_from_now(dateObj, type) {
 	});
 	return result;
 }
+
 function is_date_change(dateObj, prevObj) {
 	const curDate = moment(dateObj).format('DD/MM/YYYY');
 	const prevDate = moment(prevObj).format('DD/MM/YYYY');
@@ -35,6 +36,7 @@ function scroll_to_bottom($element) {
 		300
 	);
 }
+
 async function get_rooms() {
 	const res = await frappe.call({
 		type: 'GET',
@@ -42,6 +44,7 @@ async function get_rooms() {
 	});
 	return await res.message;
 }
+
 async function get_messages(room) {
 	const res = await frappe.call({
 		method: 'chat.api.message.get_all',
@@ -51,6 +54,22 @@ async function get_messages(room) {
 	});
 	return await res.message;
 }
+
+async function send_message(message, user, room) {
+	try {
+		await frappe.call({
+			method: 'chat.api.message.send',
+			args: {
+				message: message,
+				user: user,
+				room: room,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 async function get_settings() {
 	const res = await frappe.call({
 		type: 'GET',
@@ -58,6 +77,7 @@ async function get_settings() {
 	});
 	return await res.message;
 }
+
 async function setup_dependencies(socketio_port) {
 	await frappe.require(
 		[
@@ -69,12 +89,27 @@ async function setup_dependencies(socketio_port) {
 		}
 	);
 }
+
+async function create_guest({ email, full_name, message }) {
+	const res = await frappe.call({
+		method: 'chat.api.user.validate_guest',
+		args: {
+			email: email,
+			full_name: full_name,
+			message: message,
+		},
+	});
+	return await res.message;
+}
+
 export {
 	get_time,
 	scroll_to_bottom,
 	get_rooms,
 	get_messages,
 	get_settings,
+	create_guest,
+	send_message,
 	setup_dependencies,
 	get_date_from_now,
 	is_date_change,

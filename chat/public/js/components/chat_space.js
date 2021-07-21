@@ -4,6 +4,7 @@ import {
 	get_messages,
 	get_date_from_now,
 	is_date_change,
+	send_message,
 } from './chat_utils';
 
 export default class ChatSpace {
@@ -25,7 +26,7 @@ export default class ChatSpace {
 	setup_header() {
 		this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
 		const header_html = `
-			<div class="chat-space-header">
+			<div class="chat-header">
 				${
 					this.profile.is_admin === true
 						? `<div class="chat-back-button" data-toggle="tooltip" title="Go Back" >
@@ -67,6 +68,14 @@ export default class ChatSpace {
 	make_messages_html(messages_list) {
 		this.prevMessage = {};
 		this.message_html = ``;
+		if (this.profile.message) {
+			messages_list.push(this.profile.message);
+			send_message(
+				this.profile.message.message,
+				this.profile.user,
+				this.profile.room
+			);
+		}
 		messages_list.forEach((element) => {
 			const date_line_html = this.make_date_line_html(element.creation);
 			this.message_html += date_line_html;
@@ -128,11 +137,11 @@ export default class ChatSpace {
 			me.chat_list.render();
 		});
 		$('.message-send-button').on('click', function () {
-			me.send_message();
+			me.handle_send_message();
 		});
 		$('.type-message').keypress(function (e) {
 			if (e.which === 13) {
-				me.send_message();
+				me.handle_send_message();
 			}
 		});
 	}
@@ -167,7 +176,7 @@ export default class ChatSpace {
 		return recipient_message_html;
 	}
 
-	send_message() {
+	handle_send_message() {
 		const $type_message = $('.type-message');
 		const message = $type_message.val();
 		if (message.length === 0) {
@@ -178,14 +187,7 @@ export default class ChatSpace {
 		);
 		$type_message.val('');
 		scroll_to_bottom(this.$chat_space_container);
-		frappe.call({
-			method: 'chat.api.message.send',
-			args: {
-				message: message,
-				user: this.profile.user,
-				room: this.profile.room,
-			},
-		});
+		send_message(message, this.profile.user, this.profile.room);
 	}
 
 	receive_message(message, time) {

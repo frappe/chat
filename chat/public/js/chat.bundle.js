@@ -5,6 +5,7 @@ import {
 	ChatBubble,
 	ChatList,
 	ChatSpace,
+	ChatForm,
 	get_settings,
 	setup_dependencies,
 } from './components';
@@ -41,15 +42,14 @@ frappe.Chat = class {
 				});
 				this.chat_list.render();
 			} else {
-				this.chat_space = new ChatSpace({
+				this.chat_form = new ChatForm({
 					$wrapper: this.$chat_container,
 					profile: {
 						name: res.guest_title,
 						is_admin: res.is_admin,
-						room: 'CR00001',
-						user: res.user,
 					},
 				});
+				this.chat_form.render();
 			}
 		} catch (error) {
 			console.table(error);

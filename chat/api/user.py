@@ -33,9 +33,9 @@ def validate_guest(email, full_name, message):
         room = existing_room[0]['name']
 
     result = {
-        email: email,
-        full_name: full_name,
-        message: message,
-        room: room,
+        'email': email,
+        'guest_name': full_name,
+        'message': message,
+        'room': room,
     }
     return result
