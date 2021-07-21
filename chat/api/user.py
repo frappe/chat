@@ -22,8 +22,6 @@ def validate_guest(email, full_name, message):
             'guest_name': full_name,
             'token': 'aa'
         }).insert()
-
-    if not frappe.db.exists({'doctype': 'Chat Room', 'guest': email}):
         new_room = frappe.get_doc({
             'doctype': 'Chat Room',
             'guest': email
