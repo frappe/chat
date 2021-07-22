@@ -11,6 +11,11 @@ $font-size-4xl: 2.25rem;
 $font-size-5xl: 3rem;
 $font-size-6xl: 4rem;
 
+@function calc_height($height, $offset) {
+	$result: $height - 16px - 39px - 3.5px - 33px - $offset;
+	@return $result;
+}
+
 .chat-app {
 	position: fixed;
 	bottom: 24px;
@@ -95,7 +100,7 @@ $font-size-6xl: 4rem;
 }
 
 .chat-rooms-container {
-	height: 480px;
+	height: calc_height(582px, 10px);
 	overflow-y: scroll;
 
 	.chat-room {
@@ -162,7 +167,7 @@ $font-size-6xl: 4rem;
 	.chat-space-container {
 		padding: var(--padding-sm);
 		word-wrap: break-word;
-		height: 475px;
+		height: calc_height(582px, 15px);
 		overflow-y: scroll;
 		.sender-message {
 			display: flex;
