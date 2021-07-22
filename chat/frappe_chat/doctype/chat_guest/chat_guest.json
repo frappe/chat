@@ -10,7 +10,8 @@
   "email",
   "guest_name",
   "token",
-  "status"
+  "status",
+  "ip_address"
  ],
  "fields": [
   {
@@ -27,7 +28,9 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Token",
-   "reqd": 1
+   "read_only": 1,
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "fieldname": "status",
@@ -40,11 +43,19 @@
    "fieldtype": "Data",
    "label": "Guest Name",
    "reqd": 1
+  },
+  {
+   "fieldname": "ip_address",
+   "fieldtype": "Data",
+   "label": "Ip Address",
+   "read_only": 1,
+   "reqd": 1,
+   "set_only_once": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-21 17:21:37.633805",
+ "modified": "2021-07-22 16:45:31.248019",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Guest",
