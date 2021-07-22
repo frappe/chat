@@ -20,7 +20,8 @@ def validate_guest(email, full_name, message):
             'doctype': 'Chat Guest',
             'email': email,
             'guest_name': full_name,
-            'token': 'aa'
+            'token': frappe.generate_hash(),
+            'ip_address': frappe.local.request_ip
         }).insert()
         new_room = frappe.get_doc({
             'doctype': 'Chat Room',

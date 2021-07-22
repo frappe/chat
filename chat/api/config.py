@@ -11,3 +11,8 @@ def settings():
         'guest_title': ''.join(frappe.get_hooks('guest_title'))
     }
     return config
+
+
+def validate_token(token, ip_address):
+    # Todo
+    pass

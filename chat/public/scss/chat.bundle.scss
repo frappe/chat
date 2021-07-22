@@ -69,7 +69,7 @@ $font-size-6xl: 4rem;
 	}
 }
 .chat-cross-button {
-	// display: none;
+	display: none;
 	color: var(--gray-700);
 	cursor: pointer;
 }
@@ -275,9 +275,9 @@ $font-size-6xl: 4rem;
 	.chat-app {
 		max-width: 100%;
 	}
-	// .chat-bubble-closed {
-	// 	display: none;
-	// }
+	/* .chat-bubble-closed {
+		display: none;
+	} */
 	.chat-cross-button {
 		display: block;
 	}
