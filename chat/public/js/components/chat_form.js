@@ -21,10 +21,13 @@ export default class ChatForm {
 			<div class="chat-header mb-2">
 				${this.avatar_html}
 				<div class="chat-profile-info">
-					<div class="chat-profile-name">${this.profile.name}</div>
+					<div class="chat-profile-name">
+						${this.profile.name}
+						<div class="online-circle"></div>
+					</div>
 					<div class="chat-profile-time">Typically replies in a few hours</div>
 				</div>
-				<i class="fa fa-expand fa-lg chat-expand-button"></i>
+				<i class="fa fa-times fa-lg chat-cross-button"></i>
 			</div>
 		`;
 		this.$chat_form.append(header_html);
@@ -32,7 +35,7 @@ export default class ChatForm {
 	setup_form() {
 		const form_html = `
 			<div class='chat-form-container'>
-				<p>Share your queries or comments here.</p>
+				<p class='chat-query-heading'>Share your queries or comments here.</p>
 				<form>
 					<div class='form-group'>
 						<label class='form-label'>Full Name</label>

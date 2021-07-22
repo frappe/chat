@@ -68,7 +68,8 @@ $font-size-6xl: 4rem;
 		box-shadow: var(--shadow-lg);
 	}
 }
-.chat-expand-button {
+.chat-cross-button {
+	// display: none;
 	color: var(--gray-700);
 	cursor: pointer;
 }
@@ -158,8 +159,16 @@ $font-size-6xl: 4rem;
 		}
 		.chat-profile-time {
 			font-size: $font-size-xs;
-			color: var(--gray-600);
+			color: var(--gray-700);
 		}
+	}
+	.online-circle {
+		display: inline-block;
+		height: 0.5rem;
+		width: 0.5rem;
+		border-radius: 50%;
+		margin-left: 3px;
+		background: var(--green);
 	}
 }
 
@@ -248,9 +257,14 @@ $font-size-6xl: 4rem;
 
 .chat-form {
 	.chat-form-container {
+		.chat-query-heading {
+			font-size: $font-size-sm;
+			color: var(--gray-800);
+		}
 		padding: var(--padding-md);
 		.form-label {
-			font-size: $font-size-sm;
+			font-size: $font-size-xs;
+			font-weight: bold;
 		}
 		#chat-message-area {
 			resize: none;
@@ -260,5 +274,11 @@ $font-size-6xl: 4rem;
 @media (max-width: 576px) {
 	.chat-app {
 		max-width: 100%;
+	}
+	// .chat-bubble-closed {
+	// 	display: none;
+	// }
+	.chat-cross-button {
+		display: block;
 	}
 }

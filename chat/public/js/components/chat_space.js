@@ -36,10 +36,13 @@ export default class ChatSpace {
 				}
 				${this.avatar_html}
 				<div class="chat-profile-info">
-					<div class="chat-profile-name">${this.profile.name}</div>
+					<div class="chat-profile-name">
+					${this.profile.name}
+					<div class="online-circle"></div>
+					</div>
 					<div class="chat-profile-time">14 mins ago</div>
 				</div>
-				<i class="fa fa-expand fa-lg chat-expand-button"></i>
+				<i class="fa fa-times fa-lg chat-cross-button"></i>
 			</div>
 		`;
 		this.$chat_space.append(header_html);
