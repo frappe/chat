@@ -48,14 +48,12 @@
    "fieldname": "ip_address",
    "fieldtype": "Data",
    "label": "Ip Address",
-   "read_only": 1,
-   "reqd": 1,
-   "set_only_once": 1
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-22 16:45:31.248019",
+ "modified": "2021-07-23 12:30:07.736111",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Guest",
@@ -83,7 +81,9 @@
    "read": 1,
    "report": 1,
    "role": "Guest",
-   "share": 1
+   "select": 1,
+   "share": 1,
+   "write": 1
   }
  ],
  "sort_field": "modified",

@@ -70,10 +70,13 @@ async function send_message(message, user, room) {
 	}
 }
 
-async function get_settings() {
+async function get_settings(token) {
 	const res = await frappe.call({
 		type: 'GET',
 		method: 'chat.api.config.settings',
+		args: {
+			token: token,
+		},
 	});
 	return await res.message;
 }

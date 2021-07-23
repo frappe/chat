@@ -16,11 +16,12 @@ def validate_guest(email, full_name, message):
         return {'errors': errors}
 
     if not frappe.db.exists('Chat Guest', email):
+        token = frappe.generate_hash()
         frappe.get_doc({
             'doctype': 'Chat Guest',
             'email': email,
             'guest_name': full_name,
-            'token': frappe.generate_hash(),
+            'token': token,
             'ip_address': frappe.local.request_ip
         }).insert()
         new_room = frappe.get_doc({
@@ -29,6 +30,7 @@ def validate_guest(email, full_name, message):
         }).insert()
         room = new_room.name
     else:
+        token = frappe.get_doc('Chat Guest', email).token
         existing_room = frappe.db.get_list(
             'Chat Room', filters={'guest': email})
         room = existing_room[0]['name']
@@ -38,5 +40,6 @@ def validate_guest(email, full_name, message):
         'guest_name': full_name,
         'message': message,
         'room': room,
+        'token': token
     }
     return result
