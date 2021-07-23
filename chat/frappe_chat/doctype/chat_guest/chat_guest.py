@@ -1,8 +1,10 @@
 # Copyright (c) 2021, codescientist703 and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
 from frappe.model.document import Document
 
+
 class ChatGuest(Document):
-	pass
+    def before_save(self):
+        self.ip_address = frappe.local.request_ip
