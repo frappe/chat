@@ -50,7 +50,7 @@ export default class ChatList {
   setup_rooms() {
     this.$chat_rooms_container = $(document.createElement('div'));
     this.$chat_rooms_container.addClass('chat-rooms-container');
-    this.chat_rooms = [];
+    this.chat_rooms = new Map();
     this.rooms.forEach((element) => {
       const profile = {
         name: element.guest_name,
@@ -60,7 +60,8 @@ export default class ChatList {
         is_admin: this.is_admin,
         room: element.name,
       };
-      this.chat_rooms.push(
+      this.chat_rooms.set(
+        profile.room,
         new ChatRoom({
           $wrapper: this.$wrapper,
           $chat_rooms_container: this.$chat_rooms_container,
@@ -73,7 +74,7 @@ export default class ChatList {
   }
 
   fitler_rooms(query) {
-    for (let room of this.chat_rooms) {
+    for (const room of this.chat_rooms.values()) {
       const txt = room.profile.name.toLowerCase();
       if (txt.includes(query)) {
         room.$chat_room.show();
@@ -92,9 +93,9 @@ export default class ChatList {
 
   render_messages() {
     this.$chat_rooms_container.empty();
-    this.chat_rooms.forEach((element) => {
+    for (const element of this.chat_rooms.values()) {
       element.render();
-    });
+    }
   }
 
   render() {
