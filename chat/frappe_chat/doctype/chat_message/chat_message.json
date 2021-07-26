@@ -1,6 +1,5 @@
 {
  "actions": [],
- "autoname": "format:{message} by {sender} {######}",
  "creation": "2021-07-12 17:55:33.244985",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -36,7 +35,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-19 18:10:35.608030",
+ "modified": "2021-07-26 15:19:05.744397",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Message",
