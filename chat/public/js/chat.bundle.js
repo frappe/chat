@@ -41,7 +41,7 @@ frappe.Chat = class {
       await setup_dependencies(res.socketio_port);
 
       if (res.is_admin) {
-        // If the user is admin render everthing
+        // If the user is admin, render everthing
         this.chat_list = new ChatList({
           $wrapper: this.$chat_container,
           user: res.user,
@@ -49,7 +49,7 @@ frappe.Chat = class {
         });
         this.chat_list.render();
       } else if (res.is_verified) {
-        // If the token and ip address matches directly render the chat space
+        // If the token and ip address matches, directly render the chat space
         const chat_space = new ChatSpace({
           $wrapper: this.$chat_container,
           profile: {
@@ -60,7 +60,7 @@ frappe.Chat = class {
           },
         });
       } else {
-        //Render the form is user is not verified
+        //Render the form if is user is not verified
         this.chat_form = new ChatForm({
           $wrapper: this.$chat_container,
           profile: {

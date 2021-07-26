@@ -22,15 +22,15 @@ export default class ChatRoom {
 		`;
 
     const info_html = `
-			<div class="mr-auto chat-profile-info">
-				<div class="font-weight-bold">${this.profile.name}</div>
-				<div style="color: ${this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'}">${
+			<div class='mr-auto chat-profile-info'>
+				<div class='font-weight-bold'>${this.profile.name}</div>
+				<div style='color: ${this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'}'>${
       this.profile.last_message || ''
     }</div>
 			</div>
 		`;
     const date_html = `
-			<div class="chat-date">
+			<div class='chat-date'>
 				${get_date_from_now(this.profile.last_date, 'room')}
 			</div>
 		`;

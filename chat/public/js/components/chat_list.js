@@ -19,10 +19,10 @@ export default class ChatList {
 
   setup_header() {
     const chat_list_header_html = `
-			<div class="chat-list-header">
+			<div class='chat-list-header'>
 				<h3>Chats</h3>
-				<div class="chat-list-actions">
-					<i class="fa fa-times fa-lg chat-cross-button"></i>
+				<div class='chat-list-actions'>
+					<i class='fa fa-times fa-lg chat-cross-button'></i>
 				</div>
 			</div>
 		`;
@@ -31,11 +31,11 @@ export default class ChatList {
 
   setup_search() {
     const chat_list_search_html = `
-			<div class="input-group my-2 chat-search">
-				<i class="fa fa-search pt-2 pl-3"></i>
-				<input class="form-control py-1 chat-search-box" 
-				type="search" 
-				placeholder="Search or Create a new conversation"
+			<div class='input-group my-2 chat-search'>
+				<i class='fa fa-search pt-2 pl-3'></i>
+				<input class='form-control py-1 chat-search-box'
+				type='search' 
+				placeholder='Search or Create a new conversation'
 				>	
 			</div>
 		`;

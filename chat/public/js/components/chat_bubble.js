@@ -10,8 +10,8 @@ export default class ChatBubble {
     this.closed_title = 'Close Chat';
     this.open_inner_html = `
 			<div class='p-3 chat-bubble'>
-				<i class="fa fa-comment 
-					pl-2 fa-lg fa-flip-horizontal"
+				<i class='fa fa-comment 
+					pl-2 fa-lg fa-flip-horizontal'
 				>
 				</i>
 				<div>Chat With Us</div>
@@ -19,7 +19,7 @@ export default class ChatBubble {
 		`;
     this.closed_inner_html = `
 		<div class='chat-bubble-closed chat-bubble'>
-			<i class="fa fa-times fa-2x cross-icon"></i>
+			<i class='fa fa-times fa-2x cross-icon'></i>
 		</div>
 		`;
     this.$chat_bubble

@@ -18,16 +18,16 @@ export default class ChatForm {
   setup_header() {
     this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
     const header_html = `
-			<div class="chat-header mb-2">
+			<div class='chat-header mb-2'>
 				${this.avatar_html}
-				<div class="chat-profile-info">
-					<div class="chat-profile-name">
+				<div class='chat-profile-info'>
+					<div class='chat-profile-name'>
 						${this.profile.name}
-						<div class="online-circle"></div>
+						<div class='online-circle'></div>
 					</div>
-					<div class="chat-profile-time">Typically replies in a few hours</div>
+					<div class='chat-profile-time'>Typically replies in a few hours</div>
 				</div>
-				<i class="fa fa-times fa-lg chat-cross-button"></i>
+				<i class='fa fa-times fa-lg chat-cross-button'></i>
 			</div>
 		`;
     this.$chat_form.append(header_html);

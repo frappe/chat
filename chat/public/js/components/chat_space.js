@@ -26,23 +26,23 @@ export default class ChatSpace {
   setup_header() {
     this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
     const header_html = `
-			<div class="chat-header">
+			<div class='chat-header'>
 				${
           this.profile.is_admin === true
-            ? `<div class="chat-back-button" data-toggle="tooltip" title="Go Back" >
-								<i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
+            ? `<div class='chat-back-button' data-toggle='tooltip' title='Go Back' >
+								<i class='fa fa-angle-left fa-lg' ></i>
 							</div>`
             : ``
         }
 				${this.avatar_html}
-				<div class="chat-profile-info">
-					<div class="chat-profile-name">
+				<div class='chat-profile-info'>
+					<div class='chat-profile-name'>
 					${this.profile.name}
-					<div class="online-circle"></div>
+					<div class='online-circle'></div>
 					</div>
-					<div class="chat-profile-time">14 mins ago</div>
+					<div class='chat-profile-time'>14 mins ago</div>
 				</div>
-				<i class="fa fa-times fa-lg chat-cross-button"></i>
+				<i class='fa fa-times fa-lg chat-cross-button'></i>
 			</div>
 		`;
     this.$chat_space.append(header_html);
@@ -100,7 +100,7 @@ export default class ChatSpace {
 
   make_date_line_html(dateObj) {
     let result = `
-			<div class="date-line"><span>${get_date_from_now(dateObj, 'space')}</span></div>
+			<div class='date-line'><span>${get_date_from_now(dateObj, 'space')}</span></div>
 		`;
     if ($.isEmptyObject(this.prevMessage)) {
       return result;
@@ -115,17 +115,17 @@ export default class ChatSpace {
     this.$chat_actions = $(document.createElement('div'));
     this.$chat_actions.addClass('chat-space-actions');
     const chat_actions_html = `
-			<i class="fa fa-paperclip fa-lg fa-flip-horizontal 
-			fa-flip-vertical attach-items" >
+			<i class='fa fa-paperclip fa-lg fa-flip-horizontal 
+			fa-flip-vertical attach-items' >
 			</i>
-			<input class="form-control type-message" 
-				type="search" 
-				placeholder="Type message"
+			<input class='form-control type-message' 
+				type='search' 
+				placeholder='Type message'
 			>
-			<div class="message-send-button">
-				<span class="fa-stack">
-					<i class="fa fa-circle fa-stack-2x" ></i>
-					<i class="fa fa-paper-plane fa-stack-1x fa-inverse"></i>
+			<div class='message-send-button'>
+				<span class='fa-stack'>
+					<i class='fa fa-circle fa-stack-2x' ></i>
+					<i class='fa fa-paper-plane fa-stack-1x fa-inverse'></i>
 				</span>
 			</div>
 		`;
@@ -161,9 +161,9 @@ export default class ChatSpace {
 
   make_sender_message(message, time) {
     const sender_message_html = `
-		<div class="sender-message">
-			<div class="message-bubble">${message}</div>
-			<div class="message-time">${time}</div>
+		<div class='sender-message'>
+			<div class='message-bubble'>${message}</div>
+			<div class='message-time'>${time}</div>
 		</div>
 		`;
     return sender_message_html;
@@ -171,9 +171,9 @@ export default class ChatSpace {
 
   make_recipient_message(message, time) {
     const recipient_message_html = `
-		<div class="recipient-message">
-			<div class="message-bubble">${message}</div>
-			<div class="message-time">${time}</div>
+		<div class='recipient-message'>
+			<div class='message-bubble'>${message}</div>
+			<div class='message-time'>${time}</div>
 		</div>
 		`;
     return recipient_message_html;
