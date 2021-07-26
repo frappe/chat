@@ -20,13 +20,18 @@ export default class ChatRoom {
     const is_latest_html = `
 			<div class="chat-latest"></div>
 		`;
-
+    let last_message = this.profile.last_message || '';
+    if (this.profile.last_message) {
+      if (last_message.length > 22) {
+        last_message = this.profile.last_message.substring(0, 22) + '...';
+      }
+    }
     const info_html = `
 			<div class='mr-auto chat-profile-info'>
 				<div class='font-weight-bold'>${this.profile.name}</div>
-				<div style='color: ${this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'}'>${
-      this.profile.last_message || ''
-    }</div>
+				<div style='color: ${
+          this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'
+        }'>${last_message}</div>
 			</div>
 		`;
     const date_html = `
