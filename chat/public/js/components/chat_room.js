@@ -27,8 +27,9 @@ export default class ChatRoom {
       }
     }
     const info_html = `
-			<div class='mr-auto chat-profile-info'>
-				<div class='font-weight-bold'>${this.profile.name}</div>
+			<div class='chat-profile-info'>
+				<div class='chat-name'>${this.profile.name} 
+					<div class='chat-latest'></div></div>
 				<div style='color: ${
           this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'
         }'>${last_message}</div>
@@ -40,10 +41,9 @@ export default class ChatRoom {
 			</div>
 		`;
     let inner_html = '';
-    if (this.is_latest) {
-      inner_html += is_latest_html;
-    }
+
     inner_html += this.avatar_html + info_html + date_html;
+
     this.$chat_room.html(inner_html);
   }
 
