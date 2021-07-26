@@ -10,6 +10,9 @@ def send(message, user, room):
         'sender': user,
         'room': room,
     }).insert()
+    doc_room = frappe.get_doc('Chat Room', room)
+    doc_room.last_message = message
+    doc_room.save()
     result = {
         'message': message,
         'user': user,
