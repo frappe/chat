@@ -42,7 +42,6 @@ export default class ChatSpace {
 					</div>
 					<div class='chat-profile-time'>14 mins ago</div>
 				</div>
-				<i class='fa fa-times fa-lg chat-cross-button'></i>
 			</div>
 		`;
     this.$chat_space.append(header_html);

@@ -27,7 +27,6 @@ export default class ChatForm {
 					</div>
 					<div class='chat-profile-time'>Typically replies in a few hours</div>
 				</div>
-				<i class='fa fa-times fa-lg chat-cross-button'></i>
 			</div>
 		`;
     this.$chat_form.append(header_html);

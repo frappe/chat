@@ -57,14 +57,7 @@ export default class ChatBubble {
 
   setup_events() {
     const me = this;
-    $('#chat-bubble').on('click', () => {
-      me.change_bubble();
-    });
-  }
-
-  setup_cross_event() {
-    const me = this;
-    $('.chat-cross-button').on('click', () => {
+    $('#chat-bubble, .chat-cross-button').on('click', () => {
       me.change_bubble();
     });
   }

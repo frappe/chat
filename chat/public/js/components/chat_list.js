@@ -21,9 +21,6 @@ export default class ChatList {
     const chat_list_header_html = `
 			<div class='chat-list-header'>
 				<h3>Chats</h3>
-				<div class='chat-list-actions'>
-					<i class='fa fa-times fa-lg chat-cross-button'></i>
-				</div>
 			</div>
 		`;
     this.$chat_list.append(chat_list_header_html);
