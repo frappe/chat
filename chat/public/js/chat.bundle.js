@@ -102,6 +102,6 @@ frappe.Chat = class {
 
 $(function () {
   if (frappe.session.logged_in_user) {
-    const ha = new frappe.Chat();
+    const frappe_chat = new frappe.Chat();
   }
 });
