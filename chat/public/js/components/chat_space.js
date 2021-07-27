@@ -29,9 +29,9 @@ export default class ChatSpace {
 			<div class='chat-header'>
 				${
           this.profile.is_admin === true
-            ? `<div class='chat-back-button' data-toggle='tooltip' title='Go Back' >
-								<i class='fa fa-angle-left fa-lg' ></i>
-							</div>`
+            ? `<span class='chat-back-button' data-toggle='tooltip' title='Go Back' >
+								${frappe.utils.icon('left')}
+							</span>`
             : ``
         }
 				${this.avatar_html}
@@ -114,17 +114,18 @@ export default class ChatSpace {
     this.$chat_actions = $(document.createElement('div'));
     this.$chat_actions.addClass('chat-space-actions');
     const chat_actions_html = `
-			<i class='fa fa-paperclip fa-lg fa-flip-horizontal 
-			fa-flip-vertical attach-items' >
-			</i>
+			<span class='attach-items'>
+				${frappe.utils.icon('attachment', 'lg')}
+			</span>
 			<input class='form-control type-message' 
 				type='search' 
 				placeholder='Type message'
 			>
-			<div class='message-send-button'>
-				<span class='fa-stack'>
-					<i class='fa fa-circle fa-stack-2x' ></i>
-					<i class='fa fa-paper-plane fa-stack-1x fa-inverse'></i>
+			<div>
+				<span class='message-send-button'>
+					<svg xmlns="http://www.w3.org/2000/svg" width="1.1rem" height="1.1rem" viewBox="0 0 24 24">
+						<path d="M24 0l-6 22-8.129-7.239 7.802-8.234-10.458 7.227-7.215-1.754 24-12zm-15 16.668v7.332l3.258-4.431-3.258-2.901z"/>
+					</svg>
 				</span>
 			</div>
 		`;

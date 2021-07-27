@@ -31,7 +31,9 @@ frappe.Chat = class {
       .hide();
 
     this.$chat_element.append(`
-			<i class='fa fa-times fa-lg chat-cross-button'></i>
+			<span class="chat-cross-button">
+				${frappe.utils.icon('close', 'lg')}
+			</span>
 		`);
     this.$chat_element.append(this.$chat_container);
     this.$chat_element.appendTo(this.$app_element);

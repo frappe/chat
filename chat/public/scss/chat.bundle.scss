@@ -1,5 +1,3 @@
-@import 'frappe/public/css/font-awesome.min.css';
-
 $font-size-xs: 0.75rem;
 $font-size-sm: 0.875rem;
 $font-size-base: 1rem;
@@ -73,8 +71,17 @@ $padding-chat-lr: 12px;
   display: flex;
   align-items: center;
   width: initial;
+  svg {
+    fill: var(--white);
+  }
   &:hover {
     box-shadow: var(--shadow-lg);
+  }
+  .chat-message-icon {
+    margin-right: var(--margin-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -83,7 +90,7 @@ $padding-chat-lr: 12px;
   color: var(--gray-700);
   cursor: pointer;
   position: absolute;
-  top: 20px;
+  top: 12px;
   right: 8px;
 }
 
@@ -169,7 +176,9 @@ $padding-chat-lr: 12px;
   .chat-back-button {
     height: 28px;
     width: 28px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
     background: var(--gray-100);
     margin-right: 10px;
@@ -254,7 +263,6 @@ $padding-chat-lr: 12px;
     display: flex;
     align-items: center;
     .attach-items {
-      color: var(--gray-700);
       cursor: pointer;
     }
     .type-message {
@@ -264,17 +272,15 @@ $padding-chat-lr: 12px;
     }
     .message-send-button {
       cursor: pointer;
-      .fa-stack {
-        font-size: $font-size-lg;
-        .fa-paper-plane {
-          font-size: 1rem;
-        }
-      }
-      .fa-circle {
-        color: var(--blue-500);
-      }
-      .fa-paper-plane {
-        color: var(--white);
+      height: 2rem;
+      width: 2rem;
+      border-radius: 50%;
+      background: var(--blue-500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg {
+        fill: var(--white);
       }
     }
   }
