@@ -28,12 +28,17 @@ export default class ChatList {
 
   setup_search() {
     const chat_list_search_html = `
-			<div class='chat-search'>
+		<div class='chat-search'>
+			<div class=' input-group'>
 				<input class='form-control chat-search-box'
 				type='search' 
 				placeholder='Search or Create a new conversation'
 				>	
+				<span class='search-icon'>
+					${frappe.utils.icon('search', 'sm')}
+				</span>
 			</div>
+		</div>
 		`;
     this.$chat_list.append(chat_list_search_html);
   }

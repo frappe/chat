@@ -106,17 +106,26 @@ $padding-chat-lr: 12px;
 
 .chat-list {
   .chat-list-header {
-    display: flex;
-    justify-content: space-between;
     padding: $padding-chat-lr $padding-chat-lr 0 $padding-chat-lr;
   }
-
   .chat-search {
     border-radius: 6px;
     background: var(--gray-100);
     font-size: $font-size-sm;
     margin: 0 $padding-chat-lr;
+    .search-icon {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      padding-right: 10px;
+      height: 100%;
+      margin-left: 12px;
+      z-index: 3;
+    }
     .chat-search-box {
+      width: 100%;
+      border-radius: 6px;
+      padding-left: 36px;
       &:focus {
         box-shadow: none;
       }
