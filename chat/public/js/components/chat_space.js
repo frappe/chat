@@ -83,15 +83,17 @@ export default class ChatSpace {
       this.message_html += date_line_html;
 
       if (element.sender === this.profile.user) {
-        this.message_html += this.make_recipient_message(
+        this.message_html += this.make_message(
           element.message,
-          get_time(element.creation)
-        );
+          get_time(element.creation),
+          'recipient'
+        ).prop('outerHTML');
       } else {
-        this.message_html += this.make_sender_message(
+        this.message_html += this.make_message(
           element.message,
-          get_time(element.creation)
-        );
+          get_time(element.creation),
+          'sender'
+        ).prop('outerHTML');
       }
       this.prevMessage = element;
     });
@@ -159,24 +161,20 @@ export default class ChatSpace {
     });
   }
 
-  make_sender_message(message, time) {
-    const sender_message_html = `
-		<div class='sender-message'>
-			<div class='message-bubble'>${message}</div>
-			<div class='message-time'>${time}</div>
-		</div>
-		`;
-    return sender_message_html;
-  }
+  make_message(message, time, type) {
+    const message_class =
+      type === 'recipient' ? 'recipient-message' : 'sender-message';
+    const $recipient_element = $(document.createElement('div')).addClass(
+      message_class
+    );
+    const $message_element = $(document.createElement('div'))
+      .addClass('message-bubble')
+      .text(message);
 
-  make_recipient_message(message, time) {
-    const recipient_message_html = `
-		<div class='recipient-message'>
-			<div class='message-bubble'>${message}</div>
-			<div class='message-time'>${time}</div>
-		</div>
-		`;
-    return recipient_message_html;
+    $recipient_element.append($message_element);
+    $recipient_element.append(`<div class='message-time'>${time}</div>`);
+
+    return $recipient_element;
   }
 
   handle_send_message() {
@@ -186,7 +184,7 @@ export default class ChatSpace {
       return;
     }
     this.$chat_space_container.append(
-      this.make_recipient_message(message, get_time())
+      this.make_message(message, get_time(), 'recipient')
     );
     $type_message.val('');
     scroll_to_bottom(this.$chat_space_container);
@@ -194,7 +192,9 @@ export default class ChatSpace {
   }
 
   receive_message(message, time) {
-    this.$chat_space_container.append(this.make_sender_message(message, time));
+    this.$chat_space_container.append(
+      this.make_message(message, time, 'sender')
+    );
     scroll_to_bottom(this.$chat_space_container);
   }
 
