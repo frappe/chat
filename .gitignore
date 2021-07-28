@@ -9,3 +9,4 @@ chat/www/test.js
 __pycache__
 dist
 .vscode
+node_modules
