@@ -81,6 +81,19 @@ async function get_settings(token) {
   return await res.message;
 }
 
+async function mark_message_read(room) {
+  try {
+    await frappe.call({
+      method: 'chat.api.message.mark_as_read',
+      args: {
+        room: room,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function setup_dependencies(socketio_port) {
   await frappe.require(
     [
@@ -116,4 +129,5 @@ export {
   setup_dependencies,
   get_date_from_now,
   is_date_change,
+  mark_message_read,
 };

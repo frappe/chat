@@ -1,5 +1,5 @@
 import ChatRoom from './chat_room';
-import { get_rooms } from './chat_utils';
+import { get_rooms, mark_message_read } from './chat_utils';
 
 export default class ChatList {
   constructor(opts) {
@@ -15,6 +15,7 @@ export default class ChatList {
     this.setup_header();
     this.setup_search();
     this.fetch_and_setup_rooms();
+    this.setup_socketio();
   }
 
   setup_header() {
@@ -43,12 +44,15 @@ export default class ChatList {
     this.$chat_list.append(chat_list_search_html);
   }
 
-  fetch_and_setup_rooms() {
-    get_rooms().then((res) => {
+  async fetch_and_setup_rooms() {
+    try {
+      const res = await get_rooms();
       this.rooms = res;
       this.setup_rooms();
       this.render_messages();
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   setup_rooms() {
@@ -63,6 +67,7 @@ export default class ChatList {
         last_date: element.modified,
         is_admin: this.is_admin,
         room: element.name,
+        is_read: element.is_read,
       };
       this.chat_rooms.set(
         profile.room,
@@ -105,5 +110,22 @@ export default class ChatList {
   render() {
     this.$wrapper.html(this.$chat_list);
     this.setup_events();
+  }
+  setup_socketio() {
+    const me = this;
+    frappe.realtime.publish(
+      'frappe.chat.room:subscribe',
+      'latest_chat_updates'
+    );
+    frappe.realtime.on('last_message', function (res) {
+      const chat_room_item = me.chat_rooms.get(res.room);
+      chat_room_item.set_last_message(res.message);
+
+      if ($('.chat-list').length) {
+        chat_room_item.set_as_unread();
+      } else if ($('.chat-space').length) {
+        mark_message_read(res.room);
+      }
+    });
   }
 }

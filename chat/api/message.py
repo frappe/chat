@@ -12,14 +12,25 @@ def send(message, user, room):
     }).insert()
     doc_room = frappe.get_doc('Chat Room', room)
     doc_room.last_message = message
+    doc_room.is_read = 0
     doc_room.save()
+
     result = {
         'message': message,
         'user': user,
         'creation': new_message.creation,
     }
+
+    latest_update_data = {
+        'room': room,
+        'message': message,
+    }
+
     frappe.publish_realtime(event='receive_message',
                             message=result, room=room, user='Guest')
+
+    frappe.publish_realtime(event='last_message',
+                            message=latest_update_data, room='latest_chat_updates')
 
 
 @frappe.whitelist(allow_guest=True)
@@ -32,3 +43,10 @@ def get_all(room):
                                order_by='creation asc'
                                )
     return result
+
+
+@frappe.whitelist()
+def mark_as_read(room):
+    doc_room = frappe.get_doc('Chat Room', room)
+    doc_room.is_read = 1
+    doc_room.save()

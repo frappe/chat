@@ -10,10 +10,12 @@ def get():
 			cr.modified,
 			cr.last_message,
 			cg.guest_name,
-			cg.email
+			cg.email,
+			cr.is_read
 		FROM `tabChat Room` cr
 			LEFT JOIN `tabChat Guest` cg 
 			ON cr.guest = cg.name
-		ORDER BY cr.modified DESC
+		ORDER BY cr.is_read ASC
 	""", as_dict=1)
+    print(data)
     return data

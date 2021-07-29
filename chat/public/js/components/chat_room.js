@@ -1,5 +1,5 @@
 import ChatSpace from './chat_space';
-import { get_date_from_now } from './chat_utils';
+import { get_date_from_now, mark_message_read } from './chat_utils';
 
 export default class ChatRoom {
   constructor(opts) {
@@ -15,11 +15,7 @@ export default class ChatRoom {
     this.$chat_room.addClass('chat-room');
 
     this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
-    this.is_latest = Math.random() < 0.5;
 
-    const is_latest_html = `
-			<div class="chat-latest"></div>
-		`;
     let last_message = this.profile.last_message || '';
     if (this.profile.last_message) {
       if (last_message.length > 22) {
@@ -28,16 +24,20 @@ export default class ChatRoom {
     }
     const info_html = `
 			<div class='chat-profile-info'>
-				<div class='chat-name'>${this.profile.name} 
-					<div class='chat-latest'></div></div>
+				<div class='chat-name'>
+					${this.profile.name} 
+					<div class='chat-latest' 
+						style='display: ${this.profile.is_read ? 'none' : 'inline-block'}'
+					></div>
+				</div>
 				<div style='color: ${
-          this.is_latest ? 'var(--gray-800)' : 'var(--gray-600)'
-        }'>${last_message}</div>
+          this.profile.is_read ? 'var(--gray-600)' : 'var(--gray-800)'
+        }' class='last-message'>${last_message}</div>
 			</div>
 		`;
     const date_html = `
 			<div class='chat-date'>
-				${get_date_from_now(this.profile.last_date, 'room')}
+				${get_date_from_now(new Date(this.profile.last_date), 'room')}
 			</div>
 		`;
     let inner_html = '';
@@ -45,6 +45,22 @@ export default class ChatRoom {
     inner_html += this.avatar_html + info_html + date_html;
 
     this.$chat_room.html(inner_html);
+  }
+
+  set_as_read() {
+    this.profile.is_read = 1;
+    this.$chat_room.find('.last-message').css('color', 'var(--gray-600)');
+    this.$chat_room.find('.chat-latest').hide();
+  }
+
+  set_last_message(message) {
+    this.$chat_room.find('.last-message').text(message);
+  }
+
+  set_as_unread() {
+    this.profile.is_read = 0;
+    this.$chat_room.find('.last-message').css('color', 'var(--gray-800)');
+    this.$chat_room.find('.chat-latest').show();
   }
 
   render() {
@@ -62,6 +78,10 @@ export default class ChatRoom {
           chat_list: this.chat_list,
           profile: this.profile,
         });
+      }
+      if (this.profile.is_read === 0) {
+        mark_message_read(this.profile.room);
+        this.set_as_read();
       }
     });
   }
