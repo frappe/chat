@@ -7,7 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "guest",
-  "last_message"
+  "last_message",
+  "is_read"
  ],
  "fields": [
   {
@@ -22,11 +23,17 @@
    "label": "Guest",
    "options": "Chat Guest",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_read",
+   "fieldtype": "Check",
+   "label": "Is Read"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-21 16:54:05.445455",
+ "modified": "2021-07-29 16:37:14.175007",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Room",
