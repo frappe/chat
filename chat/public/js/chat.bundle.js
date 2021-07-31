@@ -62,7 +62,7 @@ frappe.Chat = class {
         this.chat_list.render();
       } else if (res.is_verified) {
         // If the token and ip address matches, directly render the chat space
-        const chat_space = new ChatSpace({
+        this.chat_space = new ChatSpace({
           $wrapper: this.$chat_container,
           profile: {
             name: res.guest_title,
@@ -83,7 +83,7 @@ frappe.Chat = class {
         this.chat_form.render();
       }
     } catch (error) {
-      console.table(error);
+      console.error(error);
     }
   }
 

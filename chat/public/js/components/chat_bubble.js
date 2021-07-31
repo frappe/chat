@@ -1,3 +1,5 @@
+import { scroll_to_bottom } from './chat_utils';
+
 export default class ChatBubble {
   constructor(parent) {
     this.parent = parent;
@@ -55,6 +57,9 @@ export default class ChatBubble {
         })
         .html(this.closed_inner_html);
       this.parent.show_chat_widget();
+      if (typeof this.parent.chat_space !== 'undefined') {
+        scroll_to_bottom(this.parent.chat_space.$chat_space_container);
+      }
     }
   }
 
