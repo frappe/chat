@@ -17,5 +17,4 @@ def get():
 			ON cr.guest = cg.name
 		ORDER BY cr.is_read ASC
 	""", as_dict=1)
-    print(data)
     return data
