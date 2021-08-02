@@ -146,9 +146,13 @@ $height: 582px;
       padding: 10px 0;
       border-radius: 8px;
       color: var(--gray-900);
-
       &:hover {
         background: var(--gray-100);
+
+        /* Neat trick to add hover spacing without affecting layout */
+        border-left: 5px solid var(--gray-100);
+        border-right: 5px solid var(--gray-100);
+        margin: 0 -5px;
       }
 
       .chat-profile-info {
