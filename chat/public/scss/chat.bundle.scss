@@ -133,7 +133,7 @@ $padding-chat-lr: 12px;
   }
 
   .chat-rooms-container {
-    height: calc_height(582px, 10px);
+    height: calc_height(582px, 0px);
     overflow-y: scroll;
     padding: $padding-chat-lr;
 
