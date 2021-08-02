@@ -24,6 +24,7 @@ def send(message, user, room):
     latest_update_data = {
         'room': room,
         'message': message,
+        'creation': new_message.creation
     }
 
     frappe.publish_realtime(event='receive_message',

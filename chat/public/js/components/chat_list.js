@@ -119,7 +119,7 @@ export default class ChatList {
     );
     frappe.realtime.on('last_message', function (res) {
       const chat_room_item = me.chat_rooms.get(res.room);
-      chat_room_item.set_last_message(res.message);
+      chat_room_item.set_last_message(res.message, res.creation);
 
       if ($('.chat-list').length) {
         chat_room_item.set_as_unread();

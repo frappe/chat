@@ -1,5 +1,5 @@
 import ChatSpace from './chat_space';
-import { get_date_from_now, mark_message_read } from './chat_utils';
+import { get_date_from_now, mark_message_read, get_time } from './chat_utils';
 
 export default class ChatRoom {
   constructor(opts) {
@@ -18,8 +18,8 @@ export default class ChatRoom {
 
     let last_message = this.profile.last_message || '';
     if (this.profile.last_message) {
-      if (last_message.length > 22) {
-        last_message = this.profile.last_message.substring(0, 22) + '...';
+      if (last_message.length > 25) {
+        last_message = this.profile.last_message.substring(0, 25) + '...';
       }
     }
     const info_html = `
@@ -53,8 +53,9 @@ export default class ChatRoom {
     this.$chat_room.find('.chat-latest').hide();
   }
 
-  set_last_message(message) {
+  set_last_message(message, date) {
     this.$chat_room.find('.last-message').text(message);
+    this.$chat_room.find('.chat-date').text(get_time(date));
   }
 
   set_as_unread() {
