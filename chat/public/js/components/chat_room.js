@@ -18,8 +18,8 @@ export default class ChatRoom {
 
     let last_message = this.profile.last_message || '';
     if (this.profile.last_message) {
-      if (last_message.length > 25) {
-        last_message = this.profile.last_message.substring(0, 25) + '...';
+      if (last_message.length > 22) {
+        last_message = this.profile.last_message.substring(0, 22) + '...';
       }
     }
     const info_html = `
