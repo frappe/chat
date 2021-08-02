@@ -11,7 +11,7 @@ function get_time(time) {
 }
 
 function get_date_from_now(dateObj, type) {
-  const sameDay = type === 'space' ? '[Today]' : 'HH:MM A';
+  const sameDay = type === 'space' ? '[Today]' : 'h:mm A';
   const elseDay = type === 'space' ? 'MMM D, YYYY' : 'DD/MM/YYYY';
   const result = moment(dateObj).calendar(null, {
     sameDay: sameDay,
