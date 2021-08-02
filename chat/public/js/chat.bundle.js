@@ -8,6 +8,7 @@ import {
   ChatForm,
   get_settings,
   setup_dependencies,
+  scroll_to_bottom,
 } from './components';
 frappe.provide('frappe.Chat');
 
@@ -91,6 +92,9 @@ frappe.Chat = class {
   show_chat_widget() {
     this.is_open = true;
     this.$chat_element.fadeIn(250);
+    if (typeof this.chat_space !== 'undefined') {
+      scroll_to_bottom(this.chat_space.$chat_space_container);
+    }
   }
 
   /** Hides the chat widget */
