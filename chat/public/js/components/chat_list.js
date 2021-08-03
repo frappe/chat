@@ -113,11 +113,7 @@ export default class ChatList {
   }
   setup_socketio() {
     const me = this;
-    frappe.realtime.publish(
-      'frappe.chat.room:subscribe',
-      'latest_chat_updates'
-    );
-    frappe.realtime.on('last_message', function (res) {
+    frappe.realtime.on('latest_chat_updates', function (res) {
       const chat_room_item = me.chat_rooms.get(res.room);
       chat_room_item.set_last_message(res.message, res.creation);
 

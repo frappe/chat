@@ -27,11 +27,10 @@ def send(message, user, room):
         'creation': new_message.creation
     }
 
-    frappe.publish_realtime(event='receive_message',
-                            message=result, room=room, after_commit=True)
+    frappe.publish_realtime(event=room, message=result, after_commit=True)
 
-    frappe.publish_realtime(event='last_message',
-                            message=latest_update_data, room='latest_chat_updates', after_commit=True)
+    frappe.publish_realtime(event='latest_chat_updates',
+                            message=latest_update_data, after_commit=True)
 
 
 @frappe.whitelist(allow_guest=True)

@@ -153,8 +153,8 @@ export default class ChatSpace {
 
   setup_socketio() {
     const me = this;
-    frappe.realtime.publish('frappe.chat.room:subscribe', this.profile.room);
-    frappe.realtime.on('receive_message', function (res) {
+
+    frappe.realtime.on(this.profile.room, function (res) {
       if (res.user !== me.profile.user) {
         me.receive_message(res.message, get_time(res.creation));
       }
