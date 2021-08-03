@@ -36,7 +36,7 @@ def validate_guest(email, full_name, message):
 
     result = {
         'email': email,
-        'guest_name': full_name,
+        'guest_name': 'Guest',
         'message': message,
         'room': room,
         'token': token

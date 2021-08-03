@@ -82,19 +82,24 @@ export default class ChatSpace {
       const date_line_html = this.make_date_line_html(element.creation);
       this.message_html += date_line_html;
 
-      if (element.sender === this.profile.user) {
-        this.message_html += this.make_message(
-          element.message,
-          get_time(element.creation),
-          'recipient'
-        ).prop('outerHTML');
+      let message_type = 'recipient';
+
+      if (this.profile.is_admin === true) {
+        if (element.sender === 'Guest') {
+          message_type = 'sender';
+        }
       } else {
-        this.message_html += this.make_message(
-          element.message,
-          get_time(element.creation),
-          'sender'
-        ).prop('outerHTML');
+        if (element.sender !== 'Guest') {
+          message_type = 'sender';
+        }
       }
+
+      this.message_html += this.make_message(
+        element.message,
+        get_time(element.creation),
+        message_type
+      ).prop('outerHTML');
+
       this.prevMessage = element;
     });
   }

@@ -81,7 +81,7 @@ export default class ChatForm {
         const query_message = {
           message: form_values.message,
           creation: new Date(),
-          sender: res.email,
+          sender: res.guest_name,
         };
         localStorage.setItem('guest_token', res.token);
         const chat_space = new ChatSpace({
@@ -90,7 +90,7 @@ export default class ChatForm {
             name: this.profile.name,
             room: res.room,
             is_admin: this.profile.is_admin,
-            user: res.email,
+            user: res.guest_name,
             message: query_message,
           },
         });
