@@ -26,7 +26,11 @@ def validate_token(token):
 
     guest_details = {
         'email': guest_user.email,
-        'guest_name': guest_user.guest_name,
         'room': room,
     }
     return [True, guest_details]
+
+
+def get_admin_name(user_key):
+    full_name = frappe.db.get_value('User', user_key, 'full_name')
+    return full_name

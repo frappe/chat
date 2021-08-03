@@ -69,7 +69,7 @@ frappe.Chat = class {
             name: res.guest_title,
             room: res.guest.room,
             is_admin: res.is_admin,
-            user: res.guest.email,
+            user: res.user,
           },
         });
       } else {
