@@ -160,9 +160,7 @@ export default class ChatSpace {
     const me = this;
 
     frappe.realtime.on(this.profile.room, function (res) {
-      if (res.user !== me.profile.user) {
-        me.receive_message(res.message, get_time(res.creation));
-      }
+      me.receive_message(res, get_time(res.creation));
     });
   }
 
@@ -196,9 +194,16 @@ export default class ChatSpace {
     send_message(message, this.profile.user, this.profile.room);
   }
 
-  receive_message(message, time) {
+  receive_message(res, time) {
+    let chat_type = 'sender';
+    if (res.user === this.profile.user) {
+      return;
+    }
+    if (this.profile.is_admin === true && res.user !== 'Guest') {
+      chat_type = 'recipient';
+    }
     this.$chat_space_container.append(
-      this.make_message(message, time, 'sender')
+      this.make_message(res.message, time, chat_type)
     );
     scroll_to_bottom(this.$chat_space_container);
   }
