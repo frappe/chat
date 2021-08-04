@@ -40,7 +40,7 @@ export default class ChatSpace {
 					${this.profile.name}
 					<div class='online-circle'></div>
 					</div>
-					<div class='chat-profile-time'>Online</div>
+					<div class='chat-profile-status'>Online</div>
 				</div>
 			</div>
 		`;
