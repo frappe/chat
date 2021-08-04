@@ -1,5 +1,6 @@
 import frappe
 from frappe import _
+from chat.utils import update_room
 
 
 @frappe.whitelist(allow_guest=True)
@@ -10,10 +11,7 @@ def send(message, user, room):
         'sender': user,
         'room': room,
     }).insert()
-    doc_room = frappe.get_doc('Chat Room', room)
-    doc_room.last_message = message
-    doc_room.is_read = 0
-    doc_room.save()
+    update_room(room=room, last_message=message)
 
     result = {
         'message': message,
@@ -47,6 +45,4 @@ def get_all(room):
 
 @frappe.whitelist()
 def mark_as_read(room):
-    doc_room = frappe.get_doc('Chat Room', room)
-    doc_room.is_read = 1
-    doc_room.save()
+    frappe.enqueue('chat.utils.update_room', room=room, is_read=1)

@@ -34,3 +34,13 @@ def validate_token(token):
 def get_admin_name(user_key):
     full_name = frappe.db.get_value('User', user_key, 'full_name')
     return full_name
+
+
+def update_room(room, last_message=None, is_read=0):
+    doc_room = frappe.get_doc('Chat Room', room)
+    doc_room.is_read = is_read
+
+    if last_message:
+        doc_room.last_message = last_message
+
+    doc_room.save()
