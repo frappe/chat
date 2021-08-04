@@ -45,4 +45,5 @@ def get_all(room):
 
 @frappe.whitelist()
 def mark_as_read(room):
-    frappe.enqueue('chat.utils.update_room', room=room, is_read=1)
+    frappe.enqueue('chat.utils.update_room', room=room,
+                   is_read=1, update_modified=False)
