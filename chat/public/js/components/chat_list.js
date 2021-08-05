@@ -128,6 +128,7 @@ export default class ChatList {
   setup_socketio() {
     const me = this;
     frappe.realtime.on('latest_chat_updates', function (res) {
+      //Find the room with the specified room id
       const chat_room_item = me.chat_rooms.find(
         (element) => element[0] === res.room
       );
