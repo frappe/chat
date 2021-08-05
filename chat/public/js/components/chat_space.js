@@ -187,13 +187,18 @@ export default class ChatSpace {
 
   get_typing_changes(res) {
     if (res.user != this.profile.user) {
-      if (res.is_typing === false) {
-        $('.chat-profile-status').text('Online');
-      } else {
-        $('.chat-profile-status').text('Typing...');
-        const timeout = setTimeout(() => {
+      if (
+        (this.profile.is_admin === true && res.user === 'Guest') ||
+        this.profile.is_admin === false
+      ) {
+        if (res.is_typing === false) {
           $('.chat-profile-status').text('Online');
-        }, 3000);
+        } else {
+          $('.chat-profile-status').text('Typing...');
+          const timeout = setTimeout(() => {
+            $('.chat-profile-status').text('Online');
+          }, 3000);
+        }
       }
     }
   }
