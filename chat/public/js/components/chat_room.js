@@ -64,8 +64,13 @@ export default class ChatRoom {
     this.$chat_room.find('.chat-latest').show();
   }
 
-  render() {
-    this.$chat_rooms_container.append(this.$chat_room);
+  render(mode) {
+    if (mode == 'append') {
+      this.$chat_rooms_container.append(this.$chat_room);
+    } else {
+      this.$chat_rooms_container.prepend(this.$chat_room);
+    }
+
     this.setup_events();
   }
 

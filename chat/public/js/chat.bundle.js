@@ -67,7 +67,7 @@ frappe.Chat = class {
           $wrapper: this.$chat_container,
           profile: {
             name: res.guest_title,
-            room: res.guest.room,
+            room: res.room,
             is_admin: res.is_admin,
             user: res.user,
           },

@@ -5,6 +5,7 @@ import {
   get_date_from_now,
   is_date_change,
   send_message,
+  set_typing,
 } from './chat_utils';
 
 export default class ChatSpace {
@@ -17,6 +18,7 @@ export default class ChatSpace {
 
   setup() {
     this.$chat_space = $(document.createElement('div'));
+    this.typing = false;
     this.$chat_space.addClass('chat-space');
     this.setup_header();
     this.fetch_and_setup_messages();
@@ -142,6 +144,12 @@ export default class ChatSpace {
 
   setup_events() {
     const me = this;
+
+    //Timeout function
+    me.typing_timeout = () => {
+      me.typing = false;
+    };
+
     $('.chat-back-button').on('click', function () {
       me.chat_list.render_messages();
       me.chat_list.render();
@@ -149,9 +157,18 @@ export default class ChatSpace {
     $('.message-send-button').on('click', function () {
       me.handle_send_message();
     });
+
     $('.type-message').keypress(function (e) {
       if (e.which === 13) {
         me.handle_send_message();
+      } else {
+        //Set as typing
+        if (me.typing === false) {
+          me.typing = true;
+          set_typing(me.profile.room, me.profile.user, me.typing);
+
+          me.timeout = setTimeout(me.typing_timeout, 3000);
+        }
       }
     });
   }
@@ -162,6 +179,23 @@ export default class ChatSpace {
     frappe.realtime.on(this.profile.room, function (res) {
       me.receive_message(res, get_time(res.creation));
     });
+
+    frappe.realtime.on(this.profile.room + ':typing', function (res) {
+      me.get_typing_changes(res);
+    });
+  }
+
+  get_typing_changes(res) {
+    if (res.user != this.profile.user) {
+      if (res.is_typing === false) {
+        $('.chat-profile-status').text('Online');
+      } else {
+        $('.chat-profile-status').text('Typing...');
+        const timeout = setTimeout(() => {
+          $('.chat-profile-status').text('Online');
+        }, 3000);
+      }
+    }
   }
 
   make_message(message, time, type) {
@@ -185,6 +219,10 @@ export default class ChatSpace {
     const message = $type_message.val();
     if (message.length === 0) {
       return;
+    }
+    this.typing = false;
+    if (this.timeout) {
+      clearTimeout(this.timeout);
     }
     this.$chat_space_container.append(
       this.make_message(message, get_time(), 'recipient')

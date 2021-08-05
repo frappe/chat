@@ -118,6 +118,21 @@ async function create_guest({ email, full_name, message }) {
   return await res.message;
 }
 
+async function set_typing(room, user, is_typing) {
+  try {
+    await frappe.call({
+      method: 'chat.api.message.set_typing',
+      args: {
+        room: room,
+        user: user,
+        is_typing: is_typing,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export {
   get_time,
   scroll_to_bottom,
@@ -130,4 +145,5 @@ export {
   get_date_from_now,
   is_date_change,
   mark_message_read,
+  set_typing,
 };

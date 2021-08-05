@@ -25,10 +25,19 @@ def send(message, user, room):
         'creation': new_message.creation
     }
 
+    typing_data = {
+        'room': room,
+        'user': user,
+        'is_typing': False,
+    }
+    typing_event = room + ':typing'
+
     frappe.publish_realtime(event=room, message=result, after_commit=True)
 
     frappe.publish_realtime(event='latest_chat_updates',
                             message=latest_update_data, after_commit=True)
+    frappe.publish_realtime(event=typing_event,
+                            message=typing_data, after_commit=True)
 
 
 @frappe.whitelist(allow_guest=True)
@@ -47,3 +56,15 @@ def get_all(room):
 def mark_as_read(room):
     frappe.enqueue('chat.utils.update_room', room=room,
                    is_read=1, update_modified=False)
+
+
+@frappe.whitelist(allow_guest=True)
+def set_typing(room, user, is_typing):
+    result = {
+        'room': room,
+        'user': user,
+        'is_typing': is_typing,
+    }
+    event = room + ':typing'
+    frappe.publish_realtime(event=event,
+                            message=result)

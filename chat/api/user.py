@@ -28,6 +28,18 @@ def validate_guest(email, full_name, message):
             'guest': email
         }).insert()
         room = new_room.name
+
+        # New room will be created on client side
+        profile = {
+            'name': full_name,
+            'last_message': message,
+            'last_date': new_room.modified,
+            'room': room,
+            'is_read': 0
+        }
+        frappe.publish_realtime(event='new_room_creation',
+                                message=profile, after_commit=True)
+
     else:
         token = frappe.get_doc('Chat Guest', email).token
         existing_room = frappe.db.get_list(
