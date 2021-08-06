@@ -158,7 +158,7 @@ export default class ChatSpace {
       me.handle_send_message();
     });
 
-    $('.type-message').keypress(function (e) {
+    $('.type-message').keydown(function (e) {
       if (e.which === 13) {
         me.handle_send_message();
       } else {
