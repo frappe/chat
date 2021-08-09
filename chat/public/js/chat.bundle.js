@@ -107,7 +107,5 @@ frappe.Chat = class {
 };
 
 $(function () {
-  if (frappe.session.logged_in_user) {
-    const frappe_chat = new frappe.Chat();
-  }
+  const frappe_chat = new frappe.Chat();
 });
