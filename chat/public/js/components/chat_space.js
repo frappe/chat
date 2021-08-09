@@ -128,6 +128,7 @@ export default class ChatSpace {
 			</span>
 			<input type='file' id='file-uploader' 
 					accept='image/*, application/pdf, .doc, .docx'
+					style='display: none;'
 			>
 			<input class='form-control type-message' 
 				type='search' 

@@ -278,15 +278,6 @@ $height: 582px;
     .attach-items {
       cursor: pointer;
     }
-    #file-uploader {
-      overflow: hidden;
-      position: fixed;
-      width: 1px;
-      height: 1px;
-      z-index: -1;
-      opacity: 0;
-      background: inherit;
-    }
     .type-message {
       margin: 0 10px;
       border-radius: 100px;
