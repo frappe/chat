@@ -132,7 +132,13 @@ export default class ChatList {
       const chat_room_item = me.chat_rooms.find(
         (element) => element[0] === res.room
       );
-      chat_room_item[1].set_last_message(res.message, res.creation);
+
+      const message =
+        res.message.length > 24
+          ? res.message.substring(0, 24) + '...'
+          : res.message;
+
+      chat_room_item[1].set_last_message(message, res.creation);
 
       if ($('.chat-list').length) {
         chat_room_item[1].set_as_unread();
