@@ -126,6 +126,9 @@ export default class ChatSpace {
 			<span class='attach-items'>
 				${frappe.utils.icon('attachment', 'lg')}
 			</span>
+			<input type='file' id='file-uploader' 
+					accept='image/*, application/pdf, .doc, .docx'
+			>
 			<input class='form-control type-message' 
 				type='search' 
 				placeholder='Type message'
@@ -154,6 +157,11 @@ export default class ChatSpace {
       me.chat_list.render_messages();
       me.chat_list.render();
     });
+
+    $('.attach-items').on('click', function () {
+      $('#file-uploader').click();
+    });
+
     $('.message-send-button').on('click', function () {
       me.handle_send_message();
     });
