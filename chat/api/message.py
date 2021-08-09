@@ -19,12 +19,6 @@ def send(message, user, room):
         'creation': new_message.creation,
     }
 
-    latest_update_data = {
-        'room': room,
-        'message': message,
-        'creation': new_message.creation
-    }
-
     typing_data = {
         'room': room,
         'user': user,
@@ -35,7 +29,7 @@ def send(message, user, room):
     frappe.publish_realtime(event=room, message=result, after_commit=True)
 
     frappe.publish_realtime(event='latest_chat_updates',
-                            message=latest_update_data, after_commit=True)
+                            message=result, after_commit=True)
     frappe.publish_realtime(event=typing_event,
                             message=typing_data, after_commit=True)
 
