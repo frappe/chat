@@ -146,6 +146,65 @@ export default class ChatSpace {
     this.$chat_space.append(this.$chat_actions);
   }
 
+  upload_file(file) {
+    return new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+
+      xhr.upload.addEventListener('load', (e) => {
+        resolve();
+      });
+      xhr.addEventListener('error', (e) => {
+        reject();
+      });
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            let r = null;
+            let file_doc = null;
+            try {
+              r = JSON.parse(xhr.responseText);
+              if (r.message.doctype === 'File') {
+                file_doc = r.message;
+              }
+            } catch (e) {
+              r = xhr.responseText;
+            }
+            console.log(file_doc);
+          } else {
+            try {
+              const error = JSON.parse(xhr.responseText);
+              console.error(error);
+            } catch (e) {
+              // pass
+            }
+            frappe.request.cleanup({}, error);
+          }
+        }
+      };
+
+      xhr.open('POST', '/api/method/upload_file', true);
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader('X-Frappe-CSRF-Token', frappe.csrf_token);
+
+      let form_data = new FormData();
+
+      form_data.append('file', file.file_obj, file.name);
+      form_data.append('is_private', +false);
+
+      form_data.append('doctype', 'Chat Room');
+      form_data.append('docname', this.profile.room);
+
+      xhr.send(form_data);
+    });
+  }
+
+  async handle_upload_file(file) {
+    const dataurl = await frappe.dom.file_to_base64(file.file_obj);
+    file.dataurl = dataurl;
+    file.name = file.file_obj.name;
+    this.upload_file(file);
+  }
+
   setup_events() {
     const me = this;
 
@@ -179,6 +238,13 @@ export default class ChatSpace {
           me.timeout = setTimeout(me.typing_timeout, 3000);
         }
       }
+    });
+
+    $('#file-uploader').on('change', function () {
+      let file = {};
+      file.file_obj = this.files[0];
+
+      me.handle_upload_file(file);
     });
   }
 
