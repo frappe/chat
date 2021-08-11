@@ -147,13 +147,16 @@ export default class ChatSpace {
   }
 
   upload_file(file) {
+    const me = this;
     return new Promise((resolve, reject) => {
       let xhr = new XMLHttpRequest();
 
-      xhr.upload.addEventListener('load', (e) => {
+      xhr.upload.addEventListener('load', () => {
         resolve();
       });
-      xhr.addEventListener('error', (e) => {
+
+      xhr.addEventListener('error', () => {
+        frappe.throw(__('Internal Server Error'));
         reject();
       });
       xhr.onreadystatechange = () => {
@@ -169,15 +172,19 @@ export default class ChatSpace {
             } catch (e) {
               r = xhr.responseText;
             }
-            console.log(file_doc);
+            me.handle_send_message(file_doc.file_url);
           } else {
             try {
               const error = JSON.parse(xhr.responseText);
-              console.error(error);
+              const messages = JSON.parse(error._server_messages);
+
+              for (let i = 0; i < messages.length; i++) {
+                const errorObj = JSON.parse(messages[i]);
+                frappe.throw(__(errorObj.message));
+              }
             } catch (e) {
               // pass
             }
-            frappe.request.cleanup({}, error);
           }
         }
       };
@@ -202,7 +209,7 @@ export default class ChatSpace {
     const dataurl = await frappe.dom.file_to_base64(file.file_obj);
     file.dataurl = dataurl;
     file.name = file.file_obj.name;
-    this.upload_file(file);
+    return this.upload_file(file);
   }
 
   setup_events() {
@@ -284,9 +291,24 @@ export default class ChatSpace {
     const $recipient_element = $(document.createElement('div')).addClass(
       message_class
     );
-    const $message_element = $(document.createElement('div'))
-      .addClass('message-bubble')
-      .text(message);
+    const $message_element = $(document.createElement('div')).addClass(
+      'message-bubble'
+    );
+
+    const n = message.lastIndexOf('/');
+    const file_name = message.substring(n + 1) || '';
+
+    if (message.startsWith('/files/') && file_name !== '') {
+      let $url = $(document.createElement('a'));
+      $url.attr({ href: message, target: '_blank' }).text(file_name);
+
+      if (type === 'sender') {
+        $url.css('color', 'var(--white)');
+      }
+      $message_element.append($url);
+    } else {
+      $message_element.text(message);
+    }
 
     $recipient_element.append($message_element);
     $recipient_element.append(`<div class='message-time'>${time}</div>`);
@@ -294,9 +316,16 @@ export default class ChatSpace {
     return $recipient_element;
   }
 
-  handle_send_message() {
+  handle_send_message(attachment) {
     const $type_message = $('.type-message');
-    const message = $type_message.val();
+    let message = null;
+
+    if (attachment) {
+      message = attachment;
+    } else {
+      message = $type_message.val();
+    }
+
     if (message.length === 0) {
       return;
     }

@@ -7,8 +7,7 @@
  "field_order": [
   "message",
   "sender",
-  "room",
-  "attachment"
+  "room"
  ],
  "fields": [
   {
@@ -32,16 +31,11 @@
    "label": "Room",
    "options": "Chat Room",
    "reqd": 1
-  },
-  {
-   "fieldname": "attachment",
-   "fieldtype": "Attach",
-   "label": "Attachment"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-08-03 16:04:14.976774",
+ "modified": "2021-08-11 11:59:43.782707",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Message",

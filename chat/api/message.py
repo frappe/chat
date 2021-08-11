@@ -17,6 +17,7 @@ def send(message, user, room):
         'message': message,
         'user': user,
         'creation': new_message.creation,
+        'room': room,
     }
 
     typing_data = {
