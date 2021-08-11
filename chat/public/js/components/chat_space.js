@@ -48,16 +48,16 @@ export default class ChatSpace {
 		`;
     this.$chat_space.append(header_html);
   }
-  fetch_and_setup_messages() {
-    get_messages(this.profile.room)
-      .then((res) => {
-        this.setup_messages(res);
-        this.setup_actions();
-        this.render();
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+
+  async fetch_and_setup_messages() {
+    try {
+      const res = await get_messages(this.profile.room);
+      this.setup_messages(res);
+      this.setup_actions();
+      this.render();
+    } catch (error) {
+      console.error(err);
+    }
   }
 
   setup_messages(messages_list) {
@@ -69,6 +69,7 @@ export default class ChatSpace {
     this.$chat_space_container.html(this.message_html);
     this.$chat_space.append(this.$chat_space_container);
   }
+
   make_messages_html(messages_list) {
     this.prevMessage = {};
     this.message_html = ``;
