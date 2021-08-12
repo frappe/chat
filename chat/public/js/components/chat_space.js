@@ -31,7 +31,9 @@ export default class ChatSpace {
 			<div class='chat-header'>
 				${
           this.profile.is_admin === true
-            ? `<span class='chat-back-button' data-toggle='tooltip' title='Go Back' >
+            ? `<span class='chat-back-button' data-toggle='tooltip' title='${__(
+                'Go Back'
+              )}' >
 								${frappe.utils.icon('left')}
 							</span>`
             : ``
@@ -39,10 +41,10 @@ export default class ChatSpace {
 				${this.avatar_html}
 				<div class='chat-profile-info'>
 					<div class='chat-profile-name'>
-					${this.profile.name}
+					${__(this.profile.name)}
 					<div class='online-circle'></div>
 					</div>
-					<div class='chat-profile-status'>Online</div>
+					<div class='chat-profile-status'>${__('Online')}</div>
 				</div>
 			</div>
 		`;
@@ -109,7 +111,11 @@ export default class ChatSpace {
 
   make_date_line_html(dateObj) {
     let result = `
-			<div class='date-line'><span>${get_date_from_now(dateObj, 'space')}</span></div>
+			<div class='date-line'>
+				<span>
+					${__(get_date_from_now(dateObj, 'space'))}
+				</span>
+			</div>
 		`;
     if ($.isEmptyObject(this.prevMessage)) {
       return result;
@@ -133,7 +139,7 @@ export default class ChatSpace {
 			>
 			<input class='form-control type-message' 
 				type='search' 
-				placeholder='Type message'
+				placeholder='${__('Type message')}'
 			>
 			<div>
 				<span class='message-send-button'>
@@ -275,11 +281,11 @@ export default class ChatSpace {
         this.profile.is_admin === false
       ) {
         if (res.is_typing === false) {
-          $('.chat-profile-status').text('Online');
+          $('.chat-profile-status').text(__('Online'));
         } else {
-          $('.chat-profile-status').text('Typing...');
+          $('.chat-profile-status').text(__('Typing...'));
           const timeout = setTimeout(() => {
-            $('.chat-profile-status').text('Online');
+            $('.chat-profile-status').text(__('Online'));
           }, 3000);
         }
       }
@@ -301,18 +307,18 @@ export default class ChatSpace {
 
     if (message.startsWith('/files/') && file_name !== '') {
       let $url = $(document.createElement('a'));
-      $url.attr({ href: message, target: '_blank' }).text(file_name);
+      $url.attr({ href: message, target: '_blank' }).text(__(file_name));
 
       if (type === 'sender') {
         $url.css('color', 'var(--white)');
       }
       $message_element.append($url);
     } else {
-      $message_element.text(message);
+      $message_element.text(__(message));
     }
 
     $recipient_element.append($message_element);
-    $recipient_element.append(`<div class='message-time'>${time}</div>`);
+    $recipient_element.append(`<div class='message-time'>${__(time)}</div>`);
 
     return $recipient_element;
   }

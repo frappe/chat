@@ -22,10 +22,10 @@ export default class ChatForm {
 				${this.avatar_html}
 				<div class='chat-profile-info'>
 					<div class='chat-profile-name'>
-						${this.profile.name}
+						${__(this.profile.name)}
 						<div class='online-circle'></div>
 					</div>
-					<div class='chat-profile-status'>Typically replies in a few hours</div>
+					<div class='chat-profile-status'>${__('Typically replies in a few hours')}</div>
 				</div>
 			</div>
 		`;
@@ -35,25 +35,25 @@ export default class ChatForm {
   setup_form() {
     const form_html = `
 			<div class='chat-form-container'>
-				<p class='chat-query-heading'>Share your queries or comments here.</p>
+				<p class='chat-query-heading'>${__('Share your queries or comments here.')}</p>
 				<form>
 					<div class='form-group'>
-						<label class='form-label'>Full Name</label>
+						<label class='form-label'>${__('Full Name')}</label>
 						<input type='text' class='form-control' id='chat-fullname' 
-							placeholder='Please enter your full name'>
+							placeholder='${__('Please enter your full name')}'>
 					</div>
 					<div class='form-group'>
-						<label class='form-label'>Email Address</label>
+						<label class='form-label'>${__('Email Address')}</label>
 						<input type='email' class='form-control' id='chat-email' 
-							placeholder='Please enter your email'>
+							placeholder='${__('Please enter your email')}'>
 					</div>
 					<div class='form-group'>
-						<label class='form-label'>Message</label>
+						<label class='form-label'>${__('Message')}</label>
 						<textarea class='form-control' id='chat-message-area' 
-							placeholder='Please enter your message'></textarea>
+							placeholder='${__('Please enter your message')}'></textarea>
 					</div>
 					<button type='button' class='btn btn-primary w-100'
-						id='submit-form'>Start Conversation</button>
+						id='submit-form'>${__('Start Conversation')}</button>
 				</form>
 			</div>
 		`;

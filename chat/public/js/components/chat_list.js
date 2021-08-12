@@ -21,7 +21,7 @@ export default class ChatList {
   setup_header() {
     const chat_list_header_html = `
 			<div class='chat-list-header'>
-				<h3>Chats</h3>
+				<h3>${__('Chats')}</h3>
 			</div>
 		`;
     this.$chat_list.append(chat_list_header_html);
@@ -33,7 +33,7 @@ export default class ChatList {
 			<div class=' input-group'>
 				<input class='form-control chat-search-box'
 				type='search' 
-				placeholder='Search conversation'
+				placeholder='${__('Search conversation')}'
 				>	
 				<span class='search-icon'>
 					${frappe.utils.icon('search', 'sm')}

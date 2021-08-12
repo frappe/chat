@@ -25,19 +25,19 @@ export default class ChatRoom {
     const info_html = `
 			<div class='chat-profile-info'>
 				<div class='chat-name'>
-					${this.profile.name} 
+					${__(this.profile.name)} 
 					<div class='chat-latest' 
 						style='display: ${this.profile.is_read ? 'none' : 'inline-block'}'
 					></div>
 				</div>
 				<div style='color: ${
           this.profile.is_read ? 'var(--gray-600)' : 'var(--gray-800)'
-        }' class='last-message'>${last_message}</div>
+        }' class='last-message'>${__(last_message)}</div>
 			</div>
 		`;
     const date_html = `
 			<div class='chat-date'>
-				${get_date_from_now(this.profile.last_date, 'room')}
+				${__(get_date_from_now(this.profile.last_date, 'room'))}
 			</div>
 		`;
     let inner_html = '';
@@ -54,8 +54,8 @@ export default class ChatRoom {
   }
 
   set_last_message(message, date) {
-    this.$chat_room.find('.last-message').text(message);
-    this.$chat_room.find('.chat-date').text(get_time(date));
+    this.$chat_room.find('.last-message').text(__(message));
+    this.$chat_room.find('.chat-date').text(__(get_time(date)));
   }
 
   set_as_unread() {
