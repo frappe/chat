@@ -179,7 +179,12 @@ export default class ChatSpace {
             } catch (e) {
               r = xhr.responseText;
             }
-            me.handle_send_message(file_doc.file_url);
+            if (file_doc === null) {
+              frappe.throw(__('File upload failed!'));
+              reject();
+            } else {
+              me.handle_send_message(file_doc.file_url);
+            }
           } else {
             try {
               const error = JSON.parse(xhr.responseText);
