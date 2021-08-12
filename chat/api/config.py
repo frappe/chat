@@ -1,6 +1,6 @@
 import frappe
 from frappe import _
-from chat.utils import validate_token, get_admin_name
+from chat.utils import validate_token, get_admin_name, get_chat_settings
 
 
 @frappe.whitelist(allow_guest=True)
@@ -11,6 +11,8 @@ def settings(token):
         'is_admin': True if 'user_type' in frappe.session.data else False,
         'guest_title': ''.join(frappe.get_hooks('guest_title')),
     }
+
+    config = {**config, **get_chat_settings()}
 
     if config['is_admin']:
         config['user'] = get_admin_name(config['user_email'])

@@ -1,5 +1,6 @@
 import frappe
 from frappe import _
+from frappe.utils import has_common
 
 
 def validate_token(token):
@@ -45,3 +46,20 @@ def update_room(room, last_message=None, is_read=0, update_modified=True):
 
     frappe.db.set_value('Chat Room', room, new_values,
                         update_modified=update_modified)
+
+
+def get_chat_settings():
+    chat_settings = frappe.get_single('Chat Settings')
+    user_roles = frappe.get_roles()
+
+    allowed_roles = [u.role for u in chat_settings.roles]
+
+    result = {
+        'enable_chat': False
+    }
+
+    if not chat_settings.enable_chat or not has_common(allowed_roles, user_roles):
+        return result
+
+    result['enable_chat'] = True
+    return result

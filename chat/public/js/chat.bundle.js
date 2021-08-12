@@ -15,11 +15,11 @@ frappe.provide('frappe.Chat');
 /** Spawns a chat widget on any web page */
 frappe.Chat = class {
   constructor() {
-    this.setup();
+    this.setup_app();
   }
 
-  /** Set up all the required methods for chat widget */
-  setup() {
+  /** Create up all the required elements for chat widget */
+  create_app() {
     this.$app_element = $(document.createElement('div'));
     this.$app_element.addClass('chat-app');
     this.$chat_container = $(document.createElement('div'));
@@ -41,16 +41,19 @@ frappe.Chat = class {
 
     this.chat_bubble = new ChatBubble(this);
     this.chat_bubble.render();
-    this.setup_app();
   }
 
+  /** Load dependencies and fetch the settings */
   async setup_app() {
-    //Loading dependencies and fetch settings
-
     try {
       const token = localStorage.getItem('guest_token') || '';
       const res = await get_settings(token);
 
+      if (res.enable_chat === false) {
+        return;
+      }
+
+      this.create_app();
       await setup_dependencies(res.socketio_port);
 
       if (res.is_admin) {
@@ -107,5 +110,5 @@ frappe.Chat = class {
 };
 
 $(function () {
-  const frappe_chat = new frappe.Chat();
+  new frappe.Chat();
 });

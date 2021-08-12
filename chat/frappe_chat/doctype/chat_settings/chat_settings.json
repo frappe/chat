@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "creation": "2021-08-12 14:24:58.506382",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enable_chat",
+  "roles"
+ ],
+ "fields": [
+  {
+   "default": "Administrator\nGuest",
+   "fieldname": "roles",
+   "fieldtype": "Table",
+   "label": "Roles",
+   "options": "Has Role",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_chat",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enable Chat",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2021-08-12 15:31:22.272719",
+ "modified_by": "Administrator",
+ "module": "Frappe Chat",
+ "name": "Chat Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
