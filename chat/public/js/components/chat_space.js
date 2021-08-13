@@ -315,7 +315,7 @@ export default class ChatSpace {
       $url.attr({ href: message, target: '_blank' }).text(__(file_name));
 
       if (type === 'sender') {
-        $url.css('color', 'var(--white)');
+        $url.css('color', 'var(--cyan-100)');
       }
       $message_element.append($url);
     } else {
