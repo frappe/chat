@@ -6,7 +6,9 @@ export default class ChatBubble {
 
   setup() {
     this.$chat_bubble = $(document.createElement('div'));
-    this.open_title = __('Chat With Us');
+    this.open_title = this.parent.is_admin
+      ? __('Show Chats')
+      : __('Chat With Us');
     this.closed_title = __('Close Chat');
     this.open_inner_html = `
 			<div class='p-3 chat-bubble'>
