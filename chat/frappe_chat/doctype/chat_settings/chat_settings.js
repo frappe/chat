@@ -2,7 +2,10 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Chat Settings', {
-	// refresh: function(frm) {
-
-	// }
+  after_save: function (frm) {
+    $('.chat-app').remove();
+    if (frm.doc.enable_chat) {
+      new frappe.Chat();
+    }
+  },
 });
