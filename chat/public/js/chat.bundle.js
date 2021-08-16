@@ -48,6 +48,7 @@ frappe.Chat = class {
     try {
       const token = localStorage.getItem('guest_token') || '';
       const res = await get_settings(token);
+      this.is_admin = res.is_admin;
 
       if (res.enable_chat === false) {
         return;
