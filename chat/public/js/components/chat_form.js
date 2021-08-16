@@ -54,7 +54,7 @@ export default class ChatForm {
 					</div>
 					<button type='button' class='btn btn-primary w-100'
 						id='submit-form'>
-            ${__('Start Conversation')}
+            ${__('Submit')}
           </button>
 				</form>
 			</div>

@@ -305,6 +305,9 @@ $height: 582px;
       font-size: $font-size-sm;
       color: var(--gray-800);
     }
+    button {
+      font-size: $font-size-base;
+    }
     padding: $padding-chat-lr;
     .form-label {
       font-size: $font-size-xs;
