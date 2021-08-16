@@ -5,7 +5,7 @@ import {
   ChatBubble,
   ChatList,
   ChatSpace,
-  ChatForm,
+  ChatWelcome,
   get_settings,
   setup_dependencies,
   scroll_to_bottom,
@@ -77,15 +77,15 @@ frappe.Chat = class {
           },
         });
       } else {
-        //Render the form if is user is not verified
-        this.chat_form = new ChatForm({
+        //Render the welcome screen if the user is not verified
+        this.chat_welcome = new ChatWelcome({
           $wrapper: this.$chat_container,
           profile: {
             name: res.guest_title,
             is_admin: res.is_admin,
           },
         });
-        this.chat_form.render();
+        this.chat_welcome.render();
       }
     } catch (error) {
       console.error(error);

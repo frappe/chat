@@ -53,11 +53,18 @@ export default class ChatForm {
 							placeholder='${__('Please enter your message')}'></textarea>
 					</div>
 					<button type='button' class='btn btn-primary w-100'
-						id='submit-form'>${__('Start Conversation')}</button>
+						id='submit-form'>
+            ${__('Start Conversation')}
+          </button>
 				</form>
 			</div>
 		`;
-    this.$chat_form.append(form_html);
+    const footer_html = `
+      <a class='chat-footer' target='_blank' href='https://frappeframework.com/'>
+        ${__('⚡ Powered by Frappe')}
+      </a>
+    `;
+    this.$chat_form.append(form_html + footer_html);
   }
 
   get_values() {
