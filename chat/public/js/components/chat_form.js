@@ -82,7 +82,7 @@ export default class ChatForm {
       const res = await create_guest(form_values);
       if ('errors' in res) {
         res.errors.forEach(function (error) {
-          frappe.throw(__(error));
+          frappe.msgprint(__(error));
         });
       } else {
         const query_message = {
