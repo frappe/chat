@@ -7,7 +7,7 @@ import {
   send_message,
   set_typing,
 } from './chat_utils';
-
+import ChatUpload from './chat_upload';
 export default class ChatSpace {
   constructor(opts) {
     this.chat_list = opts.chat_list;
@@ -130,13 +130,9 @@ export default class ChatSpace {
     this.$chat_actions = $(document.createElement('div'));
     this.$chat_actions.addClass('chat-space-actions');
     const chat_actions_html = `
-			<span class='attach-items'>
+			<span class='open-attach-items'>
 				${frappe.utils.icon('attachment', 'lg')}
 			</span>
-			<input type='file' id='file-uploader' 
-					accept='image/*, application/pdf, .doc, .docx'
-					style='display: none;'
-			>
 			<input class='form-control type-message' 
 				type='search' 
 				placeholder='${__('Type message')}'
@@ -153,77 +149,6 @@ export default class ChatSpace {
     this.$chat_space.append(this.$chat_actions);
   }
 
-  upload_file(file) {
-    const me = this;
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-
-      xhr.upload.addEventListener('load', () => {
-        resolve();
-      });
-
-      xhr.addEventListener('error', () => {
-        frappe.throw(__('Internal Server Error'));
-        reject();
-      });
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-          if (xhr.status === 200) {
-            let r = null;
-            let file_doc = null;
-            try {
-              r = JSON.parse(xhr.responseText);
-              if (r.message.doctype === 'File') {
-                file_doc = r.message;
-              }
-            } catch (e) {
-              r = xhr.responseText;
-            }
-            if (file_doc === null) {
-              frappe.throw(__('File upload failed!'));
-              reject();
-            } else {
-              me.handle_send_message(file_doc.file_url);
-            }
-          } else {
-            try {
-              const error = JSON.parse(xhr.responseText);
-              const messages = JSON.parse(error._server_messages);
-
-              for (let i = 0; i < messages.length; i++) {
-                const errorObj = JSON.parse(messages[i]);
-                frappe.throw(__(errorObj.message));
-              }
-            } catch (e) {
-              // pass
-            }
-          }
-        }
-      };
-
-      xhr.open('POST', '/api/method/upload_file', true);
-      xhr.setRequestHeader('Accept', 'application/json');
-      xhr.setRequestHeader('X-Frappe-CSRF-Token', frappe.csrf_token);
-
-      let form_data = new FormData();
-
-      form_data.append('file', file.file_obj, file.name);
-      form_data.append('is_private', +false);
-
-      form_data.append('doctype', 'Chat Room');
-      form_data.append('docname', this.profile.room);
-
-      xhr.send(form_data);
-    });
-  }
-
-  async handle_upload_file(file) {
-    const dataurl = await frappe.dom.file_to_base64(file.file_obj);
-    file.dataurl = dataurl;
-    file.name = file.file_obj.name;
-    return this.upload_file(file);
-  }
-
   setup_events() {
     const me = this;
 
@@ -237,8 +162,13 @@ export default class ChatSpace {
       me.chat_list.render();
     });
 
-    $('.attach-items').on('click', function () {
-      $('#file-uploader').click();
+    $('.open-attach-items').on('click', function () {
+      if (typeof me.chat_upload === 'undefined') {
+        me.chat_upload = new ChatUpload(me, me.profile.room);
+        me.chat_upload.show();
+      } else {
+        me.chat_upload.show();
+      }
     });
 
     $('.message-send-button').on('click', function () {
@@ -257,13 +187,6 @@ export default class ChatSpace {
           me.timeout = setTimeout(me.typing_timeout, 3000);
         }
       }
-    });
-
-    $('#file-uploader').on('change', function () {
-      let file = {};
-      file.file_obj = this.files[0];
-
-      me.handle_upload_file(file);
     });
   }
 
