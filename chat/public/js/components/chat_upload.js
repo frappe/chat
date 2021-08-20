@@ -65,8 +65,7 @@ export default class ChatUpload {
       });
 
       xhr.addEventListener('error', () => {
-        frappe.throw(__('Internal Server Error'));
-        reject();
+        reject(frappe.throw(__('Internal Server Error')));
       });
       xhr.onreadystatechange = () => {
         if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -82,8 +81,7 @@ export default class ChatUpload {
               r = xhr.responseText;
             }
             if (file_doc === null) {
-              frappe.throw(__('File upload failed!'));
-              reject();
+              reject(frappe.throw(__('File upload failed!')));
             } else {
               me.chat_space.handle_send_message(file_doc.file_url);
             }
@@ -91,11 +89,8 @@ export default class ChatUpload {
             try {
               const error = JSON.parse(xhr.responseText);
               const messages = JSON.parse(error._server_messages);
-
-              for (let i = 0; i < messages.length; i++) {
-                const errorObj = JSON.parse(messages[i]);
-                frappe.throw(__(errorObj.message));
-              }
+              const errorObj = JSON.parse(messages[0]);
+              reject(frappe.throw(__(errorObj.message)));
             } catch (e) {
               // pass
             }
