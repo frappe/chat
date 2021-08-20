@@ -230,7 +230,7 @@ $height: 582px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      margin-bottom: 3px;
+      margin-bottom: 5px;
       .message-bubble {
         background: var(--primary-color);
         color: var(--white);
@@ -241,7 +241,7 @@ $height: 582px;
       }
     }
     .recipient-message {
-      margin-bottom: 3px;
+      margin-bottom: 5px;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
