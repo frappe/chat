@@ -6,16 +6,16 @@
  "engine": "InnoDB",
  "field_order": [
   "enable_chat",
-  "roles"
+  "roles",
+  "welcome_content"
  ],
  "fields": [
   {
-   "default": "Administrator\nGuest",
+   "default": "Administrator\nGuest\nSystem Manager",
    "fieldname": "roles",
    "fieldtype": "Table",
    "label": "Roles",
-   "options": "Has Role",
-   "reqd": 1
+   "options": "Has Role"
   },
   {
    "default": "1",
@@ -24,12 +24,18 @@
    "in_list_view": 1,
    "label": "Enable Chat",
    "reqd": 1
+  },
+  {
+   "default": "We make it simple to connect with us. Ask us anything, or share your feedback.",
+   "fieldname": "welcome_content",
+   "fieldtype": "Text",
+   "label": "Welcome Content"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-08-12 15:31:22.272719",
+ "modified": "2021-08-20 13:18:15.541735",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Settings",
@@ -42,6 +48,16 @@
    "print": 1,
    "read": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Administrator",
    "share": 1,
    "write": 1
   }
