@@ -227,6 +227,9 @@ $height: 582px;
     overflow-wrap: break-word;
     height: calc_height($height, 15px);
     overflow-y: scroll;
+    .chat-image {
+      border-radius: 13px 13px 0px 13px;
+    }
     .sender-message {
       display: flex;
       flex-direction: column;

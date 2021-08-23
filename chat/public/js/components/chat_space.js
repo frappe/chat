@@ -6,6 +6,7 @@ import {
   is_date_change,
   send_message,
   set_typing,
+  is_image,
 } from './chat_utils';
 import ChatUpload from './chat_upload';
 export default class ChatSpace {
@@ -58,7 +59,7 @@ export default class ChatSpace {
       this.setup_actions();
       this.render();
     } catch (error) {
-      console.error(err);
+      console.error(error);
     }
   }
 
@@ -234,12 +235,20 @@ export default class ChatSpace {
     const file_name = message.substring(n + 1) || '';
 
     if (message.startsWith('/files/') && file_name !== '') {
-      let $url = $(document.createElement('a'));
-      $url.attr({ href: message, target: '_blank' }).text(__(file_name));
+      let $url;
+      if (is_image(file_name)) {
+        $url = $(document.createElement('img'));
+        $url.attr({ src: message }).addClass('img-responsive chat-image');
+        $message_element.css('padding', '0px');
+      } else {
+        $url = $(document.createElement('a'));
+        $url.attr({ href: message, target: '_blank' }).text(__(file_name));
 
-      if (type === 'sender') {
-        $url.css('color', 'var(--cyan-100)');
+        if (type === 'sender') {
+          $url.css('color', 'var(--cyan-100)');
+        }
       }
+
       $message_element.append($url);
     } else {
       $message_element.text(__(message));

@@ -37,6 +37,14 @@ function scroll_to_bottom($element) {
   );
 }
 
+function is_image(filename) {
+  const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.webp)$/i;
+  if (!allowedExtensions.exec(filename)) {
+    return false;
+  }
+  return true;
+}
+
 async function get_rooms() {
   const res = await frappe.call({
     type: 'GET',
@@ -146,4 +154,5 @@ export {
   is_date_change,
   mark_message_read,
   set_typing,
+  is_image,
 };
