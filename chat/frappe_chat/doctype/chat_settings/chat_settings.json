@@ -6,8 +6,10 @@
  "engine": "InnoDB",
  "field_order": [
   "enable_chat",
-  "roles",
-  "welcome_content"
+  "start_time",
+  "end_time",
+  "welcome_content",
+  "roles"
  ],
  "fields": [
   {
@@ -30,12 +32,24 @@
    "fieldname": "welcome_content",
    "fieldtype": "Text",
    "label": "Welcome Content"
+  },
+  {
+   "default": "00:00:00",
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time"
+  },
+  {
+   "default": "00:00:00",
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-08-20 13:18:15.541735",
+ "modified": "2021-08-23 17:02:23.260465",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Settings",
@@ -47,7 +61,8 @@
    "email": 1,
    "print": 1,
    "read": 1,
-   "role": "System Manager",
+   "role": "Administrator",
+   "select": 1,
    "share": 1,
    "write": 1
   },
@@ -57,7 +72,8 @@
    "email": 1,
    "print": 1,
    "read": 1,
-   "role": "Administrator",
+   "role": "System Manager",
+   "select": 1,
    "share": 1,
    "write": 1
   }
