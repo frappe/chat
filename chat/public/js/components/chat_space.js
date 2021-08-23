@@ -44,7 +44,7 @@ export default class ChatSpace {
 					${__(this.profile.name)}
 					<div class='online-circle'></div>
 					</div>
-					<div class='chat-profile-status'>${__('Online')}</div>
+					<div class='chat-profile-status'>${__('Typing...')}</div>
 				</div>
 			</div>
 		`;
@@ -209,11 +209,11 @@ export default class ChatSpace {
         this.profile.is_admin === false
       ) {
         if (res.is_typing === false) {
-          $('.chat-profile-status').text(__('Online'));
+          $('.chat-profile-status').css('visibility', 'hidden');
         } else {
-          $('.chat-profile-status').text(__('Typing...'));
+          $('.chat-profile-status').css('visibility', 'visible');
           const timeout = setTimeout(() => {
-            $('.chat-profile-status').text(__('Online'));
+            $('.chat-profile-status').css('visibility', 'hidden');
           }, 3000);
         }
       }

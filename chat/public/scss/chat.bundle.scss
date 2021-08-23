@@ -208,6 +208,7 @@ $height: 582px;
     .chat-profile-status {
       font-size: $font-size-xs;
       color: var(--gray-700);
+      visibility: hidden;
     }
   }
   .online-circle {
