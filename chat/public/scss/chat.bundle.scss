@@ -403,23 +403,3 @@ $height: 582px;
     display: block;
   }
 }
-
-#chat-file-upload-modal {
-  .icon {
-    height: 40px;
-    width: 40px;
-    stroke: var(--white);
-  }
-
-  .chat-attach-item {
-    background: var(--primary);
-    height: 56px;
-    width: 56px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    margin-bottom: var(--margin-sm);
-  }
-}
