@@ -1,6 +1,12 @@
 import frappe
 from frappe import _
 from frappe.utils import has_common
+import datetime
+
+
+def time_in_range(start, end, current):
+    """Returns whether current is in the range [start, end]"""
+    return start <= current <= end
 
 
 def validate_token(token):
@@ -61,5 +67,13 @@ def get_chat_settings():
     if not chat_settings.enable_chat or not has_common(allowed_roles, user_roles):
         return result
 
+    start_time = datetime.time.fromisoformat(chat_settings.start_time)
+    end_time = datetime.time.fromisoformat(chat_settings.end_time)
+    current_time = datetime.datetime.now().time()
+
+    chat_status = 'Online' if time_in_range(
+        start_time, end_time, current_time) else 'Offline'
+
     result['enable_chat'] = True
+    result['chat_status'] = chat_status
     return result

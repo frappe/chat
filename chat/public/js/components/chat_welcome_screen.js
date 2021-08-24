@@ -27,10 +27,20 @@ export default class ChatWelcome {
 			</div>
 		`;
 
+    const status_text =
+      this.profile.chat_status === 'Online'
+        ? __('We are online')
+        : __('We are offline');
+
+    const reason_text =
+      this.profile.chat_status === 'Online'
+        ? __('Typically replies in a few hours')
+        : __('Just drop a message and we will get back to you soon');
+
     const bottom_html = `
 			<div class='chat-welcome-footer'>
-				<p class='status-content'>${__('We are online')}</p>
-				<p class='hero-content'>${__('Typically replies in a few hours')}</p>
+				<p class='status-content'>${status_text}</p>
+				<p class='hero-content'>${reason_text}</p>
 				<button type='button' class='btn btn-primary w-100'
 					id='start-conversation'>
 					${__('Start Conversation')}

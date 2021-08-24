@@ -83,6 +83,7 @@ frappe.Chat = class {
           profile: {
             name: res.guest_title,
             is_admin: res.is_admin,
+            chat_status: res.chat_status,
           },
         });
         this.chat_welcome.render();
