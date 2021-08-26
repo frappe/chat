@@ -325,7 +325,8 @@ export default class ChatSpace {
 
       $message_element.append($url);
     } else {
-      $message_element.text(__(message));
+      const sanitized_messages = $('<div>').text(message).html();
+      $message_element.append(__(sanitized_messages));
     }
 
     $recipient_element.append($message_element);

@@ -16,12 +16,8 @@ export default class ChatRoom {
 
     this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
 
-    let last_message = this.profile.last_message || '';
-    if (this.profile.last_message) {
-      if (last_message.length > 24) {
-        last_message = this.profile.last_message.substring(0, 24) + '...';
-      }
-    }
+    let last_message = this.sanitize_last_message(this.profile.last_message);
+
     const info_html = `
 			<div class='chat-profile-info'>
 				<div class='chat-name'>
@@ -47,6 +43,16 @@ export default class ChatRoom {
     this.$chat_room.html(inner_html);
   }
 
+  sanitize_last_message(message) {
+    let sanitize_last_message = $('<div>').text(message).html();
+    if (sanitize_last_message) {
+      if (sanitize_last_message.length > 20) {
+        sanitize_last_message = sanitize_last_message.substring(0, 20) + '...';
+      }
+    }
+    return sanitize_last_message;
+  }
+
   set_as_read() {
     this.profile.is_read = 1;
     this.$chat_room.find('.last-message').css('color', 'var(--gray-600)');
@@ -54,7 +60,8 @@ export default class ChatRoom {
   }
 
   set_last_message(message, date) {
-    this.$chat_room.find('.last-message').text(__(message));
+    const sanitized_message = this.sanitize_last_message(message);
+    this.$chat_room.find('.last-message').html(__(sanitized_message));
     this.$chat_room.find('.chat-date').text(__(get_time(date)));
   }
 
