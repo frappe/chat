@@ -47,12 +47,13 @@
   {
    "fieldname": "room_name",
    "fieldtype": "Data",
-   "label": "Room Name"
+   "label": "Room Name",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-08-31 12:04:42.615347",
+ "modified": "2021-08-31 13:06:15.098423",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Room",
