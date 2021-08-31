@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://test_site_ui:8000",
+  "adminPassword": "1234",
+  "defaultCommandTimeout": 20000,
+  "pageLoadTimeout": 15000,
+  "retries": {
+    "runMode": 2,
+    "openMode": 2
+  }
+}
