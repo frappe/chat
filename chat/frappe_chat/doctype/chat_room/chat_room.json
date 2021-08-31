@@ -8,7 +8,10 @@
  "field_order": [
   "guest",
   "last_message",
-  "is_read"
+  "is_read",
+  "type",
+  "members",
+  "room_name"
  ],
  "fields": [
   {
@@ -29,11 +32,27 @@
    "fieldname": "is_read",
    "fieldtype": "Check",
    "label": "Is Read"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Guest\nDirect"
+  },
+  {
+   "fieldname": "members",
+   "fieldtype": "Text",
+   "label": "Members"
+  },
+  {
+   "fieldname": "room_name",
+   "fieldtype": "Data",
+   "label": "Room Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-29 16:37:14.175007",
+ "modified": "2021-08-31 12:04:42.615347",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Room",

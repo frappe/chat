@@ -21,7 +21,7 @@ export default class ChatRoom {
     const info_html = `
 			<div class='chat-profile-info'>
 				<div class='chat-name'>
-					${__(this.profile.name)} 
+					${__(this.profile.room_name)} 
 					<div class='chat-latest' 
 						style='display: ${this.profile.is_read ? 'none' : 'inline-block'}'
 					></div>

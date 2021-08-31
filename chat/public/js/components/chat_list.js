@@ -61,13 +61,13 @@ export default class ChatList {
     this.chat_rooms = [];
     this.rooms.forEach((element) => {
       const profile = {
-        name: element.guest_name,
         user: this.user,
         last_message: element.last_message,
         last_date: element.modified,
         is_admin: this.is_admin,
         room: element.name,
         is_read: element.is_read,
+        room_name: element.room_name,
       };
       this.chat_rooms.push([
         profile.room,

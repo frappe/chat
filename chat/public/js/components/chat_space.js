@@ -27,7 +27,11 @@ export default class ChatSpace {
   }
 
   setup_header() {
-    this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
+    this.avatar_html = frappe.avatar(
+      null,
+      'avatar-medium',
+      this.profile.room_name
+    );
     const header_html = `
 			<div class='chat-header'>
 				${
@@ -42,7 +46,7 @@ export default class ChatSpace {
 				${this.avatar_html}
 				<div class='chat-profile-info'>
 					<div class='chat-profile-name'>
-					${__(this.profile.name)}
+					${__(this.profile.room_name)}
 					<div class='online-circle'></div>
 					</div>
 					<div class='chat-profile-status'>${__('Typing...')}</div>

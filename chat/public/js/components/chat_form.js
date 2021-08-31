@@ -94,7 +94,7 @@ export default class ChatForm {
         const chat_space = new ChatSpace({
           $wrapper: this.$wrapper,
           profile: {
-            name: this.profile.name,
+            room_name: this.profile.name,
             room: res.room,
             is_admin: this.profile.is_admin,
             user: res.guest_name,

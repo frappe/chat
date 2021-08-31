@@ -9,9 +9,8 @@ def get():
 			cr.name,
 			cr.modified,
 			cr.last_message,
-			cg.guest_name,
-			cg.email,
-			cr.is_read
+			cr.is_read,
+			cr.room_name
 		FROM `tabChat Room` cr
 			LEFT JOIN `tabChat Guest` cg 
 			ON cr.guest = cg.name

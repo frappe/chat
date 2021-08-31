@@ -25,13 +25,15 @@ def validate_guest(email, full_name, message):
         }).insert()
         new_room = frappe.get_doc({
             'doctype': 'Chat Room',
-            'guest': email
+            'guest': email,
+            'room_name': full_name,
         }).insert()
         room = new_room.name
 
         # New room will be created on client side
         profile = {
             'name': full_name,
+            'room_name': full_name,
             'last_message': message,
             'last_date': new_room.modified,
             'room': room,
