@@ -3,17 +3,21 @@ from frappe import _
 
 
 @frappe.whitelist(allow_guest=True)
-def get():
-    data = frappe.db.sql("""
-		SELECT
-			cr.name,
-			cr.modified,
-			cr.last_message,
-			cr.is_read,
-			cr.room_name
-		FROM `tabChat Room` cr
-			LEFT JOIN `tabChat Guest` cg 
-			ON cr.guest = cg.name
-		ORDER BY cr.is_read ASC, cr.modified DESC
-	""", as_dict=1)
+def get(email):
+    """Get all the rooms for a user from
+
+    Args:
+        email (str): Email of user requests all rooms
+
+    """
+    data = frappe.db.get_list('Chat Room',
+                              order_by='is_read asc, modified desc',
+                              or_filters=[
+                                  ['members', '=', 'Guest'],
+                                  ['members', 'like',
+                                   f'%{email}%']
+                              ],
+                              fields=['name', 'modified',
+                                      'last_message', 'is_read', 'room_name', 'members']
+                              )
     return data

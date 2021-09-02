@@ -40,6 +40,7 @@ Cypress.Commands.add('send_message', (message, room) => {
           message: message,
           user: 'Administrator',
           room: room,
+          email: 'Administrator',
         },
       });
     });

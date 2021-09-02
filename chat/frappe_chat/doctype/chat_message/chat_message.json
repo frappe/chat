@@ -7,7 +7,8 @@
  "field_order": [
   "message",
   "sender",
-  "room"
+  "room",
+  "sender_email"
  ],
  "fields": [
   {
@@ -31,11 +32,18 @@
    "label": "Room",
    "options": "Chat Room",
    "reqd": 1
+  },
+  {
+   "fieldname": "sender_email",
+   "fieldtype": "Data",
+   "label": "Sender Email",
+   "options": "Email",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-08-11 11:59:43.782707",
+ "modified": "2021-09-01 19:50:45.014009",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Message",

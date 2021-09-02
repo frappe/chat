@@ -45,10 +45,13 @@ function is_image(filename) {
   return true;
 }
 
-async function get_rooms() {
+async function get_rooms(email) {
   const res = await frappe.call({
     type: 'GET',
     method: 'chat.api.room.get',
+    args: {
+      email: email,
+    },
   });
   return await res.message;
 }
@@ -63,7 +66,7 @@ async function get_messages(room) {
   return await res.message;
 }
 
-async function send_message(message, user, room) {
+async function send_message(message, user, room, email) {
   try {
     await frappe.call({
       method: 'chat.api.message.send',
@@ -71,6 +74,7 @@ async function send_message(message, user, room) {
         message: message,
         user: user,
         room: room,
+        email: email,
       },
     });
   } catch (error) {

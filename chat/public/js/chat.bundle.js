@@ -18,7 +18,7 @@ frappe.Chat = class {
     this.setup_app();
   }
 
-  /** Create up all the required elements for chat widget */
+  /** Create all the required elements for chat widget */
   create_app() {
     this.$app_element = $(document.createElement('div'));
     this.$app_element.addClass('chat-app');
@@ -62,6 +62,7 @@ frappe.Chat = class {
         this.chat_list = new ChatList({
           $wrapper: this.$chat_container,
           user: res.user,
+          user_email: res.user_email,
           is_admin: res.is_admin,
         });
         this.chat_list.render();
@@ -74,6 +75,7 @@ frappe.Chat = class {
             room: res.room,
             is_admin: res.is_admin,
             user: res.user,
+            user_email: res.user_email,
           },
         });
       } else {

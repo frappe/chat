@@ -89,17 +89,23 @@ export default class ChatForm {
           message: form_values.message,
           creation: new Date(),
           sender: res.guest_name,
+          sender_email: res.email,
         };
         localStorage.setItem('guest_token', res.token);
+
+        let profile = {
+          room_name: this.profile.name,
+          room: res.room,
+          is_admin: this.profile.is_admin,
+          user: res.guest_name,
+          user_email: res.email,
+          message: query_message,
+          room_type: res.room_type,
+        };
+
         const chat_space = new ChatSpace({
           $wrapper: this.$wrapper,
-          profile: {
-            room_name: this.profile.name,
-            room: res.room,
-            is_admin: this.profile.is_admin,
-            user: res.guest_name,
-            message: query_message,
-          },
+          profile: profile,
         });
       }
     } catch (error) {

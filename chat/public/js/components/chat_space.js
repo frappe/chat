@@ -8,6 +8,7 @@ import {
   set_typing,
   is_image,
 } from './chat_utils';
+
 export default class ChatSpace {
   constructor(opts) {
     this.chat_list = opts.chat_list;
@@ -85,25 +86,23 @@ export default class ChatSpace {
       send_message(
         this.profile.message.message,
         this.profile.user,
-        this.profile.room
+        this.profile.room,
+        this.profile.user_email
       );
     }
     messages_list.forEach((element) => {
       const date_line_html = this.make_date_line_html(element.creation);
       this.message_html += date_line_html;
 
-      let message_type = 'recipient';
+      let message_type = 'sender';
 
-      if (this.profile.is_admin === true) {
-        if (element.sender === 'Guest') {
-          message_type = 'sender';
-        }
-      } else {
-        if (element.sender !== 'Guest') {
-          message_type = 'sender';
+      if (element.sender_email === this.profile.user_email) {
+        message_type = 'recipient';
+      } else if (this.profile.room_type === 'Guest') {
+        if (this.profile.is_admin === true && element.sender !== 'Guest') {
+          message_type = 'recipient';
         }
       }
-
       this.message_html += this.make_message(
         element.message,
         get_time(element.creation),
@@ -138,10 +137,10 @@ export default class ChatSpace {
 			<span class='open-attach-items'>
 				${frappe.utils.icon('attachment', 'lg')}
 			</span>
-      <input type='file' id='chat-file-uploader' 
-        accept='image/*, application/pdf, .doc, .docx'
-        style='display: none;'
-      >
+			<input type='file' id='chat-file-uploader' 
+				accept='image/*, application/pdf, .doc, .docx'
+				style='display: none;'
+			>
 			<input class='form-control type-message' 
 				type='search' 
 				placeholder='${__('Type message')}'
@@ -361,17 +360,26 @@ export default class ChatSpace {
     );
     $type_message.val('');
     scroll_to_bottom(this.$chat_space_container);
-    send_message(message, this.profile.user, this.profile.room);
+    send_message(
+      message,
+      this.profile.user,
+      this.profile.room,
+      this.profile.user_email
+    );
   }
 
   receive_message(res, time) {
     let chat_type = 'sender';
-    if (res.user === this.profile.user) {
+    if (res.sender_email === this.profile.user_email) {
       return;
     }
-    if (this.profile.is_admin === true && res.user !== 'Guest') {
-      chat_type = 'recipient';
+
+    if (this.profile.room_type === 'Guest') {
+      if (this.profile.is_admin === true && res.user !== 'Guest') {
+        chat_type = 'recipient';
+      }
     }
+
     this.$chat_space_container.append(
       this.make_message(res.message, time, chat_type)
     );

@@ -4,12 +4,21 @@ from chat.utils import update_room
 
 
 @frappe.whitelist(allow_guest=True)
-def send(message, user, room):
+def send(message, user, room, email):
+    """Send the message via socketio
+
+    Args:
+        message (str): Message to be sent.
+        user (str): Sender's name.
+        room (str): Room's name.
+        email (str): Sender's email.
+    """
     new_message = frappe.get_doc({
         'doctype': 'Chat Message',
         'message': message,
         'sender': user,
         'room': room,
+        'sender_email': email
     }).insert()
     update_room(room=room, last_message=message)
 
@@ -18,6 +27,7 @@ def send(message, user, room):
         'user': user,
         'creation': new_message.creation,
         'room': room,
+        'sender_email': email
     }
 
     typing_data = {
@@ -37,11 +47,18 @@ def send(message, user, room):
 
 @frappe.whitelist(allow_guest=True)
 def get_all(room):
+    """Get all the messages of a particular room
+
+    Args:
+        room (str): Room's name.
+
+    """
     result = frappe.db.get_all('Chat Message',
                                filters={
                                    'room': room,
                                },
-                               fields=['message', 'sender', 'creation'],
+                               fields=['message', 'sender',
+                                       'creation', 'sender_email'],
                                order_by='creation asc'
                                )
     return result
@@ -49,12 +66,24 @@ def get_all(room):
 
 @frappe.whitelist()
 def mark_as_read(room):
+    """Mark the message as read
+
+    Args:
+        room (str): Room's name.
+    """
     frappe.enqueue('chat.utils.update_room', room=room,
                    is_read=1, update_modified=False)
 
 
 @frappe.whitelist(allow_guest=True)
 def set_typing(room, user, is_typing):
+    """Set the typing text accordingly
+
+    Args:
+        room (str): Room's name.
+        user (str): Sender who is typing.
+        is_typing (bool): Whether user is typing.
+    """
     result = {
         'room': room,
         'user': user,

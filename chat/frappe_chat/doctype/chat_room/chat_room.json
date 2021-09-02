@@ -6,12 +6,11 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "guest",
+  "room_name",
+  "members",
   "last_message",
   "is_read",
-  "type",
-  "members",
-  "room_name"
+  "guest"
  ],
  "fields": [
   {
@@ -34,12 +33,6 @@
    "label": "Is Read"
   },
   {
-   "fieldname": "type",
-   "fieldtype": "Select",
-   "label": "Type",
-   "options": "Guest\nDirect"
-  },
-  {
    "fieldname": "members",
    "fieldtype": "Text",
    "label": "Members"
@@ -53,7 +46,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-08-31 13:06:15.098423",
+ "modified": "2021-09-01 19:51:26.617251",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Room",

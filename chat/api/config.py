@@ -5,6 +5,12 @@ from chat.utils import validate_token, get_admin_name, get_chat_settings
 
 @frappe.whitelist(allow_guest=True)
 def settings(token):
+    """Fetch and return the settings for a chat session
+
+    Args:
+        token (str): Guest token.
+
+    """
     config = {
         'socketio_port': frappe.conf.socketio_port,
         'user_email': frappe.session.user,

@@ -5,6 +5,7 @@ export default class ChatList {
   constructor(opts) {
     this.$wrapper = opts.$wrapper;
     this.user = opts.user;
+    this.user_email = opts.user_email;
     this.is_admin = opts.is_admin;
     this.setup();
   }
@@ -46,7 +47,7 @@ export default class ChatList {
 
   async fetch_and_setup_rooms() {
     try {
-      const res = await get_rooms();
+      const res = await get_rooms(this.user_email);
       this.rooms = res;
       this.setup_rooms();
       this.render_messages();
@@ -59,9 +60,11 @@ export default class ChatList {
     this.$chat_rooms_container = $(document.createElement('div'));
     this.$chat_rooms_container.addClass('chat-rooms-container');
     this.chat_rooms = [];
+
     this.rooms.forEach((element) => {
-      const profile = {
+      let profile = {
         user: this.user,
+        user_email: this.user_email,
         last_message: element.last_message,
         last_date: element.modified,
         is_admin: this.is_admin,
@@ -69,6 +72,11 @@ export default class ChatList {
         is_read: element.is_read,
         room_name: element.room_name,
       };
+      if (element.members === 'Guest') {
+        profile.room_type = 'Guest';
+      } else {
+        profile.room_type = 'Website';
+      }
       this.chat_rooms.push([
         profile.room,
         new ChatRoom({
@@ -84,7 +92,7 @@ export default class ChatList {
 
   fitler_rooms(query) {
     for (const room of this.chat_rooms) {
-      const txt = room[1].profile.name.toLowerCase();
+      const txt = room[1].profile.room_name.toLowerCase();
       if (txt.includes(query)) {
         room[1].$chat_room.show();
       } else {
@@ -150,6 +158,7 @@ export default class ChatList {
     frappe.realtime.on('new_room_creation', function (res) {
       res.user = me.user;
       res.is_admin = me.is_admin;
+      res.user_email = me.user_email;
       me.create_new_room(res);
     });
   }

@@ -5,13 +5,19 @@ import datetime
 
 
 def time_in_range(start, end, current):
-    """Returns whether current is in the range [start, end]"""
+    """Check if current time is between start and end time"""
     return start <= current <= end
 
 
 def validate_token(token):
-    # Validate the token
+    """Validate the guest token
 
+    Args:
+        token (str): Guest token
+
+    Returns:
+        list: A list specifying whether token is valid and necessary info.
+    """
     if not token:
         return [False, {}]
     is_exist = frappe.db.exists({
@@ -39,11 +45,20 @@ def validate_token(token):
 
 
 def get_admin_name(user_key):
+    """Get the admin name for specified user key"""
     full_name = frappe.db.get_value('User', user_key, 'full_name')
     return full_name
 
 
 def update_room(room, last_message=None, is_read=0, update_modified=True):
+    """Update the value of chat room doctype with latest real time values
+
+    Args:
+        room (str): [description]
+        last_message (str, optional): Last message of a room. Defaults to None.
+        is_read (int, optional): Whether last message is read or not. Defaults to 0.
+        update_modified (bool, optional): Whether to update or not. Defaults to True.
+    """
     new_values = {
         'is_read': is_read,
     }
@@ -55,6 +70,10 @@ def update_room(room, last_message=None, is_read=0, update_modified=True):
 
 
 def get_chat_settings():
+    """Get the chat settings
+    Returns:
+        dict: Dictionary containing chat settings.
+    """
     chat_settings = frappe.get_single('Chat Settings')
     user_roles = frappe.get_roles()
 

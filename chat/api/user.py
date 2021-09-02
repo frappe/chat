@@ -5,6 +5,14 @@ from frappe.utils import validate_email_address
 
 @frappe.whitelist(allow_guest=True)
 def validate_guest(email, full_name, message):
+    """Validate the guest user
+
+    Args:
+        email (str): Email of guest.
+        full_name (str): Full name of guest.
+        message (str): Message to be dropped.
+
+    """
     errors = []
     if not validate_email_address(email):
         errors.append(_('Invalid email address'))
@@ -27,17 +35,18 @@ def validate_guest(email, full_name, message):
             'doctype': 'Chat Room',
             'guest': email,
             'room_name': full_name,
+            'members': 'Guest',
         }).insert()
         room = new_room.name
 
         # New room will be created on client side
         profile = {
-            'name': full_name,
             'room_name': full_name,
             'last_message': message,
             'last_date': new_room.modified,
             'room': room,
-            'is_read': 0
+            'is_read': 0,
+            'room_type': 'Guest'
         }
         frappe.publish_realtime(event='new_room_creation',
                                 message=profile, after_commit=True)
@@ -53,6 +62,8 @@ def validate_guest(email, full_name, message):
         'guest_name': 'Guest',
         'message': message,
         'room': room,
+        'room_name': full_name,
+        'room_type': 'Guest',
         'token': token
     }
     return result
