@@ -16,6 +16,7 @@
   {
    "fieldname": "last_message",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Last Message"
   },
   {
@@ -46,7 +47,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-01 19:51:26.617251",
+ "modified": "2021-09-02 14:42:36.841457",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Room",
