@@ -34,6 +34,7 @@ def send(message, user, room, email):
         'room': room,
         'user': user,
         'is_typing': False,
+        'is_guest': True if user == 'Guest' else False,
     }
     typing_event = room + ':typing'
 
@@ -76,18 +77,20 @@ def mark_as_read(room):
 
 
 @frappe.whitelist(allow_guest=True)
-def set_typing(room, user, is_typing):
+def set_typing(room, user, is_typing, is_guest):
     """Set the typing text accordingly
 
     Args:
         room (str): Room's name.
         user (str): Sender who is typing.
         is_typing (bool): Whether user is typing.
+        is_guest (bool): Whether user is guest or not.
     """
     result = {
         'room': room,
         'user': user,
         'is_typing': is_typing,
+        'is_guest': is_guest
     }
     event = room + ':typing'
     frappe.publish_realtime(event=event,

@@ -1,4 +1,5 @@
 import ChatRoom from './chat_room';
+import ChatAddRoom from './chat_add_room';
 import { get_rooms, mark_message_read } from './chat_utils';
 
 export default class ChatList {
@@ -23,6 +24,11 @@ export default class ChatList {
     const chat_list_header_html = `
 			<div class='chat-list-header'>
 				<h3>${__('Chats')}</h3>
+        <div class='add-room' 
+          data-toggle='tooltip' 
+          title='Create Private Room'>
+          ${frappe.utils.icon('users', 'md')}
+        </div>
 			</div>
 		`;
     this.$chat_list.append(chat_list_header_html);
@@ -31,7 +37,7 @@ export default class ChatList {
   setup_search() {
     const chat_list_search_html = `
 		<div class='chat-search'>
-			<div class=' input-group'>
+			<div class='input-group'>
 				<input class='form-control chat-search-box'
 				type='search' 
 				placeholder='${__('Search conversation')}'
@@ -119,6 +125,17 @@ export default class ChatList {
     $('.chat-search-box').on('input', function (e) {
       me.fitler_rooms($(this).val().toLowerCase());
     });
+    $('.add-room').on('click', function (e) {
+      if (typeof me.chat_add_room_modal === 'undefined') {
+        me.chat_add_room_modal = new ChatAddRoom({
+          user: me.user,
+          user_email: me.user_email,
+        });
+        me.chat_add_room_modal.show();
+      } else {
+        me.chat_add_room_modal.show();
+      }
+    });
   }
 
   render_messages() {
@@ -141,6 +158,10 @@ export default class ChatList {
         (element) => element[0] === res.room
       );
 
+      if (typeof chat_room_item === 'undefined') {
+        return;
+      }
+
       const message =
         res.message.length > 24
           ? res.message.substring(0, 24) + '...'
@@ -160,6 +181,15 @@ export default class ChatList {
       res.is_admin = me.is_admin;
       res.user_email = me.user_email;
       me.create_new_room(res);
+    });
+
+    frappe.realtime.on('private_room_creation', function (res) {
+      if (res.members.includes(me.user_email)) {
+        res.user = me.user;
+        res.is_admin = me.is_admin;
+        res.user_email = me.user_email;
+        me.create_new_room(res);
+      }
     });
   }
 }

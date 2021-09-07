@@ -17,7 +17,7 @@ context('Chat', () => {
   it('Fill and submit form', () => {
     cy.get('#submit-form').click();
     cy.get('.msgprint').should('contain.text', 'Invalid email address');
-    cy.get('.msgprint > hr').should('have.length', 2);
+
     cy.hide_messages();
 
     cy.get('#chat-fullname').type('Dohn Joe').should('have.value', 'Dohn Joe');

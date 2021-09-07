@@ -13,15 +13,21 @@ def validate_guest(email, full_name, message):
         message (str): Message to be dropped.
 
     """
-    errors = []
     if not validate_email_address(email):
-        errors.append(_('Invalid email address'))
+        frappe.throw(
+            title='Error',
+            msg=_('Invalid email address')
+        )
     if not full_name:
-        errors.append(_('Full Name is required'))
+        frappe.throw(
+            title='Error',
+            msg=_('Full Name is required')
+        )
     if not message:
-        errors.append(_('Message is too short'))
-    if errors:
-        return {'errors': errors}
+        frappe.throw(
+            title='Error',
+            msg=_('Message is too short')
+        )
 
     if not frappe.db.exists('Chat Guest', email):
         token = frappe.generate_hash()
@@ -67,3 +73,15 @@ def validate_guest(email, full_name, message):
         'token': token
     }
     return result
+
+
+@frappe.whitelist()
+def get_all_users():
+    """Get all website users
+    """
+    all_users = frappe.db.get_list('User')
+    for user in all_users:
+        user['full_name'] = frappe.db.get_value(
+            'User', user['name'], 'full_name')
+
+    return all_users

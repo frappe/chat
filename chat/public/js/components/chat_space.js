@@ -260,8 +260,12 @@ export default class ChatSpace {
         //Set as typing
         if (me.typing === false) {
           me.typing = true;
-          set_typing(me.profile.room, me.profile.user, me.typing);
-
+          set_typing(
+            me.profile.room,
+            me.profile.user_email,
+            me.typing,
+            !me.profile.is_admin
+          );
           me.timeout = setTimeout(me.typing_timeout, 3000);
         }
       }
@@ -281,12 +285,13 @@ export default class ChatSpace {
   }
 
   get_typing_changes(res) {
-    if (res.user != this.profile.user) {
+    if (res.user != this.profile.user_email) {
       if (
-        (this.profile.is_admin === true && res.user === 'Guest') ||
-        this.profile.is_admin === false
+        (this.profile.is_admin === true && Boolean(res.is_guest) === true) ||
+        this.profile.is_admin === false ||
+        this.profile.room_type === 'Website'
       ) {
-        if (res.is_typing === false) {
+        if (Boolean(res.is_typing) === false) {
           $('.chat-profile-status').css('visibility', 'hidden');
         } else {
           $('.chat-profile-status').css('visibility', 'visible');

@@ -14,7 +14,11 @@ export default class ChatRoom {
     this.$chat_room = $(document.createElement('div'));
     this.$chat_room.addClass('chat-room');
 
-    this.avatar_html = frappe.avatar(null, 'avatar-medium', this.profile.name);
+    this.avatar_html = frappe.avatar(
+      null,
+      'avatar-medium',
+      this.profile.room_name
+    );
 
     let last_message = this.sanitize_last_message(this.profile.last_message);
 

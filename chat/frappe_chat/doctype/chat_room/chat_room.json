@@ -20,34 +20,36 @@
    "label": "Last Message"
   },
   {
-   "fieldname": "guest",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Guest",
-   "options": "Chat Guest",
-   "reqd": 1
-  },
-  {
    "default": "0",
    "fieldname": "is_read",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Is Read"
   },
   {
    "fieldname": "members",
    "fieldtype": "Text",
-   "label": "Members"
+   "in_list_view": 1,
+   "label": "Members",
+   "reqd": 1
   },
   {
    "fieldname": "room_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Room Name",
    "reqd": 1
+  },
+  {
+   "fieldname": "guest",
+   "fieldtype": "Link",
+   "label": "Guest",
+   "options": "Chat Guest"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-02 14:42:36.841457",
+ "modified": "2021-09-07 16:15:39.234106",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Room",

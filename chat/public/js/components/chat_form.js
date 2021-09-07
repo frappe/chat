@@ -80,34 +80,28 @@ export default class ChatForm {
     try {
       const form_values = this.get_values();
       const res = await create_guest(form_values);
-      if ('errors' in res) {
-        res.errors.forEach(function (error) {
-          frappe.msgprint(__(error));
-        });
-      } else {
-        const query_message = {
-          message: form_values.message,
-          creation: new Date(),
-          sender: res.guest_name,
-          sender_email: res.email,
-        };
-        localStorage.setItem('guest_token', res.token);
+      const query_message = {
+        message: form_values.message,
+        creation: new Date(),
+        sender: res.guest_name,
+        sender_email: res.email,
+      };
+      localStorage.setItem('guest_token', res.token);
 
-        let profile = {
-          room_name: this.profile.name,
-          room: res.room,
-          is_admin: this.profile.is_admin,
-          user: res.guest_name,
-          user_email: res.email,
-          message: query_message,
-          room_type: res.room_type,
-        };
+      let profile = {
+        room_name: this.profile.name,
+        room: res.room,
+        is_admin: this.profile.is_admin,
+        user: res.guest_name,
+        user_email: res.email,
+        message: query_message,
+        room_type: res.room_type,
+      };
 
-        const chat_space = new ChatSpace({
-          $wrapper: this.$wrapper,
-          profile: profile,
-        });
-      }
+      const chat_space = new ChatSpace({
+        $wrapper: this.$wrapper,
+        profile: profile,
+      });
     } catch (error) {
       console.error(error);
     }
