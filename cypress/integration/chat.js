@@ -52,8 +52,10 @@ context('Chat', () => {
     const typed_message = 'Yes sir';
     cy.get('.chat-space')
       .find('.message-bubble')
-      .first()
-      .should('contain.text', 'Hellooo ?');
+      .last()
+      .should('contain.text', 'Hellooo ?')
+      .parent()
+      .should('have.class', 'recipient-message');
 
     cy.get('.type-message')
       .type(typed_message)
@@ -63,14 +65,19 @@ context('Chat', () => {
     cy.get('.chat-space')
       .find('.message-bubble')
       .last()
-      .should('contain.text', typed_message);
+      .should('contain.text', typed_message)
+      .parent()
+      .should('have.class', 'recipient-message');
 
     cy.send_message('Just testing!', room);
     cy.wait(700);
+
     cy.get('.chat-space')
       .find('.message-bubble')
       .last()
-      .should('contain.text', 'Just testing!');
+      .should('contain.text', 'Just testing!')
+      .parent()
+      .should('have.class', 'sender-message');
   });
 
   it('Attach different files', () => {
