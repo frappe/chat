@@ -86,12 +86,15 @@ def get_chat_settings():
     if not chat_settings.enable_chat or not has_common(allowed_roles, user_roles):
         return result
 
-    start_time = datetime.time.fromisoformat(chat_settings.start_time)
-    end_time = datetime.time.fromisoformat(chat_settings.end_time)
-    current_time = datetime.datetime.now().time()
+    if chat_settings.start_time and chat_settings.end_time:
+        start_time = datetime.time.fromisoformat(chat_settings.start_time)
+        end_time = datetime.time.fromisoformat(chat_settings.end_time)
+        current_time = datetime.datetime.now().time()
 
-    chat_status = 'Online' if time_in_range(
-        start_time, end_time, current_time) else 'Offline'
+        chat_status = 'Online' if time_in_range(
+            start_time, end_time, current_time) else 'Offline'
+    else:
+        chat_status = 'Online'
 
     result['enable_chat'] = True
     result['chat_status'] = chat_status
