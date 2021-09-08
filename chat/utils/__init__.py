@@ -99,3 +99,10 @@ def get_chat_settings():
     result['enable_chat'] = True
     result['chat_status'] = chat_status
     return result
+
+
+def display_warning():
+    message = 'The chat application in frappe is deprecated and will be removed in the future release. So please use this one only.'
+
+    frappe.publish_realtime(
+        event='msgprint', message=message)

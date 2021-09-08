@@ -66,7 +66,7 @@ web_include_js = ['chat.bundle.js']
 # ------------
 
 # before_install = "chat.install.before_install"
-# after_install = "chat.install.after_install"
+after_install = "chat.utils.display_warning"
 
 # Desk Notifications
 # ------------------
