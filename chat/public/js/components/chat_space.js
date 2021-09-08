@@ -24,7 +24,6 @@ export default class ChatSpace {
     this.$chat_space.addClass('chat-space');
     this.setup_header();
     this.fetch_and_setup_messages();
-    this.setup_socketio();
   }
 
   setup_header() {
@@ -233,6 +232,7 @@ export default class ChatSpace {
     };
 
     $('.chat-back-button').on('click', function () {
+      me.destroy_socket_events();
       me.chat_list.render_messages();
       me.chat_list.render();
     });
@@ -283,6 +283,11 @@ export default class ChatSpace {
     frappe.realtime.on(this.profile.room + ':typing', function (res) {
       me.get_typing_changes(res);
     });
+  }
+
+  destroy_socket_events() {
+    frappe.realtime.off(this.profile.room);
+    frappe.realtime.off(this.profile.room + ':typing');
   }
 
   get_typing_changes(res) {
@@ -395,6 +400,7 @@ export default class ChatSpace {
   render() {
     this.$wrapper.html(this.$chat_space);
     this.setup_events();
+    this.setup_socketio();
     scroll_to_bottom(this.$chat_space_container);
   }
 }
