@@ -10,7 +10,6 @@
   "email",
   "guest_name",
   "token",
-  "status",
   "ip_address"
  ],
  "fields": [
@@ -33,12 +32,6 @@
    "set_only_once": 1
   },
   {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "Online\nOffline"
-  },
-  {
    "fieldname": "guest_name",
    "fieldtype": "Data",
    "label": "Guest Name",
@@ -55,7 +48,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-23 13:07:17.028973",
+ "modified": "2021-09-08 14:41:31.445250",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Guest",
