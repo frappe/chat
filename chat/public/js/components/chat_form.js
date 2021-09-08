@@ -80,6 +80,10 @@ export default class ChatForm {
     try {
       const form_values = this.get_values();
       const res = await create_guest(form_values);
+
+      if (!res) {
+        return;
+      }
       const query_message = {
         message: form_values.message,
         creation: new Date(),
@@ -103,7 +107,10 @@ export default class ChatForm {
         profile: profile,
       });
     } catch (error) {
-      console.error(error);
+      frappe.msgprint({
+        title: __('Error'),
+        message: __('Something went wrong. Please refresh and try again.'),
+      });
     }
   }
 

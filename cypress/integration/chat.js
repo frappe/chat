@@ -109,7 +109,7 @@ context('Chat', () => {
     cy.visit('/login');
     cy.login();
     cy.visit('/app/website');
-    cy.get('#chat-bubble').click();
+    cy.get('.chat-navbar-icon').click();
     cy.get('.chat-list').should('be.visible');
   });
 

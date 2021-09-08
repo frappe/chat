@@ -25,7 +25,6 @@ export default class ChatList {
 			<div class='chat-list-header'>
 				<h3>${__('Chats')}</h3>
         <div class='add-room' 
-          data-toggle='tooltip' 
           title='Create Private Room'>
           ${frappe.utils.icon('users', 'md')}
         </div>
@@ -58,7 +57,10 @@ export default class ChatList {
       this.setup_rooms();
       this.render_messages();
     } catch (error) {
-      console.error(error);
+      frappe.msgprint({
+        title: __('Error'),
+        message: __('Something went wrong. Please refresh and try again.'),
+      });
     }
   }
 

@@ -26,6 +26,7 @@ frappe.Chat = class {
     this.$chat_container.addClass('chat-container');
     $('body').append(this.$app_element);
     this.is_open = false;
+    this.is_desk = 'desk' in frappe;
 
     this.$chat_element = $(document.createElement('div'))
       .addClass('chat-element')
@@ -41,6 +42,21 @@ frappe.Chat = class {
 
     this.chat_bubble = new ChatBubble(this);
     this.chat_bubble.render();
+
+    const navbar_icon_html = `
+      <li class='nav-item dropdown dropdown-notifications 
+        dropdown-mobile chat-navbar-icon' title="Show Chats" >
+        ${frappe.utils.icon('small-message', 'md')}
+      </li>
+    `;
+
+    if (this.is_desk === true) {
+      $('header.navbar > .container > .navbar-collapse > ul').prepend(
+        navbar_icon_html
+      );
+
+      this.setup_events();
+    }
   }
 
   /** Load dependencies and fetch the settings */
@@ -91,7 +107,10 @@ frappe.Chat = class {
         this.chat_welcome.render();
       }
     } catch (error) {
-      console.error(error);
+      frappe.msgprint({
+        title: __('Error'),
+        message: __('Something went wrong. Please refresh and try again.'),
+      });
     }
   }
 
@@ -110,7 +129,12 @@ frappe.Chat = class {
     this.$chat_element.fadeOut(300);
   }
 
-  setup_events() {}
+  setup_events() {
+    const me = this;
+    $('.chat-navbar-icon').on('click', function () {
+      me.chat_bubble.change_bubble();
+    });
+  }
 };
 
 $(function () {

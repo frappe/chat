@@ -33,17 +33,23 @@ def create_private(room_name, users):
         users (str): List of users in room
     """
     users = ast.literal_eval(users)
+    error_count = 0
     if not room_name:
-        frappe.throw(
+        frappe.msgprint(
             title='Error',
             msg=_('Room name is required')
         )
+        error_count += 1
 
     if len(users) <= 1:
-        frappe.throw(
+        frappe.msgprint(
             title='Error',
             msg=_('Please add atleast 1 user')
         )
+        error_count += 1
+
+    if error_count:
+        return
 
     members = ', '.join(users)
 

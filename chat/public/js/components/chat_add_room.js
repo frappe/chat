@@ -69,7 +69,10 @@ export default class ChatAddRoom {
       $('.users-list').html(user_html);
       this.setup_events();
     } catch (error) {
-      console.error(error);
+      frappe.msgprint({
+        title: __('Error'),
+        message: __('Something went wrong. Please refresh and try again.'),
+      });
     }
   }
 
@@ -82,7 +85,10 @@ export default class ChatAddRoom {
       const room_name = $('#room-name').val();
       await create_private_room(room_name, this.room_users);
     } catch (error) {
-      console.error(error);
+      frappe.msgprint({
+        title: __('Error'),
+        message: __('Something went wrong. Please refresh and try again.'),
+      });
     } finally {
       this.$chat_room.modal('hide');
     }

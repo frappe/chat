@@ -37,9 +37,7 @@ export default class ChatSpace {
 			<div class='chat-header'>
 				${
           this.profile.is_admin === true
-            ? `<span class='chat-back-button' data-toggle='tooltip' title='${__(
-                'Go Back'
-              )}' >
+            ? `<span class='chat-back-button' title='${__('Go Back')}' >
 								${frappe.utils.icon('left')}
 							</span>`
             : ``
@@ -64,7 +62,10 @@ export default class ChatSpace {
       this.setup_actions();
       this.render();
     } catch (error) {
-      console.error(error);
+      frappe.msgprint({
+        title: __('Error'),
+        message: __('Something went wrong. Please refresh and try again.'),
+      });
     }
   }
 
