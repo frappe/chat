@@ -5,10 +5,10 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "message",
   "sender",
+  "sender_email",
   "room",
-  "sender_email"
+  "message"
  ],
  "fields": [
   {
@@ -43,7 +43,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-01 19:50:45.014009",
+ "modified": "2021-09-09 11:50:16.522051",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Message",
