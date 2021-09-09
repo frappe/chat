@@ -76,7 +76,7 @@ def get_chat_settings():
     chat_settings = frappe.get_single('Chat Settings')
     user_roles = frappe.get_roles()
 
-    allowed_roles = [u.role for u in chat_settings.roles]
+    allowed_roles = [u.role for u in chat_settings.allowed_roles]
     allowed_roles.extend(['System Manager', 'Administrator', 'Guest'])
     result = {
         'enable_chat': False

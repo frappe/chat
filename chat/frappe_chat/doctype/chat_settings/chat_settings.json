@@ -8,16 +8,9 @@
   "enable_chat",
   "start_time",
   "end_time",
-  "roles"
+  "allowed_roles"
  ],
  "fields": [
-  {
-   "default": "Administrator\nGuest\nSystem Manager",
-   "fieldname": "roles",
-   "fieldtype": "Table",
-   "label": "Roles",
-   "options": "Has Role"
-  },
   {
    "default": "1",
    "fieldname": "enable_chat",
@@ -37,12 +30,19 @@
    "fieldname": "end_time",
    "fieldtype": "Time",
    "label": "End Time"
+  },
+  {
+   "default": "Administrator\nGuest\nSystem Manager",
+   "fieldname": "allowed_roles",
+   "fieldtype": "Table",
+   "label": "Allowed Roles",
+   "options": "Has Role"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-09-07 20:10:44.721468",
+ "modified": "2021-09-09 16:36:38.758111",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Settings",
