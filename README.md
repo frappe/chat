@@ -1,6 +1,6 @@
 # Frappe Chat
 
-Modern Chat application for the frappe ecosystem
+Modern Chat application for the Frappe ecosystem
 
 ## Table of Contents
 
@@ -64,6 +64,10 @@ After this step is completed, you can proceed to install the application.
 5. Create any private room and add users to it.
 
    ![New Room](images/new-room.gif)
+
+6. You can configure the required application settings in chat settings doctype.
+
+   ![Chat Settings](images/chat-settings.png)
 
 ## License
 
