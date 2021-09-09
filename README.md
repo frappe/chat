@@ -26,9 +26,9 @@ Modern Chat application for the frappe ecosystem
 
 It is important to delete all the deprecated doctypes of the existing chat application in the framework.
 
-To accomplish that, you have to delete all the doctypes which has the prefix **chat**.
+To accomplish that, you would have to delete all the doctypes which has the prefix **chat**.
 
-After this step is completed, you can process to install the application.
+After this step is completed, you can proceed to install the application.
 
 ### How to install
 
@@ -46,17 +46,23 @@ After this step is completed, you can process to install the application.
 ## Usage
 
 1. On the portal pages, the guest will be prompted with this view.
+
    ![Welcome View](images/welcome-screen.png)
 
 2. The guest will have to fill a form and after that they will be prompted to the chatting space.
+
    ![Form View](images/guest-form-fill.gif)
 
 3. You can click the message icon on the navbar to open the chat admin view.
+
    ![Guest View](images/admin-view.gif)
+
 4. Click on any room and start chatting right away.
+
    ![Admin Chat](images/admin-chat.gif)
 
 5. Create any private room and add users to it.
+
    ![New Room](images/new-room.gif)
 
 ## License
