@@ -33,9 +33,8 @@ def validate_token(token):
     if guest_user.ip_address != frappe.local.request_ip:
         return [False, {}]
 
-    existing_room = frappe.db.get_list(
-        'Chat Room', filters={'guest': guest_user.email})
-    room = existing_room[0]['name']
+    room = frappe.db.get_value(
+        'Chat Room', {'guest': guest_user.email}, ['name'])
 
     guest_details = {
         'email': guest_user.email,
