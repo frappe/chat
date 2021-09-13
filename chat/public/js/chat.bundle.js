@@ -107,10 +107,7 @@ frappe.Chat = class {
         this.chat_welcome.render();
       }
     } catch (error) {
-      frappe.msgprint({
-        title: __('Error'),
-        message: __('Something went wrong. Please refresh and try again.'),
-      });
+      console.error(error);
     }
   }
 
