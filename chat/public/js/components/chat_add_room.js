@@ -85,10 +85,7 @@ export default class ChatAddRoom {
       const room_name = $('#room-name').val();
       await create_private_room(room_name, this.room_users);
     } catch (error) {
-      frappe.msgprint({
-        title: __('Error'),
-        message: __('Something went wrong. Please refresh and try again.'),
-      });
+      //pass
     } finally {
       this.$chat_room.modal('hide');
     }

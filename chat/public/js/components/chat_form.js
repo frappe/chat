@@ -107,10 +107,7 @@ export default class ChatForm {
         profile: profile,
       });
     } catch (error) {
-      frappe.msgprint({
-        title: __('Error'),
-        message: __('Something went wrong. Please refresh and try again.'),
-      });
+      //pass
     }
   }
 

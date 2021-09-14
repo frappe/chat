@@ -13,27 +13,21 @@ def validate_guest(email, full_name, message):
         message (str): Message to be dropped.
 
     """
-    error_count = 0
     if not validate_email_address(email):
-        error_count += 1
-        frappe.msgprint(
+        frappe.throw(
             title='Error',
             msg=_('Invalid email address')
         )
     if not full_name:
-        error_count += 1
-        frappe.msgprint(
+        frappe.throw(
             title='Error',
             msg=_('Full Name is required')
         )
     if not message:
-        error_count += 1
-        frappe.msgprint(
+        frappe.throw(
             title='Error',
             msg=_('Message is too short')
         )
-    if error_count:
-        return
 
     if not frappe.db.exists('Chat Guest', email):
         token = frappe.generate_hash()
