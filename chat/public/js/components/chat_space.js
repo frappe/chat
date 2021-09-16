@@ -293,11 +293,11 @@ export default class ChatSpace {
   get_typing_changes(res) {
     if (res.user != this.profile.user_email) {
       if (
-        (this.profile.is_admin === true && Boolean(res.is_guest) === true) ||
+        (this.profile.is_admin === true && res.is_guest === 'true') ||
         this.profile.is_admin === false ||
         this.profile.room_type === 'Website'
       ) {
-        if (Boolean(res.is_typing) === false) {
+        if (res.is_typing === 'false') {
           $('.chat-profile-status').css('visibility', 'hidden');
         } else {
           $('.chat-profile-status').css('visibility', 'visible');

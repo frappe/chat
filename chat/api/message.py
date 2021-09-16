@@ -33,8 +33,8 @@ def send(message, user, room, email):
     typing_data = {
         'room': room,
         'user': user,
-        'is_typing': False,
-        'is_guest': True if user == 'Guest' else False,
+        'is_typing': 'false',
+        'is_guest': 'true' if user == 'Guest' else 'false',
     }
     typing_event = room + ':typing'
 
