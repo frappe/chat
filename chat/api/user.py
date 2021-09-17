@@ -73,15 +73,3 @@ def validate_guest(email, full_name, message):
         'token': token
     }
     return result
-
-
-@frappe.whitelist()
-def get_all_users():
-    """Get all website users
-    """
-    all_users = frappe.db.get_list('User')
-    for user in all_users:
-        user['full_name'] = frappe.db.get_value(
-            'User', user['name'], 'full_name')
-
-    return all_users

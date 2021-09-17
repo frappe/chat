@@ -155,13 +155,6 @@ async function set_typing(room, user, is_typing, is_guest) {
   }
 }
 
-async function get_all_users() {
-  const res = await frappe.call({
-    method: 'chat.api.user.get_all_users',
-  });
-  return await res.message;
-}
-
 async function create_private_room(room_name, users) {
   await frappe.call({
     method: 'chat.api.room.create_private',
@@ -186,6 +179,5 @@ export {
   mark_message_read,
   set_typing,
   is_image,
-  get_all_users,
   create_private_room,
 };
