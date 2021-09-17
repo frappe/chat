@@ -47,27 +47,27 @@ After this step is completed, you can proceed to install the application.
 
 1. On the portal pages, the guest will be prompted with this view.
 
-   ![Welcome View](images/welcome-screen.png)
+   ![Welcome View](.github/images/welcome-screen.png)
 
 2. The guest will have to fill a form and after that they will be prompted to the chatting space.
 
-   ![Form View](images/guest-form-fill.gif)
+   ![Form View](.github/images/guest-form-fill.gif)
 
 3. You can click the message icon on the navbar to open the chat admin view.
 
-   ![Guest View](images/admin-view.gif)
+   ![Guest View](.github/images/admin-view.gif)
 
 4. Click on any room and start chatting right away.
 
-   ![Admin Chat](images/admin-chat.gif)
+   ![Admin Chat](.github/images/admin-chat.gif)
 
 5. Create any private room and add users to it.
 
-   ![New Room](images/new-room.gif)
+   ![New Room](.github/images/new-room.gif)
 
 6. You can configure the required application settings in chat settings doctype.
 
-   ![Chat Settings](images/chat-settings.png)
+   ![Chat Settings](.github/images/chat-settings.png)
 
 ## License
 
