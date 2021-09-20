@@ -29,10 +29,10 @@ def validate_guest(email, full_name, message):
             msg=_('Message is too short')
         )
 
-    if not frappe.db.exists('Chat Guest', email):
+    if not frappe.db.exists('Chat Profile', email):
         token = frappe.generate_hash()
         frappe.get_doc({
-            'doctype': 'Chat Guest',
+            'doctype': 'Chat Profile',
             'email': email,
             'guest_name': full_name,
             'token': token,
@@ -58,7 +58,7 @@ def validate_guest(email, full_name, message):
                                 message=profile, after_commit=True)
 
     else:
-        token = frappe.get_doc('Chat Guest', email).token
+        token = frappe.get_doc('Chat Profile', email).token
         existing_room = frappe.db.get_list(
             'Chat Room', filters={'guest': email})
         room = existing_room[0]['name']

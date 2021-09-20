@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestChatGuest(unittest.TestCase):
+class TestChatProfile(unittest.TestCase):
 	pass

@@ -44,12 +44,12 @@
    "fieldname": "guest",
    "fieldtype": "Link",
    "label": "Guest",
-   "options": "Chat Guest"
+   "options": "Chat Profile"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-07 16:15:39.234106",
+ "modified": "2021-09-20 16:50:48.988975",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Room",

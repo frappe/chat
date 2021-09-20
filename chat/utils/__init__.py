@@ -21,14 +21,14 @@ def validate_token(token):
     if not token:
         return [False, {}]
     is_exist = frappe.db.exists({
-        'doctype': 'Chat Guest',
+        'doctype': 'Chat Profile',
         'token': token,
     })
 
     if not is_exist:
         return [False, {}]
 
-    guest_user = frappe.get_doc('Chat Guest', str(is_exist[0][0]))
+    guest_user = frappe.get_doc('Chat Profile', str(is_exist[0][0]))
 
     if guest_user.ip_address != frappe.local.request_ip:
         return [False, {}]

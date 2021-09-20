@@ -23,6 +23,12 @@
    "unique": 1
   },
   {
+   "fieldname": "guest_name",
+   "fieldtype": "Data",
+   "label": "Guest Name",
+   "reqd": 1
+  },
+  {
    "fieldname": "token",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -30,12 +36,6 @@
    "read_only": 1,
    "reqd": 1,
    "set_only_once": 1
-  },
-  {
-   "fieldname": "guest_name",
-   "fieldtype": "Data",
-   "label": "Guest Name",
-   "reqd": 1
   },
   {
    "fieldname": "ip_address",
@@ -48,11 +48,12 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-08 14:41:31.445250",
+ "modified": "2021-09-20 16:51:11.852055",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
- "name": "Chat Guest",
+ "name": "Chat Profile",
  "name_case": "Title Case",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
