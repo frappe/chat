@@ -30,12 +30,10 @@ def validate_guest(email, full_name, message):
         )
 
     if not frappe.db.exists('Chat Profile', email):
-        token = frappe.generate_hash()
-        frappe.get_doc({
+        profile_doc = frappe.get_doc({
             'doctype': 'Chat Profile',
             'email': email,
             'guest_name': full_name,
-            'token': token,
         }).insert()
         new_room = frappe.get_doc({
             'doctype': 'Chat Room',
@@ -54,6 +52,7 @@ def validate_guest(email, full_name, message):
             'is_read': 0,
             'room_type': 'Guest'
         }
+        token = profile_doc.token
         frappe.publish_realtime(event='new_room_creation',
                                 message=profile, after_commit=True)
 
