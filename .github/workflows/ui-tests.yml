@@ -97,6 +97,8 @@ jobs:
 
       - name: Install
         run: bash ${GITHUB_WORKSPACE}/.github/helper/install.sh
+        env:
+          DB: mariadb
 
       - name: Site Setup
         run: cd ~/frappe-bench/ && bench --site test_site execute frappe.utils.install.complete_setup_wizard
