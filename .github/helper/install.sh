@@ -33,14 +33,6 @@ if [ "$DB" == "mariadb" ];then
       mysql --host 127.0.0.1 --port 3306 -u root -e "FLUSH PRIVILEGES";
     fi
 
-if [ "$DB" == "postgres" ];then
-    echo "travis" | psql -h 127.0.0.1 -p 5432 -c "CREATE DATABASE test_frappe_consumer" -U postgres;
-    echo "travis" | psql -h 127.0.0.1 -p 5432 -c "CREATE USER test_frappe_consumer WITH PASSWORD 'test_frappe'" -U postgres;
-
-    echo "travis" | psql -h 127.0.0.1 -p 5432 -c "CREATE DATABASE test_frappe_producer" -U postgres;
-    echo "travis" | psql -h 127.0.0.1 -p 5432 -c "CREATE USER test_frappe_producer WITH PASSWORD 'test_frappe'" -U postgres;
-fi
-
 cd ./frappe-bench || exit
 
 sed -i 's/^watch:/# watch:/g' Procfile
@@ -55,12 +47,12 @@ if [ "$TYPE" == "ui" ]; then bench setup requirements --node; fi
 cd ./apps/frappe || exit
 yarn add node-sass@4.13.1
 cd ../..
+bench get-app chat "${GITHUB_WORKSPACE}"
 
 bench start &
 bench --site test_site reinstall --yes
 
-bench get-app "${GITHUB_WORKSPACE}"
 bench --site test_site install-app chat
 
 if [ "$TYPE" == "server" ]; then bench --site test_site_producer reinstall --yes; fi
-bench build 
+bench build --app frappe
