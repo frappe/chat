@@ -105,10 +105,7 @@ async function mark_message_read(room) {
       },
     });
   } catch (error) {
-    frappe.msgprint({
-      title: __('Error'),
-      message: __('Something went wrong. Please refresh and try again.'),
-    });
+    //pass
   }
 }
 
@@ -148,10 +145,7 @@ async function set_typing(room, user, is_typing, is_guest) {
       },
     });
   } catch (error) {
-    frappe.msgprint({
-      title: __('Error'),
-      message: __('Something went wrong. Please refresh and try again.'),
-    });
+    //pass
   }
 }
 
