@@ -101,7 +101,17 @@ def get_chat_settings():
 
 
 def display_warning():
+    """Display deprecated warning message_item
+    """
     message = 'The chat application in frappe is deprecated and will be removed in the future release. So please use this one only.'
 
     frappe.publish_realtime(
         event='msgprint', message=message)
+
+
+def allow_guest_to_upload():
+    """Allow guest to upload files
+    """
+    system_settings = frappe.get_doc('System Settings')
+    system_settings.allow_guests_to_upload_files = 1
+    system_settings.save()

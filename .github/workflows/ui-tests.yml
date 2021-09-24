@@ -104,8 +104,8 @@ jobs:
       - name: Site Setup
         run: cd ~/frappe-bench/ && bench --site test_site execute frappe.utils.install.complete_setup_wizard
 
-      - name: cypress pre-requisites
-        run: cd ~/frappe-bench/apps/frappe && yarn add cypress-file-upload@^5 @testing-library/cypress@^8 --no-lockfile
+      - name: Cypress pre-requisites
+        run: cd ~/frappe-bench/apps/frappe && yarn add cypress-file-upload@^5 @testing-library/cypress@^8 --no-lockfile && bench --site test_site execute chat.utils.allow_guest_to_upload
 
       - name: Build Assets
         run: cd ~/frappe-bench/ && bench build
