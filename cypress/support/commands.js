@@ -1,4 +1,3 @@
-import 'cypress-file-upload';
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -44,21 +43,4 @@ Cypress.Commands.add('send_message', (message, room) => {
         },
       });
     });
-});
-
-Cypress.Commands.add('login', (email, password) => {
-  if (!email) {
-    email = 'Administrator';
-  }
-  if (!password) {
-    password = Cypress.config('adminPassword');
-  }
-  cy.request({
-    url: '/api/method/login',
-    method: 'POST',
-    body: {
-      usr: email,
-      pwd: password,
-    },
-  });
 });
