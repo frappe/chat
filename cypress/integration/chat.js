@@ -18,7 +18,7 @@ context('Chat', () => {
     cy.get('#submit-form').click();
     cy.get('.msgprint').should('contain.text', 'Invalid email address');
 
-    cy.hide_messages();
+    cy.hide_modal_messages();
 
     cy.get('#chat-fullname').type('Dohn Joe').should('have.value', 'Dohn Joe');
 
@@ -86,7 +86,7 @@ context('Chat', () => {
       'contain.text',
       'You can only upload JPG, PNG, PDF, or Microsoft documents.'
     );
-    cy.hide_messages();
+    cy.hide_modal_messages();
 
     cy.get('[id="chat-file-uploader"]').attachFile('sample_pdf.pdf');
     cy.wait(500);
@@ -97,7 +97,7 @@ context('Chat', () => {
       .should('have.attr', 'href', '/files/sample_pdf.pdf');
 
     cy.get('[id="chat-file-uploader"]').attachFile('sample_image.jpeg');
-    cy.wait(700);
+    cy.wait(1000);
     cy.get('.chat-space')
       .find('.message-bubble')
       .last()
@@ -108,7 +108,7 @@ context('Chat', () => {
   it('Open chat list admin view', () => {
     cy.visit('/login');
     cy.login();
-    cy.visit('/app/website');
+    cy.visit('/app');
     cy.get('.chat-navbar-icon').click();
     cy.get('.chat-list').should('be.visible');
   });
@@ -130,5 +130,20 @@ context('Chat', () => {
       .find('.chat-name')
       .first()
       .should('contain.text', 'Dohn Joe');
+
+    cy.get('.chat-search-box').clear();
+  });
+
+  it('Create new private room', () => {
+    cy.get('.chat-list').find('.add-room').click({ force: true });
+    cy.get('input[data-fieldname="room_name"]').type('Friendz');
+    cy.get('input[data-fieldname="users"]').type('Administrator');
+    cy.get('.modal-footer').first().click({ force: true });
+    cy.click_modal_primary_button('Create');
+
+    cy.get('.chat-list')
+      .find('.chat-name')
+      .first()
+      .should('contain.text', 'Administrator');
   });
 });

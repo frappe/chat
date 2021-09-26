@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('hide_messages', () => {
+Cypress.Commands.add('hide_modal_messages', () => {
   cy.wait(500);
   cy.get('button.close').click();
 });
