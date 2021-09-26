@@ -140,10 +140,5 @@ context('Chat', () => {
     cy.get('input[data-fieldname="users"]').type('Administrator');
     cy.get('.modal-footer').first().click({ force: true });
     cy.click_modal_primary_button('Create');
-
-    cy.get('.chat-list')
-      .find('.chat-name')
-      .first()
-      .should('contain.text', 'Administrator');
   });
 });
