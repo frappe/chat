@@ -1,5 +1,5 @@
-context('Chat', () => {
-  let room;
+let room;
+describe('Guest View', () => {
   before(() => {
     cy.visit('/about');
   });
@@ -104,13 +104,34 @@ context('Chat', () => {
       .find('img')
       .should('have.attr', 'src', '/files/sample_image.jpeg');
   });
+});
+
+describe('Admin View', () => {
+  before(() => {
+    cy.login();
+    cy.visit('/app');
+  });
+
+  beforeEach(() => {
+    cy.login();
+  });
 
   it('Open chat list admin view', () => {
-    cy.visit('/login');
-    cy.login();
     cy.visit('/app');
     cy.get('.chat-navbar-icon').click();
     cy.get('.chat-list').should('be.visible');
+  });
+
+  it('Check latest message update', () => {
+    cy.send_message('Latest', room);
+    cy.wait(700);
+    cy.get('.chat-list')
+      .find('.last-message')
+      .first()
+      .should('contain.text', 'Latest')
+      .parent()
+      .find('.chat-latest')
+      .should('be.visible');
   });
 
   it('Interact with the first chat room', () => {
@@ -119,6 +140,7 @@ context('Chat', () => {
     cy.get('.chat-space').should('be.visible');
     cy.get('.chat-back-button').click({ force: true });
     cy.get('.chat-list').should('be.visible');
+    cy.get('.chat-list').find('.chat-latest').first().should('be.hidden');
   });
 
   it('Search for an user', () => {
@@ -140,5 +162,11 @@ context('Chat', () => {
     cy.get('input[data-fieldname="users"]').type('Administrator');
     cy.get('.modal-footer').first().click({ force: true });
     cy.click_modal_primary_button('Create');
+    cy.wait(1000);
+
+    cy.get('.chat-list')
+      .find('.chat-name')
+      .first()
+      .should('contain.text', 'Friendz');
   });
 });
