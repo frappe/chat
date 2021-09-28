@@ -107,11 +107,6 @@ describe('Guest View', () => {
 });
 
 describe('Admin View', () => {
-  before(() => {
-    cy.login();
-    cy.visit('/app');
-  });
-
   beforeEach(() => {
     cy.login();
   });
@@ -162,7 +157,7 @@ describe('Admin View', () => {
     cy.get('input[data-fieldname="users"]').type('Administrator');
     cy.get('.modal-footer').first().click({ force: true });
     cy.click_modal_primary_button('Create');
-    cy.wait(1000);
+    cy.wait(700);
 
     cy.get('.chat-list')
       .find('.chat-name')
