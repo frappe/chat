@@ -6,8 +6,6 @@ Modern Chat application for the Frappe ecosystem
 
 - [Features](#features)
 - [Installation](#installation)
-  - [Before installation](#before-installation)
-  - [How to install](#how-to-install)
 - [Usage](#usage)
 - [License](#license)
 
@@ -21,16 +19,6 @@ Modern Chat application for the Frappe ecosystem
 6. All functionalities of a chat app
 
 ## Installation
-
-### Before installation
-
-It is important to delete all the deprecated doctypes of the existing chat application in the framework.
-
-To accomplish that, you would have to delete all the doctypes which has the prefix **chat**.
-
-After this step is completed, you can proceed to install the application.
-
-### How to install
 
 1. Get the app from the repository.
 
