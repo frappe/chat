@@ -54,9 +54,8 @@ frappe.Chat = class {
       $('header.navbar > .container > .navbar-collapse > ul').prepend(
         navbar_icon_html
       );
-
-      this.setup_events();
     }
+    this.setup_events();
   }
 
   /** Load dependencies and fetch the settings */
@@ -126,10 +125,30 @@ frappe.Chat = class {
     this.$chat_element.fadeOut(300);
   }
 
+  should_close(e) {
+    const chat_app = $('.chat-app');
+    const navbar = $('.navbar');
+    const modal = $('.modal');
+    return (
+      !chat_app.is(e.target) &&
+      chat_app.has(e.target).length === 0 &&
+      !navbar.is(e.target) &&
+      navbar.has(e.target).length === 0 &&
+      !modal.is(e.target) &&
+      modal.has(e.target).length === 0
+    );
+  }
+
   setup_events() {
     const me = this;
     $('.chat-navbar-icon').on('click', function () {
       me.chat_bubble.change_bubble();
+    });
+
+    $(document).mouseup(function (e) {
+      if (me.should_close(e) && me.is_open === true) {
+        me.chat_bubble.change_bubble();
+      }
     });
   }
 };
