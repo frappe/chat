@@ -35,7 +35,7 @@ After this step is completed, you can proceed to install the application.
 1. Get the app from the repository.
 
    ```
-   $ bench get-app chat https://github.com/codescientist703/frappe_chat
+   $ bench get-app chat
    ```
 
 2. Install the app on your site.
