@@ -1,5 +1,7 @@
 # Frappe Chat
 
+![UI Tests](https://github.com/frappe/chat/actions/workflows/ui-tests.yml/badge.svg)
+
 Modern Chat application for the Frappe ecosystem
 
 ## Table of Contents
