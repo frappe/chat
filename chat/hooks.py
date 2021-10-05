@@ -13,12 +13,12 @@ guest_title = app_title
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = ['chat.bundle.css']
-app_include_js = ['chat.bundle.js']
+app_include_css = ['/assets/chat/css/chat.css']
+app_include_js = ['/assets/chat/js/chat.js']
 
 # include js, css files in header of web template
-web_include_css = ['chat.bundle.css']
-web_include_js = ['chat.bundle.js']
+web_include_css = ['/assets/chat/css/chat.css']
+web_include_js = ['/assets/chat/js/chat.js']
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "chat/public/scss/website"
