@@ -73,7 +73,7 @@ web_include_js = ['chat.bundle.js'] if is_frappe_above_v13 else [
 # ------------
 
 # before_install = "chat.install.before_install"
-after_install = "chat.patches.migrate_chat_data.execute"
+# after_install = "chat.patches.migrate_chat_data.execute"
 
 # Desk Notifications
 # ------------------
