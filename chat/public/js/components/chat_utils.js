@@ -66,12 +66,12 @@ async function get_messages(room) {
   return await res.message;
 }
 
-async function send_message(message, user, room, email) {
+async function send_message(content, user, room, email) {
   try {
     await frappe.call({
       method: 'chat.api.message.send',
       args: {
-        message: message,
+        content: content,
         user: user,
         room: room,
         email: email,

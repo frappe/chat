@@ -8,16 +8,9 @@
   "sender",
   "sender_email",
   "room",
-  "message"
+  "content"
  ],
  "fields": [
-  {
-   "fieldname": "message",
-   "fieldtype": "Text",
-   "in_list_view": 1,
-   "label": "Message",
-   "reqd": 1
-  },
   {
    "fieldname": "sender",
    "fieldtype": "Data",
@@ -39,11 +32,18 @@
    "label": "Sender Email",
    "options": "Email",
    "reqd": 1
+  },
+  {
+   "fieldname": "content",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "label": "Content",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-09 11:50:16.522051",
+ "modified": "2021-10-07 15:33:19.522381",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Message",

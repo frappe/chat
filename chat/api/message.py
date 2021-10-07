@@ -4,7 +4,7 @@ from chat.utils import update_room
 
 
 @frappe.whitelist(allow_guest=True)
-def send(message, user, room, email):
+def send(content, user, room, email):
     """Send the message via socketio
 
     Args:
@@ -15,15 +15,15 @@ def send(message, user, room, email):
     """
     new_message = frappe.get_doc({
         'doctype': 'Chat Message',
-        'message': message,
+        'content': content,
         'sender': user,
         'room': room,
         'sender_email': email
     }).insert()
-    update_room(room=room, last_message=message)
+    update_room(room=room, last_message=content)
 
     result = {
-        'message': message,
+        'content': content,
         'user': user,
         'creation': new_message.creation,
         'room': room,
@@ -58,7 +58,7 @@ def get_all(room):
                                filters={
                                    'room': room,
                                },
-                               fields=['message', 'sender',
+                               fields=['content', 'sender',
                                        'creation', 'sender_email'],
                                order_by='creation asc'
                                )

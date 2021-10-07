@@ -165,9 +165,9 @@ export default class ChatList {
       }
 
       const message =
-        res.message.length > 24
-          ? res.message.substring(0, 24) + '...'
-          : res.message;
+        res.content.length > 24
+          ? res.content.substring(0, 24) + '...'
+          : res.content;
 
       chat_room_item[1].set_last_message(message, res.creation);
 

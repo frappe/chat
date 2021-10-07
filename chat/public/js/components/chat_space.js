@@ -84,7 +84,7 @@ export default class ChatSpace {
     if (this.profile.message) {
       messages_list.push(this.profile.message);
       send_message(
-        this.profile.message.message,
+        this.profile.message.content,
         this.profile.user,
         this.profile.room,
         this.profile.user_email
@@ -104,7 +104,7 @@ export default class ChatSpace {
         }
       }
       this.message_html += this.make_message(
-        element.message,
+        element.content,
         get_time(element.creation),
         message_type
       ).prop('outerHTML');
@@ -312,7 +312,7 @@ export default class ChatSpace {
     }
   }
 
-  make_message(message, time, type) {
+  make_message(content, time, type) {
     const message_class =
       type === 'recipient' ? 'recipient-message' : 'sender-message';
     const $recipient_element = $(document.createElement('div')).addClass(
@@ -322,18 +322,18 @@ export default class ChatSpace {
       'message-bubble'
     );
 
-    const n = message.lastIndexOf('/');
-    const file_name = message.substring(n + 1) || '';
+    const n = content.lastIndexOf('/');
+    const file_name = content.substring(n + 1) || '';
 
-    if (message.startsWith('/files/') && file_name !== '') {
+    if (content.startsWith('/files/') && file_name !== '') {
       let $url;
       if (is_image(file_name)) {
         $url = $(document.createElement('img'));
-        $url.attr({ src: message }).addClass('img-responsive chat-image');
+        $url.attr({ src: content }).addClass('img-responsive chat-image');
         $message_element.css({ padding: '0px', background: 'inherit' });
       } else {
         $url = $(document.createElement('a'));
-        $url.attr({ href: message, target: '_blank' }).text(__(file_name));
+        $url.attr({ href: content, target: '_blank' }).text(__(file_name));
 
         if (type === 'sender') {
           $url.css('color', 'var(--cyan-100)');
@@ -342,7 +342,7 @@ export default class ChatSpace {
 
       $message_element.append($url);
     } else {
-      const sanitized_messages = $('<div>').text(message).html();
+      const sanitized_messages = $('<div>').text(content).html();
       $message_element.append(__(sanitized_messages));
     }
 
@@ -354,15 +354,15 @@ export default class ChatSpace {
 
   handle_send_message(attachment) {
     const $type_message = $('.type-message');
-    let message = null;
+    let content = null;
 
     if (attachment) {
-      message = attachment;
+      content = attachment;
     } else {
-      message = $type_message.val();
+      content = $type_message.val();
     }
 
-    if (message.length === 0) {
+    if (content.length === 0) {
       return;
     }
     this.typing = false;
@@ -370,12 +370,12 @@ export default class ChatSpace {
       clearTimeout(this.timeout);
     }
     this.$chat_space_container.append(
-      this.make_message(message, get_time(), 'recipient')
+      this.make_message(content, get_time(), 'recipient')
     );
     $type_message.val('');
     scroll_to_bottom(this.$chat_space_container);
     send_message(
-      message,
+      content,
       this.profile.user,
       this.profile.room,
       this.profile.user_email
@@ -395,7 +395,7 @@ export default class ChatSpace {
     }
 
     this.$chat_space_container.append(
-      this.make_message(res.message, time, chat_type)
+      this.make_message(res.content, time, chat_type)
     );
     scroll_to_bottom(this.$chat_space_container);
   }

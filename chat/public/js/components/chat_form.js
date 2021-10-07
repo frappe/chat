@@ -85,7 +85,7 @@ export default class ChatForm {
         return;
       }
       const query_message = {
-        message: form_values.message,
+        content: form_values.message,
         creation: new Date(),
         sender: res.guest_name,
         sender_email: res.email,
