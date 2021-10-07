@@ -1,4 +1,5 @@
 from . import __version__ as app_version
+from frappe import __version__ as frappe_version
 
 app_name = "chat"
 app_title = "Frappe Chat"
@@ -9,16 +10,22 @@ app_color = "grey"
 app_email = "nihalmittal47@gmail.com"
 app_license = "MIT"
 guest_title = app_title
+is_frappe_above_v13 = int(frappe_version.split('.')[0]) > 13
+
 # Includes in <head>
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = ['chat.bundle.css']
-app_include_js = ['chat.bundle.js']
+app_include_css = ['chat.bundle.css'] if is_frappe_above_v13 else [
+    '/assets/chat/css/chat.css']
+app_include_js = ['chat.bundle.js'] if is_frappe_above_v13 else [
+    '/assets/chat/js/chat.js']
 
 # include js, css files in header of web template
-web_include_css = ['chat.bundle.css']
-web_include_js = ['chat.bundle.js']
+web_include_css = ['chat.bundle.css'] if is_frappe_above_v13 else [
+    '/assets/chat/css/chat.css']
+web_include_js = ['chat.bundle.js'] if is_frappe_above_v13 else [
+    '/assets/chat/js/chat.js']
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "chat/public/scss/website"
@@ -66,7 +73,7 @@ web_include_js = ['chat.bundle.js']
 # ------------
 
 # before_install = "chat.install.before_install"
-after_install = "chat.utils.display_warning"
+after_install = "chat.patches.migrate_chat_data.execute"
 
 # Desk Notifications
 # ------------------

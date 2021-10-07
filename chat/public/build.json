@@ -1,3 +1,4 @@
 {
-	"chat/js/chat.js": ["public/js/chat.js"]
+  "chat/js/chat.js": ["public/js/chat.bundle.js"],
+  "chat/css/chat.css": ["public/scss/chat.bundle.scss"]
 }
