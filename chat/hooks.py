@@ -17,15 +17,15 @@ is_frappe_above_v13 = int(frappe_version.split('.')[0]) > 13
 
 # include js, css files in header of desk.html
 app_include_css = ['chat.bundle.css'] if is_frappe_above_v13 else [
-    '/assets/chat/css/chat.css']
+    '/assets/css/chat.css']
 app_include_js = ['chat.bundle.js'] if is_frappe_above_v13 else [
-    '/assets/chat/js/chat.js']
+    '/assets/js/chat.js']
 
 # include js, css files in header of web template
 web_include_css = ['chat.bundle.css'] if is_frappe_above_v13 else [
-    '/assets/chat/css/chat.css']
+    '/assets/css/chat.css']
 web_include_js = ['chat.bundle.js'] if is_frappe_above_v13 else [
-    '/assets/chat/js/chat.js']
+    '/assets/js/chat.js']
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "chat/public/scss/website"
