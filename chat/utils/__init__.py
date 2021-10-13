@@ -115,3 +115,18 @@ def allow_guest_to_upload():
     system_settings = frappe.get_doc('System Settings')
     system_settings.allow_guests_to_upload_files = 1
     system_settings.save()
+
+
+def get_full_name(email, only_first=False):
+    """Get full name from email
+
+    Args:
+        email (str): Email of user
+        only_first (bool, optional): Whether to fetch only first name. Defaults to False.
+
+    Returns:
+        str: Full Name
+    """
+    field = 'first_name' if only_first else 'full_name'
+    return frappe.db.get_value(
+        'User', email, field)

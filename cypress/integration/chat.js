@@ -151,8 +151,9 @@ describe('Admin View', () => {
     cy.get('.chat-search-box').clear();
   });
 
-  it('Create new private room', () => {
+  it('Create new Group', () => {
     cy.get('.chat-list').find('.add-room').click({ force: true });
+    cy.wait(400);
     cy.get('input[data-fieldname="room_name"]').type('Friendz');
     cy.get('input[data-fieldname="users"]').type('Administrator');
     cy.get('.modal-footer').first().click({ force: true });

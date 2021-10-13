@@ -79,12 +79,9 @@ export default class ChatList {
         room: element.name,
         is_read: element.is_read,
         room_name: element.room_name,
+        room_type: element.type,
       };
-      if (element.members === 'Guest') {
-        profile.room_type = 'Guest';
-      } else {
-        profile.room_type = 'Website';
-      }
+
       this.chat_rooms.push([
         profile.room,
         new ChatRoom({
@@ -187,6 +184,13 @@ export default class ChatList {
 
     frappe.realtime.on('private_room_creation', function (res) {
       if (res.members.includes(me.user_email)) {
+        if (res.room_type === 'Direct') {
+          res.room_name =
+            res.member_names[0]['email'] == me.user_email
+              ? res.member_names[1]['name']
+              : res.member_names[0]['name'];
+        }
+
         res.user = me.user;
         res.is_admin = me.is_admin;
         res.user_email = me.user_email;

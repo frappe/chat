@@ -16,9 +16,25 @@ export default class ChatAddRoom {
       title: __('New Chat Room'),
       fields: [
         {
+          label: __('Room Type'),
+          fieldname: 'type',
+          fieldtype: 'Select',
+          options: ['Group', 'Direct'],
+          default: 'Group',
+          onchange: () => {
+            const type = this.add_room_dialog.get_value('type');
+            const is_group = type === 'Group';
+            this.add_room_dialog.set_df_property('room_name', 'reqd', is_group);
+            this.add_room_dialog.set_df_property('users', 'reqd', is_group);
+            this.add_room_dialog.set_df_property('user', 'reqd', !is_group);
+          },
+          reqd: true,
+        },
+        {
           label: __('Room Name'),
           fieldname: 'room_name',
           fieldtype: 'Data',
+          depends_on: "eval:doc.type == 'Group'",
           reqd: true,
         },
         {
@@ -26,7 +42,15 @@ export default class ChatAddRoom {
           fieldname: 'users',
           fieldtype: 'MultiSelectPills',
           options: this.users_list,
+          depends_on: "eval:doc.type == 'Group'",
           reqd: true,
+        },
+        {
+          label: __('User'),
+          fieldname: 'user',
+          fieldtype: 'Link',
+          options: 'User',
+          depends_on: "eval:doc.type == 'Direct'",
         },
       ],
       action: {
@@ -34,8 +58,12 @@ export default class ChatAddRoom {
           label: __('Create'),
           onsubmit: (values) => {
             let users = this.add_room_dialog.fields_dict.users.get_values();
-            users = [...users, this.user_email];
-            this.handle_room_creation(values.room_name, users);
+            let room_name = values.room_name;
+            if (values.type === 'Direct') {
+              users = [values.user];
+              room_name = 'Direct Room';
+            }
+            this.handle_room_creation(room_name, users, values.type);
             this.add_room_dialog.hide();
           },
         },
@@ -47,9 +75,9 @@ export default class ChatAddRoom {
     this.add_room_dialog.show();
   }
 
-  async handle_room_creation(room_name, users) {
+  async handle_room_creation(room_name, users, type) {
     try {
-      await create_private_room(room_name, users);
+      await create_private_room(room_name, users, type);
       this.add_room_dialog.clear();
     } catch (error) {
       //pass
