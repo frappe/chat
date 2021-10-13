@@ -40,6 +40,7 @@ def validate_guest(email, full_name, message):
             'guest': email,
             'room_name': full_name,
             'members': 'Guest',
+            'type': 'Guest'
         }).insert()
         room = new_room.name
 

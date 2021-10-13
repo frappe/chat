@@ -298,7 +298,8 @@ export default class ChatSpace {
       if (
         (this.profile.is_admin === true && res.is_guest === 'true') ||
         this.profile.is_admin === false ||
-        this.profile.room_type === 'Website'
+        this.profile.room_type === 'Group' ||
+        this.profile.room_type === 'Direct'
       ) {
         if (res.is_typing === 'false') {
           $('.chat-profile-status').css('visibility', 'hidden');

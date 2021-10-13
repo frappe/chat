@@ -1,5 +1,7 @@
 import frappe
 from frappe import _
+from chat.utils import get_full_name
+from frappe.query_builder import Order
 import ast
 
 
@@ -8,58 +10,90 @@ def get(email):
     """Get all the rooms for a user 
 
     Args:
-        email (str): Email of user requests all rooms
+            email (str): Email of user requests all rooms
 
     """
-    data = frappe.db.get_list('Chat Room',
-                              order_by='is_read asc, modified desc',
-                              or_filters=[
-                                  ['members', '=', 'Guest'],
-                                  ['members', 'like',
-                                   f'%{email}%']
-                              ],
-                              fields=['name', 'modified',
-                                      'last_message', 'is_read', 'room_name', 'members']
-                              )
-    return data
+    room_doctype = frappe.qb.DocType('Chat Room')
+
+    all_rooms = (
+        frappe.qb.from_(room_doctype)
+        .select('name', 'modified', 'last_message', 'is_read', 'room_name', 'members', 'type')
+        .where((room_doctype.type.like('Guest') | room_doctype.members.like(f'%{email}%'))).orderby('is_read', order=Order.asc).orderby('modified', order=Order.desc)
+
+    ).run(as_dict=True)
+
+    for room in all_rooms:
+        if room['type'] == 'Direct':
+            members = room['members'].split(', ')
+            room['room_name'] = get_full_name(
+                members[0]) if email == members[1] else get_full_name(members[1])
+
+    return all_rooms
 
 
 @frappe.whitelist()
-def create_private(room_name, users):
+def create_private(room_name, users, type):
     """Create a new private room
 
     Args:
-        room_name (str): Room name
-        users (str): List of users in room
+            room_name (str): Room name
+            users (str): List of users in room
     """
     users = ast.literal_eval(users)
-    if not room_name:
-        frappe.throw(
-            title='Error',
-            msg=_('Room name is required')
-        )
-
-    if len(users) <= 1:
-        frappe.throw(
-            title='Error',
-            msg=_('Please add atleast 1 user')
-        )
-
+    users.append(frappe.session.user)
     members = ', '.join(users)
 
-    room_doc = frappe.get_doc({
-        'doctype': 'Chat Room',
-        'room_name': room_name,
-        'members': members,
-    })
-    room_doc.insert()
+    if type == 'Direct':
+        room_doctype = frappe.qb.DocType('Chat Room')
+        query = (
+            frappe.qb.from_(room_doctype)
+            .select('name')
+            .where(room_doctype.type == 'Direct')
+            .where(room_doctype.members.like(f'%{users[0]}%'))
+            .where(room_doctype.members.like(f'%{users[1]}%'))
+        ).run(as_dict=True)
+        if query:
+            frappe.throw(
+                title='Error',
+                msg=_('Direct Room already exists!')
+            )
+        else:
+            room_doc = get_private_room_doc(room_name, members, type)
+            room_doc.insert()
+    else:
+        room_doc = get_private_room_doc(room_name, members, type)
+        room_doc.insert()
+
     profile = {
         'room_name': room_name,
         'last_date': room_doc.modified,
         'room': room_doc.name,
         'is_read': 0,
-        'room_type': 'Website',
+        'room_type': type,
         'members': members,
     }
+
+    if type == 'Direct':
+        members_names = [
+            {
+                'name': get_full_name(users[0]),
+                'email': users[0]
+            },
+            {
+                'name': get_full_name(users[1]),
+                'email': users[1]
+            }
+        ]
+        profile['member_names'] = members_names
+
     frappe.publish_realtime(event='private_room_creation',
                             message=profile, after_commit=True)
+
+
+def get_private_room_doc(room_name, members, type):
+    return frappe.get_doc({
+        'doctype': 'Chat Room',
+        'room_name': room_name,
+        'members': members,
+        'type': type,
+    })

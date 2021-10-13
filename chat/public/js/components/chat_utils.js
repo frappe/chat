@@ -149,12 +149,13 @@ async function set_typing(room, user, is_typing, is_guest) {
   }
 }
 
-async function create_private_room(room_name, users) {
+async function create_private_room(room_name, users, type) {
   await frappe.call({
     method: 'chat.api.room.create_private',
     args: {
       room_name: room_name,
       users: users,
+      type: type,
     },
   });
 }
