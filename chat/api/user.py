@@ -59,9 +59,7 @@ def validate_guest(email, full_name, message):
 
     else:
         token = frappe.get_doc('Chat Profile', email).token
-        existing_room = frappe.db.get_list(
-            'Chat Room', filters={'guest': email})
-        room = existing_room[0]['name']
+        room = frappe.db.get_value('Chat Room', {'guest': email}, 'name')
 
     result = {
         'email': email,
