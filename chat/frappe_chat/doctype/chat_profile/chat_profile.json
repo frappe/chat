@@ -48,7 +48,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-20 16:51:11.852055",
+ "modified": "2021-10-15 17:37:48.673845",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Profile",
@@ -65,7 +65,6 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "select": 1,
    "share": 1,
    "write": 1
   },

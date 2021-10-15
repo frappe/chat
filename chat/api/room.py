@@ -1,7 +1,6 @@
 import frappe
 from frappe import _
 from chat.utils import get_full_name
-from frappe.query_builder import Order
 import ast
 
 
@@ -18,7 +17,7 @@ def get(email):
     all_rooms = (
         frappe.qb.from_(room_doctype)
         .select('name', 'modified', 'last_message', 'is_read', 'room_name', 'members', 'type')
-        .where((room_doctype.type.like('Guest') | room_doctype.members.like(f'%{email}%'))).orderby('is_read', order=Order.asc).orderby('modified', order=Order.desc)
+        .where((room_doctype.type.like('Guest') | room_doctype.members.like(f'%{email}%')))
 
     ).run(as_dict=True)
 
@@ -27,7 +26,9 @@ def get(email):
             members = room['members'].split(', ')
             room['room_name'] = get_full_name(
                 members[0]) if email == members[1] else get_full_name(members[1])
+        room['is_read'] = 1 if email in room['is_read'] else 0
 
+    all_rooms.sort(key=lambda room: comparator(room))
     return all_rooms
 
 
@@ -97,3 +98,19 @@ def get_private_room_doc(room_name, members, type):
         'members': members,
         'type': type,
     })
+
+def comparator(key):
+    return (
+        key.is_read,
+        reversor(key.modified)
+    )
+    
+class reversor:
+    def __init__(self, obj):
+        self.obj = obj
+
+    def __eq__(self, other):
+        return other.obj == self.obj
+
+    def __gt__(self, other):
+        return other.obj > self.obj
