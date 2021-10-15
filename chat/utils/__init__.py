@@ -63,7 +63,12 @@ def update_room(room, last_message=None, is_read=0, update_modified=True):
     }
     if last_message:
         new_values['last_message'] = last_message
-
+    
+    if is_read == 1:
+        is_read_members = frappe.db.get_value('Chat Room', room, 'is_read') or ''
+        is_read_members += f', {frappe.session.user}'
+        new_values['is_read'] = is_read_members
+        
     frappe.db.set_value('Chat Room', room, new_values,
                         update_modified=update_modified)
 
