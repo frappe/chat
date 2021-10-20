@@ -161,6 +161,10 @@ export default class ChatList {
         return;
       }
 
+      if (!$('.chat-element').is(':visible')) {
+        frappe.utils.play_sound('chat-notification');
+      }
+
       const message =
         res.content.length > 24
           ? res.content.substring(0, 24) + '...'
@@ -176,6 +180,10 @@ export default class ChatList {
     });
 
     frappe.realtime.on('new_room_creation', function (res) {
+      if (!$('.chat-element').is(':visible')) {
+        frappe.utils.play_sound('chat-notification');
+      }
+
       res.user = me.user;
       res.is_admin = me.is_admin;
       res.user_email = me.user_email;
@@ -183,6 +191,10 @@ export default class ChatList {
     });
 
     frappe.realtime.on('private_room_creation', function (res) {
+      if (!$('.chat-element').is(':visible')) {
+        frappe.utils.play_sound('chat-notification');
+      }
+
       if (res.members.includes(me.user_email)) {
         if (res.room_type === 'Direct') {
           res.room_name =
