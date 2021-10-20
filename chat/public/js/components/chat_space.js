@@ -370,6 +370,11 @@ export default class ChatSpace {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
+
+    if (this.profile.is_admin === true) {
+      frappe.utils.play_sound('chat-message-send');
+    }
+
     this.$chat_space_container.append(
       this.make_message(content, get_time(), 'recipient')
     );
@@ -387,6 +392,10 @@ export default class ChatSpace {
     let chat_type = 'sender';
     if (res.sender_email === this.profile.user_email) {
       return;
+    }
+
+    if (this.profile.is_admin === true && $('.chat-element').is(':visible')) {
+      frappe.utils.play_sound('chat-message-receive');
     }
 
     if (this.profile.room_type === 'Guest') {

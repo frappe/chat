@@ -188,3 +188,9 @@ after_install = "chat.patches.migrate_chat_data.execute"
 # auth_hooks = [
 # 	"chat.auth.validate"
 # ]
+
+sounds = [
+    {'name': 'chat-notification', 'src': '/assets/chat/sounds/chat-notification.mp3', 'volume': 0.2},
+    {'name': 'chat-message-send', 'src': '/assets/chat/sounds/chat-message-send.mp3', 'volume': 0.2},
+    {'name': 'chat-message-receive', 'src': '/assets/chat/sounds/chat-message-receive.mp3', 'volume': 0.5}
+]
