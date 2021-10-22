@@ -1,3 +1,11 @@
+<br>
+<br>
+<div align="center">
+<img width="150" alt="logotype" src=".github/images/logo.png">
+</div>
+<br>
+<br>
+
 # Frappe Chat
 
 ![UI Tests](https://github.com/frappe/chat/actions/workflows/ui-tests.yml/badge.svg)
