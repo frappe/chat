@@ -1,9 +1,7 @@
 <br>
-<br>
 <div align="center">
 <img width="150" alt="logotype" src=".github/images/logo.png">
 </div>
-<br>
 <br>
 
 # Frappe Chat
