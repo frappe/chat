@@ -1,5 +1,6 @@
 import ChatRoom from './chat_room';
 import ChatAddRoom from './chat_add_room';
+import ChatUserSettings from './chat_user_settings';
 import { get_rooms, mark_message_read } from './chat_utils';
 
 export default class ChatList {
@@ -24,9 +25,15 @@ export default class ChatList {
     const chat_list_header_html = `
 			<div class='chat-list-header'>
 				<h3>${__('Chats')}</h3>
-        <div class='add-room' 
-          title='Create Private Room'>
-          ${frappe.utils.icon('users', 'md')}
+        <div class='chat-list-icons'>
+          <div class='add-room' 
+            title='Create Private Room'>
+            ${frappe.utils.icon('users', 'md')}
+          </div>
+          <div class='user-settings' 
+          title='Settings'>
+          ${frappe.utils.icon('setting-gear', 'md')}
+          </div>
         </div>
 			</div>
 		`;
@@ -124,16 +131,22 @@ export default class ChatList {
     $('.chat-search-box').on('input', function (e) {
       me.fitler_rooms($(this).val().toLowerCase());
     });
+
     $('.add-room').on('click', function (e) {
       if (typeof me.chat_add_room_modal === 'undefined') {
         me.chat_add_room_modal = new ChatAddRoom({
           user: me.user,
           user_email: me.user_email,
         });
-        me.chat_add_room_modal.show();
-      } else {
-        me.chat_add_room_modal.show();
       }
+      me.chat_add_room_modal.show();
+    });
+
+    $('.user-settings').on('click', function (e) {
+      if (typeof me.chat_user_settings === 'undefined') {
+        me.chat_user_settings = new ChatUserSettings();
+      }
+      me.chat_user_settings.show();
     });
   }
 
@@ -161,7 +174,10 @@ export default class ChatList {
         return;
       }
 
-      if (!$('.chat-element').is(':visible')) {
+      if (
+        !$('.chat-element').is(':visible') &&
+        frappe.Chat.settings.user.enable_notifications === 1
+      ) {
         frappe.utils.play_sound('chat-notification');
       }
 
@@ -180,7 +196,10 @@ export default class ChatList {
     });
 
     frappe.realtime.on('new_room_creation', function (res) {
-      if (!$('.chat-element').is(':visible')) {
+      if (
+        !$('.chat-element').is(':visible') &&
+        frappe.Chat.settings.user.enable_notifications === 1
+      ) {
         frappe.utils.play_sound('chat-notification');
       }
 
@@ -191,7 +210,10 @@ export default class ChatList {
     });
 
     frappe.realtime.on('private_room_creation', function (res) {
-      if (!$('.chat-element').is(':visible')) {
+      if (
+        !$('.chat-element').is(':visible') &&
+        frappe.Chat.settings.user.enable_notifications === 1
+      ) {
         frappe.utils.play_sound('chat-notification');
       }
 

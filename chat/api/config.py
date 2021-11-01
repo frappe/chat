@@ -1,6 +1,7 @@
 import frappe
 from frappe import _
-from chat.utils import validate_token, get_admin_name, get_chat_settings
+from chat.utils import validate_token, get_admin_name, get_chat_settings, get_user_settings
+import ast
 
 
 @frappe.whitelist(allow_guest=True)
@@ -22,6 +23,7 @@ def settings(token):
 
     if config['is_admin']:
         config['user'] = get_admin_name(config['user_email'])
+        config['user_settings'] = get_user_settings()
     else:
         config['user'] = 'Guest'
         token_verify = validate_token(token)
@@ -33,3 +35,22 @@ def settings(token):
             config['is_verified'] = False
 
     return config
+
+
+@frappe.whitelist()
+def user_settings(settings):
+    settings = ast.literal_eval(settings)
+
+    if not frappe.db.exists('Chat User Settings', frappe.session.user):
+        settings_doc = frappe.get_doc({
+            'doctype': 'Chat User Settings',
+            'user': frappe.session.user,
+            **settings
+        }).insert()
+    else:
+        settings_doc = frappe.get_doc(
+            'Chat User Settings', frappe.session.user)
+        for key, value in settings.items():
+            setattr(settings_doc, key, value)
+
+        settings_doc.save()

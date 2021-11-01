@@ -11,6 +11,7 @@ import {
   scroll_to_bottom,
 } from './components';
 frappe.provide('frappe.Chat');
+frappe.provide('frappe.Chat.settings');
 
 /** Spawns a chat widget on any web page */
 frappe.Chat = class {
@@ -71,6 +72,9 @@ frappe.Chat = class {
 
       this.create_app();
       await setup_dependencies(res.socketio_port);
+
+      frappe.Chat.settings = {};
+      frappe.Chat.settings.user = res.user_settings;
 
       if (res.is_admin) {
         // If the user is admin, render everthing

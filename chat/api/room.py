@@ -9,7 +9,7 @@ def get(email):
     """Get all the rooms for a user 
 
     Args:
-            email (str): Email of user requests all rooms
+        email (str): Email of user requests all rooms
 
     """
     room_doctype = frappe.qb.DocType('Chat Room')
@@ -37,8 +37,8 @@ def create_private(room_name, users, type):
     """Create a new private room
 
     Args:
-            room_name (str): Room name
-            users (str): List of users in room
+        room_name (str): Room name
+        users (str): List of users in room
     """
     users = ast.literal_eval(users)
     users.append(frappe.session.user)
@@ -99,12 +99,14 @@ def get_private_room_doc(room_name, members, type):
         'type': type,
     })
 
+
 def comparator(key):
     return (
         key.is_read,
         reversor(key.modified)
     )
-    
+
+
 class reversor:
     def __init__(self, obj):
         self.obj = obj

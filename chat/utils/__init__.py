@@ -63,14 +63,15 @@ def update_room(room, last_message=None, is_read=0, update_modified=True):
     }
     if last_message:
         new_values['last_message'] = last_message
-    
+
     if is_read == 1:
-        is_read_members = frappe.db.get_value('Chat Room', room, 'is_read') or ''
+        is_read_members = frappe.db.get_value(
+            'Chat Room', room, 'is_read') or ''
         is_read_members += f'{frappe.session.user}, '
         new_values['is_read'] = is_read_members
     else:
         new_values['is_read'] = ''
-        
+
     frappe.db.set_value('Chat Room', room, new_values,
                         update_modified=update_modified)
 
@@ -137,3 +138,21 @@ def get_full_name(email, only_first=False):
     field = 'first_name' if only_first else 'full_name'
     return frappe.db.get_value(
         'User', email, field)
+
+
+def get_user_settings():
+    """Get the user settings
+
+    Returns:
+        dict: user settings
+    """
+    if frappe.db.exists('Chat User Settings', frappe.session.user):
+        user_doc = frappe.db.get_value('Chat User Settings', frappe.session.user, [
+            'enable_message_tone', 'enable_notifications'], as_dict=1)
+    else:
+        user_doc = {
+            'enable_message_tone': 1,
+            'enable_notifications': 1
+        }
+
+    return user_doc

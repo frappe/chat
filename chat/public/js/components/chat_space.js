@@ -371,7 +371,10 @@ export default class ChatSpace {
       clearTimeout(this.timeout);
     }
 
-    if (this.profile.is_admin === true) {
+    if (
+      this.profile.is_admin === true &&
+      frappe.Chat.settings.user.enable_message_tone === 1
+    ) {
       frappe.utils.play_sound('chat-message-send');
     }
 
@@ -394,7 +397,11 @@ export default class ChatSpace {
       return;
     }
 
-    if (this.profile.is_admin === true && $('.chat-element').is(':visible')) {
+    if (
+      this.profile.is_admin === true &&
+      $('.chat-element').is(':visible') &&
+      frappe.Chat.settings.user.enable_message_tone === 1
+    ) {
       frappe.utils.play_sound('chat-message-receive');
     }
 

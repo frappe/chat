@@ -110,10 +110,18 @@ $height: 582px;
     padding: $padding-chat-lr $padding-chat-lr 0 $padding-chat-lr;
     justify-content: space-between;
     display: flex;
-    .add-room {
-      cursor: pointer;
-      margin-right: 0px;
-      margin-top: 1px;
+    .chat-list-icons {
+      display: flex;
+      .user-settings {
+        cursor: pointer;
+        margin-right: 0px;
+        margin-top: 1px;
+      }
+      .add-room {
+        cursor: pointer;
+        margin-right: 11px;
+        margin-top: 1px;
+      }
     }
   }
   .chat-search {
@@ -411,7 +419,7 @@ $height: 582px;
   }
   .chat-list {
     .chat-list-header {
-      .add-room {
+      .chat-list-icons {
         margin-right: var(--margin-xl);
       }
     }
