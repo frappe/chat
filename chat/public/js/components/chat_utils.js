@@ -160,6 +160,15 @@ async function create_private_room(room_name, users, type) {
   });
 }
 
+async function set_user_settings(settings) {
+  await frappe.call({
+    method: 'chat.api.config.user_settings',
+    args: {
+      settings: settings,
+    },
+  });
+}
+
 export {
   get_time,
   scroll_to_bottom,
@@ -175,4 +184,5 @@ export {
   set_typing,
   is_image,
   create_private_room,
+  set_user_settings,
 };
