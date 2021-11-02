@@ -1,7 +1,7 @@
 import frappe
 from frappe import _
 from chat.utils import validate_token, get_admin_name, get_chat_settings, get_user_settings
-import ast
+import json
 
 
 @frappe.whitelist(allow_guest=True)
@@ -39,18 +39,20 @@ def settings(token):
 
 @frappe.whitelist()
 def user_settings(settings):
-    settings = ast.literal_eval(settings)
+    settings = json.loads(settings)
 
     if not frappe.db.exists('Chat User Settings', frappe.session.user):
         settings_doc = frappe.get_doc({
             'doctype': 'Chat User Settings',
             'user': frappe.session.user,
-            **settings
+            'enable_notifications': settings['enable_notifications'],
+            'enable_message_tone': settings['enable_message_tone'],
         }).insert()
     else:
         settings_doc = frappe.get_doc(
             'Chat User Settings', frappe.session.user)
-        for key, value in settings.items():
-            setattr(settings_doc, key, value)
+
+        settings_doc.enable_notifications = settings['enable_notifications']
+        settings_doc.enable_message_tone = settings['enable_message_tone']
 
         settings_doc.save()
