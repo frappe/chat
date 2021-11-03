@@ -56,11 +56,12 @@ async function get_rooms(email) {
   return await res.message;
 }
 
-async function get_messages(room) {
+async function get_messages(room, email) {
   const res = await frappe.call({
     method: 'chat.api.message.get_all',
     args: {
       room: room,
+      email: email,
     },
   });
   return await res.message;

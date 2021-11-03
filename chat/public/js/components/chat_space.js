@@ -24,6 +24,7 @@ export default class ChatSpace {
     this.$chat_space.addClass('chat-space');
     this.setup_header();
     this.fetch_and_setup_messages();
+    this.setup_socketio();
   }
 
   setup_header() {
@@ -56,7 +57,10 @@ export default class ChatSpace {
 
   async fetch_and_setup_messages() {
     try {
-      const res = await get_messages(this.profile.room);
+      const res = await get_messages(
+        this.profile.room,
+        this.profile.user_email
+      );
       this.setup_messages(res);
       this.setup_actions();
       this.render();
@@ -235,7 +239,6 @@ export default class ChatSpace {
     };
 
     $('.chat-back-button').on('click', function () {
-      me.destroy_socket_events();
       me.chat_list.render_messages();
       me.chat_list.render();
     });
@@ -420,7 +423,7 @@ export default class ChatSpace {
   render() {
     this.$wrapper.html(this.$chat_space);
     this.setup_events();
-    this.setup_socketio();
+
     scroll_to_bottom(this.$chat_space_container);
   }
 }

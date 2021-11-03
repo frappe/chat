@@ -156,3 +156,53 @@ def get_user_settings():
         }
 
     return user_doc
+
+
+def get_room_detail(room):
+    """Get a room's details
+
+    Args:
+        room (str): Room's name
+
+    Returns:
+        dict: Room's details
+    """
+    room_detail = frappe.db.get_value(
+        'Chat Room', room, ['members', 'type', 'guest'], as_dict=True)
+    return room_detail
+
+
+def is_user_allowed_in_room(room, email, user=None):
+    """Check if user is allowed in rooms
+
+    Args:
+        room (str): Room's name_case
+        email (str): User's email
+        user (str, optional): User's name. Defaults to None.
+
+    Returns:
+        bool: Whether user is allowed or not
+    """
+    if user == 'Guest' and frappe.session.user != user:
+        return False
+
+    room_detail = get_room_detail(room)
+    if frappe.session.user == "Guest" and room_detail.guest != email:
+        return False
+
+    if frappe.session.user != "Guest" and room_detail.type != 'Guest' and email not in room_detail.members:
+        return False
+
+    return True
+
+
+class NotAuthorizedError(Exception):
+    pass
+
+
+def raise_not_authorized_error():
+    frappe.throw(
+        msg='You are not authorized to access read/write this resource.',
+        title='Error',
+        exc=NotAuthorizedError
+    )

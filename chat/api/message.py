@@ -1,6 +1,6 @@
 import frappe
 from frappe import _
-from chat.utils import update_room
+from chat.utils import update_room, is_user_allowed_in_room, raise_not_authorized_error
 
 
 @frappe.whitelist(allow_guest=True)
@@ -13,6 +13,9 @@ def send(content, user, room, email):
         room (str): Room's name.
         email (str): Sender's email.
     """
+    if not is_user_allowed_in_room(room, email, user):
+        raise_not_authorized_error()
+
     new_message = frappe.get_doc({
         'doctype': 'Chat Message',
         'content': content,
@@ -47,13 +50,16 @@ def send(content, user, room, email):
 
 
 @frappe.whitelist(allow_guest=True)
-def get_all(room):
+def get_all(room, email):
     """Get all the messages of a particular room
 
     Args:
         room (str): Room's name.
 
     """
+    if not is_user_allowed_in_room(room, email):
+        raise_not_authorized_error()
+
     result = frappe.db.get_all('Chat Message',
                                filters={
                                    'room': room,
