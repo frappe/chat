@@ -68,16 +68,6 @@ describe('Guest View', () => {
       .should('contain.text', typed_message)
       .parent()
       .should('have.class', 'recipient-message');
-
-    cy.send_message('Just testing!', room);
-    cy.wait(700);
-
-    cy.get('.chat-space')
-      .find('.message-bubble')
-      .last()
-      .should('contain.text', 'Just testing!')
-      .parent()
-      .should('have.class', 'sender-message');
   });
 
   it('Attach different files', () => {
