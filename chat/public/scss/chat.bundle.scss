@@ -245,6 +245,10 @@ $height: 582px;
     .chat-image {
       border-radius: 13px 13px 0px 13px;
     }
+    .message-name {
+      font-size: $font-size-xs;
+      font-weight: bold;
+    }
     .sender-message {
       display: flex;
       flex-direction: column;

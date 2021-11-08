@@ -110,7 +110,8 @@ export default class ChatSpace {
       this.message_html += this.make_message(
         element.content,
         get_time(element.creation),
-        message_type
+        message_type,
+        element.sender
       ).prop('outerHTML');
 
       this.prevMessage = element;
@@ -316,7 +317,7 @@ export default class ChatSpace {
     }
   }
 
-  make_message(content, time, type) {
+  make_message(content, time, type, name) {
     const message_class =
       type === 'recipient' ? 'recipient-message' : 'sender-message';
     const $recipient_element = $(document.createElement('div')).addClass(
@@ -326,8 +327,13 @@ export default class ChatSpace {
       'message-bubble'
     );
 
+    const $name_element = $(document.createElement('div'))
+      .addClass('message-name')
+      .text(name);
+
     const n = content.lastIndexOf('/');
     const file_name = content.substring(n + 1) || '';
+    let $sanitized_content;
 
     if (content.startsWith('/files/') && file_name !== '') {
       let $url;
@@ -335,6 +341,10 @@ export default class ChatSpace {
         $url = $(document.createElement('img'));
         $url.attr({ src: content }).addClass('img-responsive chat-image');
         $message_element.css({ padding: '0px', background: 'inherit' });
+        $name_element.css({
+          color: 'var(--gray-600)',
+          'padding-bottom': 'var(--padding-xs)',
+        });
       } else {
         $url = $(document.createElement('a'));
         $url.attr({ href: content, target: '_blank' }).text(__(file_name));
@@ -343,13 +353,15 @@ export default class ChatSpace {
           $url.css('color', 'var(--cyan-100)');
         }
       }
-
-      $message_element.append($url);
+      $sanitized_content = $url;
     } else {
-      const sanitized_messages = $('<div>').text(content).html();
-      $message_element.append(__(sanitized_messages));
+      $sanitized_content = __($('<div>').text(content).html());
     }
 
+    if (type === 'sender' && this.profile.room_type === 'Group') {
+      $message_element.append($name_element);
+    }
+    $message_element.append($sanitized_content);
     $recipient_element.append($message_element);
     $recipient_element.append(`<div class='message-time'>${__(time)}</div>`);
 
@@ -382,7 +394,7 @@ export default class ChatSpace {
     }
 
     this.$chat_space_container.append(
-      this.make_message(content, get_time(), 'recipient')
+      this.make_message(content, get_time(), 'recipient', this.profile.user)
     );
     $type_message.val('');
     scroll_to_bottom(this.$chat_space_container);
@@ -415,7 +427,7 @@ export default class ChatSpace {
     }
 
     this.$chat_space_container.append(
-      this.make_message(res.content, time, chat_type)
+      this.make_message(res.content, time, chat_type, res.user)
     );
     scroll_to_bottom(this.$chat_space_container);
   }
