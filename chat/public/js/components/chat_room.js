@@ -1,5 +1,10 @@
 import ChatSpace from './chat_space';
-import { get_date_from_now, mark_message_read, get_time } from './chat_utils';
+import {
+  get_date_from_now,
+  mark_message_read,
+  get_time,
+  get_avatar_html,
+} from './chat_utils';
 
 export default class ChatRoom {
   constructor(opts) {
@@ -14,9 +19,9 @@ export default class ChatRoom {
     this.$chat_room = $(document.createElement('div'));
     this.$chat_room.addClass('chat-room');
 
-    this.avatar_html = frappe.avatar(
-      null,
-      'avatar-medium',
+    this.avatar_html = get_avatar_html(
+      this.profile.room_type,
+      this.profile.opposite_person_email,
       this.profile.room_name
     );
 

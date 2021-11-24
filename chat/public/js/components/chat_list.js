@@ -87,6 +87,7 @@ export default class ChatList {
         is_read: element.is_read,
         room_name: element.room_name,
         room_type: element.type,
+        opposite_person_email: element.opposite_person_email,
       };
 
       this.chat_rooms.push([
@@ -223,6 +224,11 @@ export default class ChatList {
             res.member_names[0]['email'] == me.user_email
               ? res.member_names[1]['name']
               : res.member_names[0]['name'];
+
+          res.opposite_person_email =
+            res.member_names[0]['email'] == me.user_email
+              ? res.member_names[1]['email']
+              : res.member_names[0]['email'];
         }
 
         res.user = me.user;

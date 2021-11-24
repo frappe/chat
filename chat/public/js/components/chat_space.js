@@ -7,6 +7,7 @@ import {
   send_message,
   set_typing,
   is_image,
+  get_avatar_html,
 } from './chat_utils';
 
 export default class ChatSpace {
@@ -28,9 +29,9 @@ export default class ChatSpace {
   }
 
   setup_header() {
-    this.avatar_html = frappe.avatar(
-      null,
-      'avatar-medium',
+    this.avatar_html = get_avatar_html(
+      this.profile.room_type,
+      this.profile.opposite_person_email,
       this.profile.room_name
     );
     const header_html = `

@@ -26,6 +26,7 @@ def get(email):
             members = room['members'].split(', ')
             room['room_name'] = get_full_name(
                 members[0]) if email == members[1] else get_full_name(members[1])
+            room['opposite_person_email'] = members[0] if members[1] == email else members[1]
         room['is_read'] = 1 if email in room['is_read'] else 0
 
     all_rooms.sort(key=lambda room: comparator(room))

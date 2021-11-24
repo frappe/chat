@@ -170,6 +170,16 @@ async function set_user_settings(settings) {
   });
 }
 
+function get_avatar_html(room_type, user_email, room_name) {
+  let avatar_html;
+  if (room_type === 'Direct' && 'desk' in frappe) {
+    avatar_html = frappe.avatar(user_email, 'avatar-medium');
+  } else {
+    avatar_html = frappe.get_avatar('avatar-medium', room_name);
+  }
+  return avatar_html;
+}
+
 export {
   get_time,
   scroll_to_bottom,
@@ -186,4 +196,5 @@ export {
   is_image,
   create_private_room,
   set_user_settings,
+  get_avatar_html,
 };
