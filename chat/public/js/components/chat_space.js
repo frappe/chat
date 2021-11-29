@@ -227,7 +227,7 @@ export default class ChatSpace {
 
       form_data.append('doctype', 'Chat Room');
       form_data.append('docname', this.profile.room);
-
+      form_data.append('optimize', +true);
       xhr.send(form_data);
     });
   }
