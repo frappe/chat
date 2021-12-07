@@ -343,7 +343,7 @@ export default class ChatSpace {
         $url.attr({ src: content }).addClass('img-responsive chat-image');
         $message_element.css({ padding: '0px', background: 'inherit' });
         $name_element.css({
-          color: 'var(--gray-600)',
+          color: 'var(--text-muted)',
           'padding-bottom': 'var(--padding-xs)',
         });
       } else {

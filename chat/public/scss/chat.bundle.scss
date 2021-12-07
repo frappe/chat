@@ -33,7 +33,7 @@ $height: 582px;
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--white);
+    background: var(--card-bg);
   }
 
   ::-webkit-scrollbar-thumb {
@@ -53,9 +53,10 @@ $height: 582px;
   position: relative;
   box-shadow: 0px 2px 6px rgba(17, 43, 66, 0.08),
     0px 1px 4px rgba(17, 43, 66, 0.1);
-  background: var(--white);
+  background: var(--card-bg);
   border-radius: 6px;
   margin-bottom: 1rem;
+  border: 1px solid var(--dark-border-color);
 }
 
 .chat-container {
@@ -126,7 +127,6 @@ $height: 582px;
   }
   .chat-search {
     border-radius: 6px;
-    background: var(--gray-100);
     font-size: $font-size-sm;
     margin: 0 $padding-chat-lr;
     .search-icon {
@@ -160,13 +160,12 @@ $height: 582px;
       position: relative;
       padding: 10px 0;
       border-radius: 8px;
-      color: var(--gray-900);
       &:hover {
-        background: var(--gray-100);
+        background: var(--bg-light-gray);
 
         /* Neat trick to add hover spacing without affecting layout */
-        border-left: 5px solid var(--gray-100);
-        border-right: 5px solid var(--gray-100);
+        border-left: 5px solid var(--bg-light-gray);
+        border-right: 5px solid var(--bg-light-gray);
         margin: 0 -5px;
       }
 
@@ -181,7 +180,7 @@ $height: 582px;
       }
 
       .chat-date {
-        color: var(--gray-600);
+        color: var(--text-muted);
       }
 
       .chat-latest {
@@ -201,6 +200,7 @@ $height: 582px;
   padding: $padding-chat-lr;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06),
     0px 2px 0.5px -1px rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid var(--dark-border-color);
   .chat-back-button {
     height: 28px;
     width: 28px;
@@ -208,7 +208,7 @@ $height: 582px;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background: var(--gray-100);
+    background: var(--bg-color);
     margin-right: 10px;
     cursor: pointer;
   }
@@ -217,12 +217,11 @@ $height: 582px;
     font-size: $font-size-sm;
     margin-right: auto;
     .chat-profile-name {
-      color: var(--gray-900);
+      color: var(--text-color);
       font-weight: 600;
     }
     .chat-profile-status {
       font-size: $font-size-xs;
-      color: var(--gray-700);
       visibility: hidden;
     }
   }
@@ -237,6 +236,7 @@ $height: 582px;
 }
 
 .chat-space {
+  height: 100%;
   .chat-space-container {
     padding: $padding-chat-lr;
     overflow-wrap: break-word;
@@ -269,8 +269,8 @@ $height: 582px;
       flex-direction: column;
       align-items: flex-end;
       .message-bubble {
-        background: var(--gray-200);
-        color: var(--gray-900);
+        background: var(--control-bg);
+        color: var(--text-color);
         padding: 8px;
         font-size: $font-size-sm;
         border-radius: 13px 13px 0px 13px;
@@ -279,16 +279,16 @@ $height: 582px;
     }
     .message-time {
       font-size: $font-size-xs;
-      color: var(--gray-500);
+      color: var(--text-muted);
     }
     .date-line {
       width: 100%;
       text-align: center;
-      border-bottom: 1px solid var(--gray-300);
+      border-bottom: 1px solid var(--gray-400);
       line-height: 0.1em;
       margin: 10px 0 20px;
       span {
-        background: var(--white);
+        background: var(--card-bg);
         padding: 0 8px;
         font-size: $font-size-sm;
       }

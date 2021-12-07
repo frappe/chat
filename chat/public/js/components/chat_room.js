@@ -36,7 +36,7 @@ export default class ChatRoom {
 					></div>
 				</div>
 				<div style='color: ${
-          this.profile.is_read ? 'var(--gray-600)' : 'var(--gray-800)'
+          this.profile.is_read ? 'var(--text-muted)' : 'var(--text-color)'
         }' class='last-message'>${__(last_message)}</div>
 			</div>
 		`;
@@ -64,7 +64,7 @@ export default class ChatRoom {
 
   set_as_read() {
     this.profile.is_read = 1;
-    this.$chat_room.find('.last-message').css('color', 'var(--gray-600)');
+    this.$chat_room.find('.last-message').css('color', 'var(--text-muted)');
     this.$chat_room.find('.chat-latest').hide();
   }
 
@@ -76,7 +76,7 @@ export default class ChatRoom {
 
   set_as_unread() {
     this.profile.is_read = 0;
-    this.$chat_room.find('.last-message').css('color', 'var(--gray-800)');
+    this.$chat_room.find('.last-message').css('color', 'var(--text-color)');
     this.$chat_room.find('.chat-latest').show();
   }
 
