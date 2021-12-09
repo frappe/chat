@@ -27,7 +27,6 @@ frappe.Chat = class {
     this.$chat_container.addClass('chat-container');
     $('body').append(this.$app_element);
     this.is_open = false;
-    this.is_desk = 'desk' in frappe;
 
     this.$chat_element = $(document.createElement('div'))
       .addClass('chat-element')
@@ -65,8 +64,9 @@ frappe.Chat = class {
       const token = localStorage.getItem('guest_token') || '';
       const res = await get_settings(token);
       this.is_admin = res.is_admin;
+      this.is_desk = 'desk' in frappe;
 
-      if (res.enable_chat === false) {
+      if (res.enable_chat === false || (!this.is_desk && this.is_admin)) {
         return;
       }
 
