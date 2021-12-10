@@ -26,7 +26,8 @@ Supports Frappe version 13 and develop.
 3. Very lightweight
 4. Mobile First
 5. Guest and Admin view
-6. All functionalities of a chat app
+6. Dark mode support
+7. All functionalities of a chat app
 
 ## Installation
 
