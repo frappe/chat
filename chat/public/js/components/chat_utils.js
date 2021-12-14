@@ -180,6 +180,21 @@ function get_avatar_html(room_type, user_email, room_name) {
   return avatar_html;
 }
 
+function set_notification_count(type) {
+  const current_count = frappe.Chat.settings.unread_count;
+  if (type === 'increment') {
+    $('#chat-notification-count').text(current_count + 1);
+    frappe.Chat.settings.unread_count += 1;
+  } else {
+    if (current_count - 1 === 0) {
+      $('#chat-notification-count').text('');
+    } else {
+      $('#chat-notification-count').text(current_count - 1);
+    }
+    frappe.Chat.settings.unread_count -= 1;
+  }
+}
+
 export {
   get_time,
   scroll_to_bottom,
@@ -197,4 +212,5 @@ export {
   create_private_room,
   set_user_settings,
   get_avatar_html,
+  set_notification_count,
 };

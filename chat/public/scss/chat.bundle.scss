@@ -432,4 +432,14 @@ $height: 582px;
 
 .chat-navbar-icon {
   cursor: pointer;
+  .badge {
+    background: var(--red-avatar-color);
+    color: var(--bg-color);
+    position: relative;
+    top: -10px;
+    left: -10px;
+    border-radius: 50%;
+    font-size: 9px;
+    border: 1px solid var(--red-avatar-color);
+  }
 }

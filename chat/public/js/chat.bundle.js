@@ -44,10 +44,11 @@ frappe.Chat = class {
     this.chat_bubble.render();
 
     const navbar_icon_html = `
-      <li class='nav-item dropdown dropdown-notifications 
-        dropdown-mobile chat-navbar-icon' title="Show Chats" >
-        ${frappe.utils.icon('small-message', 'md')}
-      </li>
+        <li class='nav-item dropdown dropdown-notifications 
+          dropdown-mobile chat-navbar-icon' title="Show Chats" >
+          ${frappe.utils.icon('small-message', 'md')}
+          <span class="badge" id="chat-notification-count"></span>
+        </li>
     `;
 
     if (this.is_desk === true) {
@@ -75,6 +76,7 @@ frappe.Chat = class {
 
       frappe.Chat.settings = {};
       frappe.Chat.settings.user = res.user_settings;
+      frappe.Chat.settings.unread_count = 0;
 
       if (res.is_admin) {
         // If the user is admin, render everthing

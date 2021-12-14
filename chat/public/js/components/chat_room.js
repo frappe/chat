@@ -4,6 +4,7 @@ import {
   mark_message_read,
   get_time,
   get_avatar_html,
+  set_notification_count,
 } from './chat_utils';
 
 export default class ChatRoom {
@@ -13,6 +14,9 @@ export default class ChatRoom {
     this.chat_list = opts.chat_list;
     this.profile = opts.element;
     this.setup();
+    if (!this.profile.is_read) {
+      set_notification_count('increment');
+    }
   }
 
   setup() {
@@ -66,6 +70,7 @@ export default class ChatRoom {
     this.profile.is_read = 1;
     this.$chat_room.find('.last-message').css('color', 'var(--text-muted)');
     this.$chat_room.find('.chat-latest').hide();
+    set_notification_count('decrement');
   }
 
   set_last_message(message, date) {
@@ -75,6 +80,9 @@ export default class ChatRoom {
   }
 
   set_as_unread() {
+    if (this.profile.is_read) {
+      set_notification_count('increment');
+    }
     this.profile.is_read = 0;
     this.$chat_room.find('.last-message').css('color', 'var(--text-color)');
     this.$chat_room.find('.chat-latest').show();
