@@ -98,6 +98,10 @@ export default class ChatRoom {
     this.setup_events();
   }
 
+  move_to_top() {
+    $(this.$chat_room).prependTo(this.$chat_rooms_container);
+  }
+
   setup_events() {
     this.$chat_room.on('click', () => {
       if (typeof this.chat_space !== 'undefined') {

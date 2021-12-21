@@ -163,6 +163,13 @@ export default class ChatList {
     this.setup_events();
   }
 
+  move_room_to_top(chat_room_item) {
+    this.chat_rooms = [
+      chat_room_item,
+      ...this.chat_rooms.filter((item) => item !== chat_room_item),
+    ];
+  }
+
   setup_socketio() {
     const me = this;
     frappe.realtime.on('latest_chat_updates', function (res) {
@@ -191,6 +198,8 @@ export default class ChatList {
 
       if ($('.chat-list').length) {
         chat_room_item[1].set_as_unread();
+        chat_room_item[1].move_to_top();
+        me.move_room_to_top(chat_room_item);
       } else if ($('.chat-space').length) {
         mark_message_read(res.room);
       }
