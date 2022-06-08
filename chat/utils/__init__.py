@@ -1,6 +1,6 @@
 import frappe
 from frappe import _
-from frappe.utils import has_common
+from frappe.utils import has_common,get_time,now_datetime
 import datetime
 
 
@@ -92,11 +92,11 @@ def get_chat_settings():
 
     if not chat_settings.enable_chat or not has_common(allowed_roles, user_roles):
         return result
-
+    
     if chat_settings.start_time and chat_settings.end_time:
-        start_time = datetime.time.fromisoformat(chat_settings.start_time)
-        end_time = datetime.time.fromisoformat(chat_settings.end_time)
-        current_time = datetime.datetime.now().time()
+        start_time = get_time(chat_settings.start_time)
+        end_time = get_time(chat_settings.end_time)
+        current_time = get_time(now_datetime())
 
         chat_status = 'Online' if time_in_range(
             start_time, end_time, current_time) else 'Offline'
