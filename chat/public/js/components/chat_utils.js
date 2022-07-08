@@ -110,17 +110,6 @@ async function mark_message_read(room) {
   }
 }
 
-async function setup_dependencies(socketio_port) {
-  await frappe.require(
-    [
-      'assets/frappe/js/lib/socket.io.min.js',
-      'assets/frappe/js/frappe/socketio_client.js',
-    ],
-    () => {
-      frappe.socketio.init(socketio_port);
-    }
-  );
-}
 
 async function create_guest({ email, full_name, message }) {
   const res = await frappe.call({
@@ -203,7 +192,6 @@ export {
   get_settings,
   create_guest,
   send_message,
-  setup_dependencies,
   get_date_from_now,
   is_date_change,
   mark_message_read,
