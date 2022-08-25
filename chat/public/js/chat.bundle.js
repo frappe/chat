@@ -7,7 +7,6 @@ import {
   ChatSpace,
   ChatWelcome,
   get_settings,
-  setup_dependencies,
   scroll_to_bottom,
 } from './components';
 frappe.provide('frappe.Chat');
@@ -72,7 +71,7 @@ frappe.Chat = class {
       }
 
       this.create_app();
-      await setup_dependencies(res.socketio_port);
+      await frappe.socketio.init(res.socketio_port);
 
       frappe.Chat.settings = {};
       frappe.Chat.settings.user = res.user_settings;
