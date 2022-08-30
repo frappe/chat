@@ -21,16 +21,25 @@ def get(email):
 
     ).run(as_dict=True)
 
+    user_rooms = []
+
     for room in all_rooms:
         if room['type'] == 'Direct':
             members = room['members'].split(', ')
             room['room_name'] = get_full_name(
                 members[0]) if email == members[1] else get_full_name(members[1])
             room['opposite_person_email'] = members[0] if members[1] == email else members[1]
+        if room['type'] == 'Guest':
+            users = frappe.get_doc("Chat Room", room['name']).users
+            if not users:
+                users = frappe.get_single('Chat Settings').chat_operators
+            if email not in [u.user for u in users]:
+                continue
         room['is_read'] = 1 if email in room['is_read'] else 0
+        user_rooms.append(room)
 
-    all_rooms.sort(key=lambda room: comparator(room))
-    return all_rooms
+    user_rooms.sort(key=lambda room: comparator(room))
+    return user_rooms
 
 
 @frappe.whitelist()

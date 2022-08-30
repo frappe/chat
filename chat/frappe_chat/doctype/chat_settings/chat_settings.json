@@ -8,6 +8,7 @@
   "enable_chat",
   "start_time",
   "end_time",
+  "chat_operators",
   "allowed_roles"
  ],
  "fields": [
@@ -37,12 +38,18 @@
    "fieldtype": "Table",
    "label": "Allowed Roles",
    "options": "Has Role"
+  },
+  {
+   "fieldname": "chat_operators",
+   "fieldtype": "Table MultiSelect",
+   "label": "Chat Operators",
+   "options": "Chat Room User"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-10-15 17:37:29.492775",
+ "modified": "2022-08-30 20:13:35.769719",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Settings",
