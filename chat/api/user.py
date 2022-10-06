@@ -30,6 +30,7 @@ def validate_guest(email, full_name, message):
         )
 
     if not frappe.db.exists('Chat Profile', email):
+        chat_operators = frappe.get_single('Chat Settings').chat_operators
         profile_doc = frappe.get_doc({
             'doctype': 'Chat Profile',
             'email': email,
@@ -40,7 +41,8 @@ def validate_guest(email, full_name, message):
             'guest': email,
             'room_name': full_name,
             'members': 'Guest',
-            'type': 'Guest'
+            'type': 'Guest',
+            'users': chat_operators or []
         }).insert()
         room = new_room.name
 

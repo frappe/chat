@@ -6,7 +6,7 @@ cd ~ || exit
 
 pip install frappe-bench
 
-bench init frappe-bench --skip-assets --python "$(which python)"	
+bench init frappe-bench --skip-assets --python "$(which python)"
 
 mkdir ~/frappe-bench/sites/test_site
 cp "${GITHUB_WORKSPACE}/.github/helper/consumer_db/$DB.json" ~/frappe-bench/sites/test_site/site_config.json
@@ -31,11 +31,6 @@ sed -i 's/^watch:/# watch:/g' Procfile
 sed -i 's/^schedule:/# schedule:/g' Procfile
 
 bench setup requirements --node
-
-# install node-sass which is required for website theme test
-cd ./apps/frappe || exit
-yarn add node-sass@4.13.1
-cd ../..
 
 bench get-app chat "${GITHUB_WORKSPACE}"
 

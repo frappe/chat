@@ -95,6 +95,8 @@ def get_chat_settings():
 
     if not chat_settings.enable_chat or not has_common(allowed_roles, user_roles):
         return result
+    
+    chat_settings.chat_operators = [co.user for co in chat_settings.chat_operators]
 
     if chat_settings.start_time and chat_settings.end_time:
         start_time = datetime.time.fromisoformat(chat_settings.start_time)
@@ -190,10 +192,10 @@ def is_user_allowed_in_room(room, email, user=None):
         return False
 
     room_detail = get_room_detail(room)
-    if frappe.session.user == "Guest" and room_detail.guest != email:
+    if frappe.session.user == "Guest" and room_detail and room_detail.guest != email:
         return False
 
-    if frappe.session.user != "Guest" and room_detail.type != 'Guest' and email not in room_detail.members:
+    if frappe.session.user != "Guest" and room_detail and room_detail.type != 'Guest' and email not in room_detail.members:
         return False
 
     return True

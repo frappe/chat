@@ -11,7 +11,8 @@
   "members",
   "last_message",
   "is_read",
-  "guest"
+  "guest",
+  "users"
  ],
  "fields": [
   {
@@ -52,15 +53,20 @@
    "fieldtype": "Select",
    "label": "Type",
    "options": "Group\nGuest\nDirect"
+  },
+  {
+   "fieldname": "users",
+   "fieldtype": "Table MultiSelect",
+   "label": "Users",
+   "options": "Chat Room User"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-10-15 18:43:11.642214",
+ "modified": "2022-08-30 20:12:02.597060",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Room",
- "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
