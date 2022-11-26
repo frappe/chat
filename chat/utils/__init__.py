@@ -20,15 +20,15 @@ def validate_token(token):
     """
     if not token:
         return [False, {}]
-    is_exist = frappe.db.exists({
+    chat_profile = frappe.db.get_value({
         'doctype': 'Chat Profile',
         'token': token,
     })
 
-    if not is_exist:
+    if not chat_profile:
         return [False, {}]
 
-    guest_user = frappe.get_doc('Chat Profile', str(is_exist[0][0]))
+    guest_user = frappe.get_doc('Chat Profile', str(chat_profile))
 
     if guest_user.ip_address != frappe.local.request_ip:
         return [False, {}]
@@ -95,7 +95,7 @@ def get_chat_settings():
 
     if not chat_settings.enable_chat or not has_common(allowed_roles, user_roles):
         return result
-    
+
     chat_settings.chat_operators = [co.user for co in chat_settings.chat_operators]
 
     if chat_settings.start_time and chat_settings.end_time:
