@@ -2,11 +2,12 @@ import frappe
 from frappe import _
 from chat.utils import get_full_name
 import ast
+from typing import List, Dict
 
 
 @frappe.whitelist()
-def get(email):
-    """Get all the rooms for a user 
+def get(email: str) -> List[Dict]:
+    """Get all the rooms for a user
 
     Args:
         email (str): Email of user requests all rooms
@@ -30,9 +31,9 @@ def get(email):
                 members[0]) if email == members[1] else get_full_name(members[1])
             room['opposite_person_email'] = members[0] if members[1] == email else members[1]
         if room['type'] == 'Guest':
-            users = frappe.get_doc("Chat Room", room['name']).users
+            users = frappe.get_cached_doc("Chat Room", room['name']).users
             if not users:
-                users = frappe.get_single('Chat Settings').chat_operators
+                users = frappe.get_cached_doc('Chat Settings').chat_operators
             if email not in [u.user for u in users]:
                 continue
         room['is_read'] = 1 if email in room['is_read'] else 0
@@ -52,53 +53,40 @@ def create_private(room_name, users, type):
     """
     users = ast.literal_eval(users)
     users.append(frappe.session.user)
-    members = ', '.join(users)
+    members = ", ".join(users)
 
-    if type == 'Direct':
-        room_doctype = frappe.qb.DocType('Chat Room')
-        query = (
+    if type == "Direct":
+        room_doctype = frappe.qb.DocType("Chat Room")
+        direct_room_exists = (
             frappe.qb.from_(room_doctype)
-            .select('name')
-            .where(room_doctype.type == 'Direct')
-            .where(room_doctype.members.like(f'%{users[0]}%'))
-            .where(room_doctype.members.like(f'%{users[1]}%'))
+            .select("name")
+            .where(room_doctype.type == "Direct")
+            .where(room_doctype.members.like(f"%{users[0]}%"))
+            .where(room_doctype.members.like(f"%{users[1]}%"))
         ).run(as_dict=True)
-        if query:
-            frappe.throw(
-                title='Error',
-                msg=_('Direct Room already exists!')
-            )
-        else:
-            room_doc = get_private_room_doc(room_name, members, type)
-            room_doc.insert()
-    else:
-        room_doc = get_private_room_doc(room_name, members, type)
-        room_doc.insert()
+        if direct_room_exists:
+            frappe.throw(title="Error", msg=_("Direct Room already exists!"))
+
+    room_doc = get_private_room_doc(room_name, members, type).insert()
 
     profile = {
-        'room_name': room_name,
-        'last_date': room_doc.modified,
-        'room': room_doc.name,
-        'is_read': 0,
-        'room_type': type,
-        'members': members,
+        "room_name": room_name,
+        "last_date": room_doc.modified,
+        "room": room_doc.name,
+        "is_read": 0,
+        "room_type": type,
+        "members": members,
     }
 
-    if type == 'Direct':
-        members_names = [
-            {
-                'name': get_full_name(users[0]),
-                'email': users[0]
-            },
-            {
-                'name': get_full_name(users[1]),
-                'email': users[1]
-            }
+    if type == "Direct":
+        profile["member_names"] = [
+            {"name": get_full_name(u), "email": u} for u in users
         ]
-        profile['member_names'] = members_names
 
-    frappe.publish_realtime(event='private_room_creation',
-                            message=profile, after_commit=True)
+    for user in users:
+        frappe.publish_realtime(
+            event="private_room_creation", message=profile, user=user, after_commit=True
+        )
 
 
 def get_private_room_doc(room_name, members, type):

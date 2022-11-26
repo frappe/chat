@@ -34,12 +34,12 @@ Supports Frappe version 13 and develop.
 1. Get the app from the repository.
 
    ```
-   $ bench get-app chat
+   bench get-app chat
    ```
 
 2. Install the app on your site.
    ```
-   $ bench --site your-site.local install-app chat
+   bench --site your-site.local install-app chat
    ```
 
 ## Usage

@@ -78,7 +78,7 @@ def get_chat_settings():
     Returns:
         dict: Dictionary containing chat settings.
     """
-    chat_settings = frappe.get_single('Chat Settings')
+    chat_settings = frappe.get_cached_doc('Chat Settings')
     user_roles = frappe.get_roles()
 
     allowed_roles = [u.role for u in chat_settings.allowed_roles]
