@@ -36,7 +36,7 @@ def get(email: str) -> List[Dict]:
                 users = frappe.get_cached_doc('Chat Settings').chat_operators
             if email not in [u.user for u in users]:
                 continue
-        room['is_read'] = 1 if email in room['is_read'] else 0
+        room['is_read'] = 1 if room['is_read'] and email in room['is_read'] else 0
         user_rooms.append(room)
 
     user_rooms.sort(key=lambda room: comparator(room))
