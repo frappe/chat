@@ -67,7 +67,7 @@ def create_private(room_name, users, type):
         if direct_room_exists:
             frappe.throw(title="Error", msg=_("Direct Room already exists!"))
 
-    room_doc = get_private_room_doc(room_name, members, type).insert()
+    room_doc = get_private_room_doc(room_name, members, type).insert(ignore_permissions=True)
 
     profile = {
         "room_name": room_name,
