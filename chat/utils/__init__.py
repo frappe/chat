@@ -9,7 +9,7 @@ def time_in_range(start, end, current):
     return start <= current <= end
 
 
-def validate_token(token):
+def validate_token(token: str):
     """Validate the guest token
 
     Args:
@@ -18,17 +18,11 @@ def validate_token(token):
     Returns:
         list: A list specifying whether token is valid and necessary info.
     """
-    if not token:
+    if not token or not isinstance(token, str):
         return [False, {}]
-    chat_profile = frappe.db.get_value({
-        'doctype': 'Chat Profile',
-        'token': token,
-    })
+    
 
-    if not chat_profile:
-        return [False, {}]
-
-    guest_user = frappe.get_doc('Chat Profile', str(chat_profile))
+    guest_user = frappe.get_doc('Chat Profile', {"token": token})
 
     if guest_user.ip_address != frappe.local.request_ip:
         return [False, {}]

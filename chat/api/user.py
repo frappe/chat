@@ -26,7 +26,7 @@ def generate_guest_room(email: str, full_name: str, message: str) -> Tuple[str, 
             "email": email,
             "guest_name": full_name,
         }
-    ).insert()
+    ).insert(ignore_permissions=True)
     new_room = frappe.get_doc(
         {
             "doctype": "Chat Room",
@@ -36,7 +36,7 @@ def generate_guest_room(email: str, full_name: str, message: str) -> Tuple[str, 
             "type": "Guest",
             "users": chat_operators,
         }
-    ).insert()
+    ).insert(ignore_permissions=True)
     room = new_room.name
 
     profile = {
