@@ -255,8 +255,8 @@ $height: 582px;
       align-items: flex-start;
       margin-bottom: 5px;
       .message-bubble {
-        background: var(--primary-color);
-        color: var(--white);
+        background: var(--control-bg);
+        color: var(--text-color);
         padding: 8px;
         font-size: $font-size-sm;
         border-radius: 13px 13px 13px 0px;
@@ -269,8 +269,8 @@ $height: 582px;
       flex-direction: column;
       align-items: flex-end;
       .message-bubble {
-        background: var(--control-bg);
-        color: var(--text-color);
+        background: var(--primary-color);
+        color: var(--white);
         padding: 8px;
         font-size: $font-size-sm;
         border-radius: 13px 13px 0px 13px;
