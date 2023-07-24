@@ -9,7 +9,10 @@
   "start_time",
   "end_time",
   "chat_operators",
-  "allowed_roles"
+  "allowed_roles",
+  "chatbot_tab",
+  "enable_chatbot",
+  "chatbot_name"
  ],
  "fields": [
   {
@@ -44,12 +47,28 @@
    "fieldtype": "Table MultiSelect",
    "label": "Chat Operators",
    "options": "Chat Room User"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_chatbot",
+   "fieldtype": "Check",
+   "label": "Enable Chatbot"
+  },
+  {
+   "fieldname": "chatbot_tab",
+   "fieldtype": "Tab Break",
+   "label": "Chatbot"
+  },
+  {
+   "fieldname": "chatbot_name",
+   "fieldtype": "Data",
+   "label": "Bot Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-08-30 20:13:35.769719",
+ "modified": "2023-07-24 11:48:01.938063",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Settings",
@@ -68,5 +87,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

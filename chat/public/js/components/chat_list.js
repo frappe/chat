@@ -1,7 +1,7 @@
 import ChatRoom from './chat_room';
 import ChatAddRoom from './chat_add_room';
 import ChatUserSettings from './chat_user_settings';
-import { get_rooms, mark_message_read } from './chat_utils';
+import { create_private_room, get_rooms, mark_message_read } from './chat_utils';
 
 export default class ChatList {
   constructor(opts) {
@@ -26,6 +26,10 @@ export default class ChatList {
 			<div class='chat-list-header'>
 				<h3>${__('Chats')}</h3>
         <div class='chat-list-icons'>
+          <div class='add-bot-room' 
+            title='Create Chatbot Room'>
+            ${frappe.utils.icon('support', 'md')}
+          </div>
           <div class='add-room' 
             title='Create Private Room'>
             ${frappe.utils.icon('users', 'md')}
@@ -132,6 +136,10 @@ export default class ChatList {
     $('.chat-search-box').on('input', function (e) {
       me.fitler_rooms($(this).val().toLowerCase());
     });
+
+    $('.add-bot-room').on('click', function (e){
+      create_private_room('AI Helper','')
+    })
 
     $('.add-room').on('click', function (e) {
       if (typeof me.chat_add_room_modal === 'undefined') {
