@@ -55,17 +55,8 @@ def create_private(room_name, users, type):
     users.append(frappe.session.user)
     members = ", ".join(users)
 
-    if type == "Direct":
-        room_doctype = frappe.qb.DocType("Chat Room")
-        direct_room_exists = (
-            frappe.qb.from_(room_doctype)
-            .select("name")
-            .where(room_doctype.type == "Direct")
-            .where(room_doctype.members.like(f"%{users[0]}%"))
-            .where(room_doctype.members.like(f"%{users[1]}%"))
-        ).run(as_dict=True)
-        if direct_room_exists:
-            frappe.throw(title="Error", msg=_("Direct Room already exists!"))
+    if type == "Direct" and direct_room_exists(users):
+        frappe.throw(title="Error", msg=_("Direct Room already exists!"))
 
     room_doc = get_private_room_doc(room_name, members, type).insert(ignore_permissions=True)
 
@@ -89,17 +80,22 @@ def create_private(room_name, users, type):
         )
 
 @frappe.whitelist()
-def direct_room_exists(members):
+def direct_room_exists(users):
     """Checks if direct room between current user and an other user already exists
 
     Args:
         member_email (str): email address of the member
     """
-    if frappe.db.exists('Chat Room',{'type':'Direct','members':members}):
-        return True
-    else :
-        return False
-    
+    users = ast.literal_eval(users)
+    room_doctype = frappe.qb.DocType("Chat Room")
+    direct_room_exists = (
+        frappe.qb.from_(room_doctype)
+        .select("name")
+        .where(room_doctype.type == "Direct")
+        .where(room_doctype.members.like(f"%{users[0]}%"))
+        .where(room_doctype.members.like(f"%{users[1]}%"))
+    ).run(as_dict=True)
+    return True if direct_room_exists else False
 
 def get_private_room_doc(room_name, members, type):
     return frappe.get_doc({
