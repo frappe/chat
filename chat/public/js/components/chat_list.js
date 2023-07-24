@@ -138,11 +138,19 @@ export default class ChatList {
     });
 
     $('.add-ai-room').on('click', function (e){
-      if(true){// If direct room doesn't already exist, create one
-        //create_private_room('AI Helper',['ai@help.ai'],'Direct')
-      }
-      // Click to navigate to AI chat room
-      $('.avatar[title|=\'ai@help.ai\'').trigger('click')
+      frappe.call('chat.api.room.direct_room_exists',{members:[frappe.session.user_email,'ai@help.ai']})
+        .then(response => {
+          console.log(response)
+          if(!response){// If direct room doesn't already exist, create one
+            create_private_room('AI Helper',['ai@help.ai'],'Direct')
+          }
+          // Click to navigate to AI chat room
+          $('.avatar[title|=\'ai@help.ai\'').trigger('click')
+        })
+        .catch(ex => {
+          console.log(ex)
+        })
+      
     })
 
     $('.add-room').on('click', function (e) {

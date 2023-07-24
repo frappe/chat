@@ -88,6 +88,18 @@ def create_private(room_name, users, type):
             event="private_room_creation", message=profile, user=user, after_commit=True
         )
 
+@frappe.whitelist()
+def direct_room_exists(members):
+    """Checks if direct room between current user and an other user already exists
+
+    Args:
+        member_email (str): email address of the member
+    """
+    if frappe.db.exists('Chat Room',{'type':'Direct','members':members}):
+        return True
+    else :
+        return False
+    
 
 def get_private_room_doc(room_name, members, type):
     return frappe.get_doc({
