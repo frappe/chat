@@ -138,7 +138,11 @@ export default class ChatList {
     });
 
     $('.add-ai-room').on('click', function (e){
-      create_private_room('AI Helper',['ai@help.ai'],'Direct')
+      if(true){// If direct room doesn't already exist, create one
+        //create_private_room('AI Helper',['ai@help.ai'],'Direct')
+      }
+      // Click to navigate to AI chat room
+      $('.avatar[title|=\'ai@help.ai\'').trigger('click')
     })
 
     $('.add-room').on('click', function (e) {

@@ -8,5 +8,5 @@ from frappe.model.document import Document
 class ChatMessage(Document):
 	def on_update(self):
 		if not self.sender == 'AI':
-			content = "No" if len(self.content) == 5 else "Yes"
-			frappe.call('chat.api.message.send',content,'AI',self.room, 'ai@help.ai')
+			answer = "No" if len(self.content) > 5 else "Yes"
+			frappe.call('chat.api.message.send',answer,'AI',self.room, 'ai@help.ai')
