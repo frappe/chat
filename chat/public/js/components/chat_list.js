@@ -26,8 +26,8 @@ export default class ChatList {
 			<div class='chat-list-header'>
 				<h3>${__('Chats')}</h3>
         <div class='chat-list-icons'>
-          <div class='add-bot-room' 
-            title='Create Chatbot Room'>
+          <div class='add-ai-room' 
+            title='Create AI Room'>
             ${frappe.utils.icon('support', 'md')}
           </div>
           <div class='add-room' 
@@ -137,8 +137,8 @@ export default class ChatList {
       me.fitler_rooms($(this).val().toLowerCase());
     });
 
-    $('.add-bot-room').on('click', function (e){
-      create_private_room('AI Helper','')
+    $('.add-ai-room').on('click', function (e){
+      create_private_room('AI Helper',['ai@help.ai'],'Direct')
     })
 
     $('.add-room').on('click', function (e) {
