@@ -6,13 +6,14 @@
  "engine": "InnoDB",
  "field_order": [
   "enable_chat",
+  "enable_chatbot",
   "start_time",
   "end_time",
   "chat_operators",
   "allowed_roles",
   "chatbot_tab",
-  "enable_chatbot",
-  "chatbot_name"
+  "chatbot_name",
+  "chatbot_action"
  ],
  "fields": [
   {
@@ -55,6 +56,7 @@
    "label": "Enable Chatbot"
   },
   {
+   "depends_on": "eval:doc.enable_chatbot;",
    "fieldname": "chatbot_tab",
    "fieldtype": "Tab Break",
    "label": "Chatbot"
@@ -63,12 +65,17 @@
    "fieldname": "chatbot_name",
    "fieldtype": "Data",
    "label": "Bot Name"
+  },
+  {
+   "fieldname": "chatbot_action",
+   "fieldtype": "Code",
+   "label": "Action"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-07-24 11:48:01.938063",
+ "modified": "2023-07-24 12:11:24.856151",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Settings",
