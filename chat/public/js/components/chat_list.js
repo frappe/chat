@@ -137,18 +137,13 @@ export default class ChatList {
       me.fitler_rooms($(this).val().toLowerCase());
     });
 
-    $('.add-ai-room').on('click', function (e){
-      frappe.call('chat.api.room.direct_room_exists',{users:[frappe.session.user,'chatbot@example.com']})
-        .then(response => {
-          if(!response.message){// If direct room doesn't already exist, create one
-            create_private_room('Chatbot',['chatbot@example.com'],'Direct')
-          }
-          $('.avatar[title|=\'chatbot@example.com\'').trigger('click') // Click to navigate to AI chat room
-        })
-        .catch(ex => {
-          console.log(ex)
-        })
-      
+    $('.add-ai-room').on('click', async function (e){
+      let chatbot_email = (await frappe.call('chat.api.chatbot.get_email')).message
+      let room_exists = (await frappe.call('chat.api.room.direct_room_exists',{users:[frappe.session.user,chatbot_email]})).message
+      if(!room_exists){
+        create_private_room('Chatbot',[chatbot_email],'Direct')
+      }
+      $(`.chat-room > .avatar[title|='${chatbot_email}'`).trigger('click') // Click to navigate to AI chat room
     })
 
     $('.add-room').on('click', function (e) {
