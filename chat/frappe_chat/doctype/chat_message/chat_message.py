@@ -7,6 +7,7 @@ from frappe.model.document import Document
 
 class ChatMessage(Document):
 	def on_update(self):
-		if not self.sender == 'AI':
+		chatbot_user = frappe.get_doc('User',{'email':'chatbot@example.com'})
+		if not self.sender == chatbot_user.first_name:
 			answer = "No" if len(self.content) > 5 else "Yes"
-			frappe.call('chat.api.message.send',answer,'AI',self.room, 'ai@help.ai')
+			frappe.call('chat.api.message.send', answer, chatbot_user.first_name, self.room, chatbot_user.email)
