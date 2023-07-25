@@ -12,7 +12,7 @@
   "chat_operators",
   "allowed_roles",
   "chatbot_tab",
-  "chatbot_name",
+  "chatbot_account",
   "chatbot_action"
  ],
  "fields": [
@@ -62,20 +62,22 @@
    "label": "Chatbot"
   },
   {
-   "fieldname": "chatbot_name",
-   "fieldtype": "Data",
-   "label": "Bot Name"
-  },
-  {
    "fieldname": "chatbot_action",
    "fieldtype": "Code",
    "label": "Action"
+  },
+  {
+   "default": "User",
+   "fieldname": "chatbot_account",
+   "fieldtype": "Link",
+   "label": "Account",
+   "options": "User"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-07-24 12:11:24.856151",
+ "modified": "2023-07-25 12:26:51.722442",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Settings",

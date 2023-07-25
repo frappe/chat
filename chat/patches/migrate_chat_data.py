@@ -4,11 +4,12 @@
 import frappe
 from frappe import _
 from chat.utils import get_full_name
-
+from default_chatbot_user import create_default_chatbot_user
 
 def execute():
     migrate_rooms()
     migrate_messages()
+    create_default_chatbot_user()
 
 
 def migrate_rooms():
