@@ -138,7 +138,7 @@ export default class ChatList {
     });
 
     $('.add-ai-room').on('click', function (e){
-      frappe.call('chat.api.room.direct_room_exists',{users:[frappe.session.user_email,'ai@help.ai']})
+      frappe.call('chat.api.room.direct_room_exists',{users:[frappe.session.user,'ai@help.ai']})
         .then(response => {
           if(!response.message){// If direct room doesn't already exist, create one
             create_private_room('AI Helper',['ai@help.ai'],'Direct')

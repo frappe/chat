@@ -55,7 +55,7 @@ def create_private(room_name, users, type):
     users.append(frappe.session.user)
     members = ", ".join(users)
 
-    if type == "Direct" and direct_room_exists(users):
+    if type == "Direct" and direct_room_exists(str(users)):
         frappe.throw(title="Error", msg=_("Direct Room already exists!"))
 
     room_doc = get_private_room_doc(room_name, members, type).insert(ignore_permissions=True)
