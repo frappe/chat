@@ -65,11 +65,16 @@ def migrate_messages():
             message_doc.save()
 
 def create_default_chatbot_user():
-    chatbot_user = frappe.new_doc('User')
-    chatbot_user.email = 'chatbot@example.com'
-    chatbot_user.first_name = 'Chatbot'
-    chatbot_user.insert()
+    chatbot_email = 'chatbot@example.com'
+    if not frappe.db.exists('User',chatbot_email):
+        chatbot_user = frappe.new_doc('User')
+        chatbot_user.email = chatbot_email
+        chatbot_user.first_name = 'Chatbot'
+        chatbot_user.insert()
+
+        chat_settings = frappe.get_doc('Chat Settings')
+        chat_settings.chatbot_email = chatbot_email
+        chat_settings.save()
 
 def delete_default_chatbot_user():
-    chatbot_user = frappe.get_doc('User',{'email':'chatbot@example.com','first_name':'Chatbot'})
-    chatbot_user.delete()
+    frappe.delete_doc('User','chatbot@example.com')
