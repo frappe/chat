@@ -26,10 +26,6 @@ export default class ChatList {
 			<div class='chat-list-header'>
 				<h3>${__('Chats')}</h3>
         <div class='chat-list-icons'>
-          <div class='add-ai-room' 
-            title='Create AI Room'>
-            ${frappe.utils.icon('support', 'md')}
-          </div>
           <div class='add-room' 
             title='Create Private Room'>
             ${frappe.utils.icon('users', 'md')}
@@ -42,6 +38,17 @@ export default class ChatList {
 			</div>
 		`;
     this.$chat_list.append(chat_list_header_html);
+    
+    frappe.call('chat.api.chatbot.is_enabled')
+    .then(res => {
+      if(res.message){
+        const chatbot_btn = `<div class='add-ai-room' 
+                              title='Create AI Room'>
+                              ${frappe.utils.icon('support', 'md')}
+                            </div>`
+        $('.chat-list-icons').prepend(chatbot_btn)
+      }
+    })
   }
 
   setup_search() {

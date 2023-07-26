@@ -1,6 +1,10 @@
 import frappe
 
 @frappe.whitelist()
+def is_enabled():
+    return frappe.get_doc('Chatbot Settings').enable_chatbot
+
+@frappe.whitelist()
 def get_email():
     return frappe.get_doc('Chat Settings').chatbot_email
 
