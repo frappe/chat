@@ -72,7 +72,7 @@ def create_default_chatbot_user():
         chatbot_user.first_name = 'Chatbot'
         chatbot_user.insert()
 
-        chat_settings = frappe.get_doc('Chat Settings')
+        chat_settings = frappe.get_doc('Chatbot Settings')
         chat_settings.chatbot_email = chatbot_email
         chat_settings.save()
 

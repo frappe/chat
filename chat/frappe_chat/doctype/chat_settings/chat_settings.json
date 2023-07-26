@@ -6,14 +6,10 @@
  "engine": "InnoDB",
  "field_order": [
   "enable_chat",
-  "enable_chatbot",
   "start_time",
   "end_time",
   "chat_operators",
-  "allowed_roles",
-  "chatbot_tab",
-  "chatbot_email",
-  "chatbot_action"
+  "allowed_roles"
  ],
  "fields": [
   {
@@ -48,37 +44,12 @@
    "fieldtype": "Table MultiSelect",
    "label": "Chat Operators",
    "options": "Chat Room User"
-  },
-  {
-   "default": "0",
-   "fieldname": "enable_chatbot",
-   "fieldtype": "Check",
-   "label": "Enable Chatbot"
-  },
-  {
-   "depends_on": "eval:doc.enable_chatbot;",
-   "fieldname": "chatbot_tab",
-   "fieldtype": "Tab Break",
-   "label": "Chatbot"
-  },
-  {
-   "description": "Path to the function that will handle messages sent to your chatbot.\nIt will receive, as parameters, the email of the sender, the id of the room and the content of sent message. You method signature should look like this : \n\ndef answer(sender_email, room, content)",
-   "fieldname": "chatbot_action",
-   "fieldtype": "Data",
-   "label": "Action"
-  },
-  {
-   "fieldname": "chatbot_email",
-   "fieldtype": "Data",
-   "label": "Email",
-   "options": "Email",
-   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-07-26 09:34:00.231430",
+ "modified": "2023-07-26 10:02:35.074779",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Settings",

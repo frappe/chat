@@ -11,9 +11,9 @@ class ChatMessage(Document):
 			frappe.call('chat.api.chatbot.chat', self.sender_email, self.room, self.content)
 
 	def message_is_for_chatbot(self):
-		chat_settings = frappe.get_doc('Chat Settings')
+		settings = frappe.get_doc('Chatbot Settings')
 		chatroom = frappe.get_doc('Chat Room', self.room)
-		return chat_settings.enable_chatbot and chat_settings.chatbot_email in chatroom.members and not self.sender_email == chat_settings.chatbot_email
+		return settings.enable_chatbot and settings.chatbot_email in chatroom.members and not self.sender_email == settings.chatbot_email
 			 
 
 			
