@@ -12,13 +12,11 @@ def get_email():
 def chat(sender_email, room, content):
     settings = frappe.get_doc('Chatbot Settings')
     frappe.call('chat.api.message.set_typing', room, settings.chatbot_email, True, False)
-    try :
-        if settings.chatbot_action:
-            answer = frappe.call(settings.chatbot_action, sender_email, room, content)
-        else :
-            answer = 'Chatbot isn\'t linked to any method'
-    except:
-        answer = 'Something went wrong, try again later'
-    finally:
-        frappe.call('chat.api.message.set_typing', room, settings.chatbot_email, False, False)
-        frappe.call('chat.api.message.send', answer, settings.chatbot_email, room, settings.chatbot_email)
+
+    if settings.chatbot_action:
+        answer = frappe.call(settings.chatbot_action, sender_email, room, content)
+    else :
+        answer = 'Chatbot isn\'t linked to any method'
+
+    frappe.call('chat.api.message.set_typing', room, settings.chatbot_email, False, False)
+    frappe.call('chat.api.message.send', answer, settings.chatbot_email, room, settings.chatbot_email)
