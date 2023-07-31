@@ -6,7 +6,7 @@ def is_enabled():
 
 @frappe.whitelist()
 def get_email():
-    return frappe.get_doc('Chat Settings').chatbot_email
+    return frappe.get_doc('Chatbot Settings').chatbot_email
 
 @frappe.whitelist()
 def chat(sender_email, room, content):
