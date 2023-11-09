@@ -1,3 +1,10 @@
+### Project Status
+
+This app is unmaintained. We recommend using [Raven](https://github.com/The-Commit-Company/raven) instead.
+
+
+---
+
 <br>
 <div align="center">
 <img width="150" alt="logotype" src=".github/images/logo.png">
