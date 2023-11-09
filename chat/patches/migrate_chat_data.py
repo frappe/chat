@@ -5,10 +5,10 @@ import frappe
 from frappe import _
 from chat.utils import get_full_name
 
-
 def execute():
     migrate_rooms()
     migrate_messages()
+    create_default_chatbot_user()
 
 
 def migrate_rooms():
@@ -63,3 +63,18 @@ def migrate_messages():
 
             message_doc.sender_email = message_item['owner']
             message_doc.save()
+
+def create_default_chatbot_user():
+    chatbot_email = 'chatbot@example.com'
+    if not frappe.db.exists('User',chatbot_email):
+        chatbot_user = frappe.new_doc('User')
+        chatbot_user.email = chatbot_email
+        chatbot_user.first_name = 'Chatbot'
+        chatbot_user.insert()
+
+        chat_settings = frappe.get_doc('Chatbot Settings')
+        chat_settings.chatbot_email = chatbot_email
+        chat_settings.save()
+
+def delete_default_chatbot_user():
+    frappe.delete_doc('User','chatbot@example.com')

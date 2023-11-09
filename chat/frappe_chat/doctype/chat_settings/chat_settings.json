@@ -49,7 +49,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-08-30 20:13:35.769719",
+ "modified": "2023-07-26 10:02:35.074779",
  "modified_by": "Administrator",
  "module": "Frappe Chat",
  "name": "Chat Settings",
@@ -68,5 +68,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

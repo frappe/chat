@@ -1,7 +1,7 @@
 import ChatRoom from './chat_room';
 import ChatAddRoom from './chat_add_room';
 import ChatUserSettings from './chat_user_settings';
-import { get_rooms, mark_message_read } from './chat_utils';
+import { create_private_room, get_rooms, mark_message_read } from './chat_utils';
 
 export default class ChatList {
   constructor(opts) {
@@ -19,6 +19,7 @@ export default class ChatList {
     this.setup_search();
     this.fetch_and_setup_rooms();
     this.setup_socketio();
+    this.setup_chatbot();
   }
 
   setup_header() {
@@ -38,6 +39,31 @@ export default class ChatList {
 			</div>
 		`;
     this.$chat_list.append(chat_list_header_html);
+  }
+
+  setup_chatbot(){
+    frappe.call('chat.api.chatbot.is_enabled')
+    .then(res => {
+      if(res.message){
+        const chatbot_btn = `<div class='add-chatbot-room' 
+                              title='Create Chatbot Room'>
+                              ${frappe.utils.icon('support', 'md')}
+                            </div>`;
+        $('.chat-list-icons').prepend(chatbot_btn);
+        this.setup_chatbot_event();
+      }
+    })
+  }
+
+  setup_chatbot_event(){
+    $('.add-chatbot-room').on('click', async function (e){
+      const chatbot_email = (await frappe.call('chat.api.chatbot.get_email')).message
+      const room_exists = (await frappe.call('chat.api.room.direct_room_exists',{users:[frappe.session.user,chatbot_email]})).message
+      if(!room_exists){
+        create_private_room('Chatbot',[chatbot_email],'Direct')
+      }
+      $(`.chat-room > .avatar[title|='${chatbot_email}'`).trigger('click') // Navigate to AI chat room
+    })
   }
 
   setup_search() {
@@ -149,6 +175,8 @@ export default class ChatList {
       }
       me.chat_user_settings.show();
     });
+
+    this.setup_chatbot_event();
   }
 
   render_messages() {

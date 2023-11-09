@@ -1,0 +1,60 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-07-26 09:55:44.350202",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enable_chatbot",
+  "chatbot_email",
+  "chatbot_action"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "enable_chatbot",
+   "fieldtype": "Check",
+   "label": "Enable Chatbot"
+  },
+  {
+   "depends_on": "eval:doc.enable_chatbot",
+   "fieldname": "chatbot_email",
+   "fieldtype": "Data",
+   "label": "E-mail",
+   "options": "Email",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.enable_chatbot",
+   "description": "Path to the function that will handle messages sent to your chatbot.\nIt will receive, as parameters, the email of the sender, the id of the room and the content of sent message. You method signature should look like this : \n\ndef answer(sender_email, room, content)",
+   "fieldname": "chatbot_action",
+   "fieldtype": "Data",
+   "label": "Action"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-07-26 09:57:41.647658",
+ "modified_by": "Administrator",
+ "module": "Frappe Chat",
+ "name": "Chatbot Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
