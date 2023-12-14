@@ -26,7 +26,7 @@ def send(content: str, user: str, room: str, email: str):
         }
     ).insert(ignore_permissions=True)
 
-    update_room(room=room, last_message=content)
+    update_room(room=room, last_message=content[0:140])
 
     result = {
         "content": content,
